@@ -52,7 +52,7 @@ $(document).ready(function() {
             $("#java_progress").css("width", "90%");
         }
         if (isScrolledIntoView($("#python_progress"))) {
-            $("#python_progress").css("width", "85%");
+            $("#python_progress").css("width", "95%");
         }
         if (isScrolledIntoView($("#c_progress"))) {
             $("#c_progress").css("width", "65%");
@@ -64,22 +64,22 @@ $(document).ready(function() {
             $("#css_progress").css("width", "85%");
         }
         if (isScrolledIntoView($("#js_progress"))) {
-            $("#js_progress").css("width", "77%");
+            $("#js_progress").css("width", "80%");
         }
         if (isScrolledIntoView($("#angular_progress"))) {
-            $("#angular_progress").css("width", "45%");
+            $("#angular_progress").css("width", "70%");
         }
         if (isScrolledIntoView($("#node_progress"))) {
-            $("#node_progress").css("width", "37%");
+            $("#node_progress").css("width", "75%");
         }
         if (isScrolledIntoView($("#php_progress"))) {
             $("#php_progress").css("width", "55%");
         }
         if (isScrolledIntoView($("#bootstrap_progress"))) {
-            $("#bootstrap_progress").css("width", "95%");
+            $("#bootstrap_progress").css("width", "99%");
         }
         if (isScrolledIntoView($("#sql_progress"))) {
-            $("#sql_progress").css("width", "50%");
+            $("#sql_progress").css("width", "70%");
         }
     });
 });

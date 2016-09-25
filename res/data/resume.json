@@ -31,7 +31,7 @@
             "AJAX",
             "XML",
             "Bootstrap",
-            "AngularJS / 2"
+            "AngularJS / Angular2"
         ],
         "mobile_development": [
             "Android"
@@ -52,14 +52,27 @@
         ]
     },
     "things_i_know": [
-        "Android Development", "Windows Phone Development", "Git", "SVN", "MySQL", "Android Studio", "Visual Studio", "NetBeans", "Linux (Debian)", "Windows", "UX", "PhotoShop", "C++"
+        "Android Development", "Windows Phone Development", "Git", "SVN", "MySQL", "Android Studio", "Visual Studio", "NetBeans", "Unix", "Linux", "Windows", "UX", "PhotoShop", "C++", "Perforce", "InfluxDB", "JIRA", "Confluence", "Telegraf", "Grafana"
     ],
     "timeline": {
+
+        "AUG 2016": [{
+            "type": "Work",
+            "title": "Research Intern @ DromeBox Labs",
+            "desc": [
+                "Working on a Deep Learning Computer Vision project."
+            ],
+            "link": ""
+        }],
         "JUN 2016": [{
                 "type": "Work",
-                "title": "Distributed Data Engineering and System Quality Intern at Akamai Technologies",
+                "title": "Distributed Data Engineering and System Quality Intern @ Akamai Technologies",
                 "desc": [
-                    "Currently working at Akamai Technologies, Cambridge, MA. as an intern on the distributed data team."
+                    "Designed and developed an ETL and Alerting / Notification system from scratch in Python. It provides a highly configurable deployable system that can keep track of huge amounts of data from multiple sources and notifies the user if any system is misbehaving. It performs additional drill downs on each issue for a more fine tuned experience.",
+                    "Wrote a REPL CLI to run SQL - like queries on an HDF5 data store",
+                    "Designed and developed an analyzer framework which can be used to write scripts to checks for any known issues in various log files on any given system on the network. The framework intelligently tracks known and unknown issues and validates each known issue by checking for evidence at multiple places before reporting.",
+                    "Worked on a script to detect memoy leaks and ramps using the historica data in the data warehouse",
+                    "Working on a Full Stack web application using the MEAN stack with Angular2+TypeScript, InfluxDB, and Telegraf."
                 ],
                 "link": ""
             }
