@@ -2,10 +2,9 @@
     "personal_info": {
         "first_name": "Omkar",
         "last_name": "Karande",
-        "position": "Computer Science Graduate Student",
-        "institute": "University of Southern California",
+        "position": "Software Development Engineer",
+        "institute": "Amazon Video",
         "email": [
-            "karande[at]usc[dot]edu",
             "omkar.karande[at]outlook[dot]com"
         ],
         "city": "Seattle",
@@ -53,6 +52,14 @@
         "Android Development", "Windows Phone Development", "Git", "SVN", "MySQL", "Android Studio", "Visual Studio", "NetBeans", "Unix", "Linux", "Windows", "UX", "PhotoShop", "C++", "Perforce", "InfluxDB", "JIRA", "Confluence", "Telegraf", "Grafana"
     ],
     "timeline": {
+
+        "FEB 2017": [{
+            "type": "Work",
+            "title": "SDE @ Amazon Video",
+            "desc": [
+              "BRB. Building awesome things!"
+            ]
+        }],
 
         "AUG 2016": [{
             "type": "Work",
