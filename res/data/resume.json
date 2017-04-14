@@ -65,7 +65,7 @@
             "type": "Work",
             "title": "Research Intern @ DromeBox Labs",
             "desc": [
-                "Working on a Deep Learning Computer Vision project."
+                "Worked on a Deep Learning Computer Vision project."
             ],
             "link": ""
         }],
@@ -77,7 +77,7 @@
                     "Wrote a REPL CLI to run SQL - like queries on an HDF5 data store",
                     "Designed and developed an analyzer framework which can be used to write scripts to checks for any known issues in various log files on any given system on the network. The framework intelligently tracks known and unknown issues and validates each known issue by checking for evidence at multiple places before reporting.",
                     "Worked on a script to detect memoy leaks and ramps using the historica data in the data warehouse",
-                    "Working on a Full Stack web application using the MEAN stack with Angular2+TypeScript, InfluxDB, and Telegraf."
+                    "Worked on a Full Stack web application using the MEAN stack with Angular2+TypeScript, InfluxDB, and Telegraf."
                 ],
                 "link": ""
             }
