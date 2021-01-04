@@ -11,9 +11,12 @@ a:focus {
 /*******************************************************************
 NAVBAR OVERRIDES
 *******************************************************************/
+.progress-bar {
+    background-color: #191919;
+}
 
 .navbar-default {
-    background-color: #e74c3c;
+    background-color: #191919;
     border: none;
     height: 70px;
     padding-top: 10px;
@@ -40,7 +43,7 @@ NAVBAR OVERRIDES
     color: #ecf0f1;
 }
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
-    color: #e74c3c;
+    color: #191919;
     background-color: white;
     box-shadow: none;
 }
@@ -53,7 +56,7 @@ NAVBAR OVERRIDES
     border-radius: 0;
 }
 .navbar-collapse {
-    background: #e74c3c;
+    background: #191919;
     border: none;
     box-shadow: none;
 }
@@ -61,7 +64,7 @@ NAVBAR OVERRIDES
     border-color: white;
 }
 .navbar-default .navbar-toggle:hover {
-    background-color: #aa4c3c;
+    background-color: #222222;
 }
 .navbar-default .navbar-toggle:focus {
     background-color: transparent;
@@ -101,7 +104,7 @@ MAIN PAGE STYLINGS
     transform-style: preserve-3d;
 }
 #about {
-    background: #e74c3c;
+    background: #191919;
 }
 #skills {
     margin-top: 100vh;
@@ -144,7 +147,7 @@ MAIN PAGE STYLINGS
 }
 
 .site-color{
-    color: #e74c3c;
+    color: #191919;
 }
 
 .vertically-center {
@@ -193,7 +196,7 @@ MAIN PAGE STYLINGS
     bottom: 0;
     right: 0;
     display: inline-block;
-    background: #e74c3c;
+    background: #191919;
     width: 60px;
     height: 60px;
     border-radius: 30px;
@@ -227,7 +230,7 @@ MAIN PAGE STYLINGS
 }
 .link-block:hover{
     background: white;
-    color: #e74c3c;
+    color: #191919;
     cursor: pointer;
 }
 .no-decoration{
@@ -241,5 +244,5 @@ MAIN PAGE STYLINGS
 }
 .link-block:focus{
     background: white;
-    color: #e74c3c;
+    color: #191919;
 }

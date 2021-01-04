@@ -42,9 +42,9 @@ $(document).ready(function() {
 
         if(isScrolledIntoView($('#contact'))){
             $('.top-button').css("background", "white");
-            $('#glyph-arrow').css("color", "#e74c3c");
+            $('#glyph-arrow').css("color", "#191919");
         }else{
-            $('.top-button').css("background", "#e74c3c");
+            $('.top-button').css("background", "#191919");
             $('#glyph-arrow').css("color", "white");
         }
 

@@ -19,7 +19,7 @@
 .tldate {
     display: block;
     width: 200px;
-    background: #e74c3c;
+    background: #191919;
     border: none;
     color: white;
     margin: 0 auto;
@@ -48,7 +48,7 @@
     width: 46%;
     float: left;
     background: white;
-    border: 1px solid #e74c3c;
+    border: 1px solid #191919;
     padding: 20px;
     position: relative;
 }
@@ -61,8 +61,8 @@
     right: -15px;
     display: inline-block;
     border-top: 15px solid transparent;
-    border-left: 15px solid #e74c3c;
-    border-right: 0 solid #e74c3c;
+    border-left: 15px solid #191919;
+    border-right: 0 solid #191919;
     border-bottom: 15px solid transparent;
     content: " ";
 }
@@ -106,7 +106,7 @@
     top: 26px;
     left: 50%;
     text-align: center;
-    background: #e74c3c;
+    background: #191919;
     color: #fff;
     width: 30px;
     height: 30px;
@@ -124,7 +124,7 @@
 
 .tl-heading h4 {
     margin: 0;
-    color: #e74c3c;
+    color: #191919;
 }
 .tl-body p, .tl-body ul {
     margin-bottom: 0;
