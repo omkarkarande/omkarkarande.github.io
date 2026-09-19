@@ -1,0 +1,11 @@
+{
+  "name": "omi-portfolio",
+  "private": true,
+  "scripts": {
+    "test": "node --test tests/site.test.cjs"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1",
+    "axe-core": "4.10.3"
+  }
+}

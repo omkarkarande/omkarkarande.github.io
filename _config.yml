@@ -1,1 +1,9 @@
-theme: jekyll-theme-minimal
+# Serve the hand-written static site without generating an unrelated theme page.
+exclude:
+  - README.md
+  - tests
+  - package.json
+  - package-lock.json
+  - playwright.config.cjs
+  - test-results
+  - playwright-report

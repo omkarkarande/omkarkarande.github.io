@@ -1,82 +1,370 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f4f1e9">
-  <meta name="description" content="Software engineer at Amazon. Photo memories, cloud platforms, and side projects.">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="omi | Software Engineer">
-  <meta property="og:description" content="My work at Amazon and the things I build outside work.">
-  <meta property="og:image" content="res/images/profile-engraving-trimmed.png">
-  <title>omi | Software Engineer</title>
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="preload" href="res/fonts/transcity-regular.otf?v=2" as="font" type="font/otf" crossorigin>
-  <link rel="stylesheet" href="css/fonts.css?v=variants-1">
-  <link rel="stylesheet" href="css/style.css?v=chevrons-1">
-  <script src="js/font-variant.js"></script>
-  <script src="js/main.js?v=gestures-2" defer></script>
-</head>
-<body>
-  <div class="hero-engraving" aria-hidden="true"></div>
-  <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header" id="top">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f4f1e9" />
+    <meta
+      name="description"
+      content="Software engineer at Amazon. Photo memories, cloud platforms, and side projects."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="omi | Software Engineer" />
+    <meta
+      property="og:description"
+      content="My work at Amazon and the things I build outside work."
+    />
+    <meta
+      property="og:image"
+      content="https://www.omkarkarande.com/res/images/profile-engraving-trimmed.png"
+    />
+    <meta property="og:url" content="https://www.omkarkarande.com/" />
+    <link rel="canonical" href="https://www.omkarkarande.com/" />
+    <title>omi | Software Engineer</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link
+      rel="preload"
+      href="res/fonts/transcity-regular.otf"
+      as="font"
+      type="font/otf"
+      crossorigin
+    />
+    <link rel="stylesheet" href="css/fonts.css?v=review-2" />
+    <link rel="stylesheet" href="css/style.css?v=review-2" />
+    <script src="js/font-variant.js" defer></script>
+    <script src="js/main.js?v=native-scroll-2" defer></script>
+  </head>
+  <body>
+    <div class="hero-engraving" aria-hidden="true"></div>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header" id="top">
+      <div class="wrap masthead-main">
+        <a class="wordmark" href="#intro" aria-label="omi, introduction"
+          >omi.</a
+        >
 
-    <div class="wrap masthead-main">
-      <a class="wordmark" href="#intro" aria-label="omi, introduction">omi.</a>
-
-      <nav class="site-nav" id="site-nav" aria-label="Main navigation"><a href="#intro">Home</a><a href="#experience">Experience</a><a href="#work">Projects</a><a href="#contact">Contact</a></nav>
-    </div>
-  </header>
-
-  <main id="main" aria-label="Portfolio">
-<section class="page intro-page" id="intro" data-page data-group="intro" data-label="Landing" aria-labelledby="hero-title">
-      <div class="page-inner hero-copy">
-        <figure class="portrait-figure"><img src="res/images/profile-engraving-trimmed.png" alt="Fine-line engraved portrait of omi" width="1254" height="1254" fetchpriority="high"></figure>
-        <div class="hero-text"><p class="eyebrow">AT AMAZON · SINCE 2017</p>
-        <h1 id="hero-title">I build software.<br><em>For work and for fun.</em></h1>
-        <p class="hero-lede">I'm a software engineer at Amazon. I've worked on streaming, photo storage, and now AI-assisted photo memories.</p>
-        <div class="hero-links"><a class="ink-link" href="#experience">View experience <span aria-hidden="true">↗</span></a><a class="quiet-link" href="#work">Side projects <span aria-hidden="true">↗</span></a></div></div>
+        <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+          <a href="#intro">Home</a><a href="#experience">Experience</a
+          ><a href="#work">Projects</a><a href="#contact">Contact</a>
+        </nav>
       </div>
+    </header>
 
-
-    </section>
-<section class="page experience-page" id="experience" data-page data-group="experience" data-label="Work experience" aria-labelledby="experience-heading">
-  <div class="page-inner experience-spread">
-    <div class="spread-heading"><p class="section-index">01 / WORK EXPERIENCE</p><h2 id="experience-heading">Work experience</h2><p>Amazon · 2017–present</p></div>
-    <div class="timeline"><article class="timeline-entry"><span class="timeline-date">2025–present</span><div><p class="timeline-org">Amazon Photos · Memories</p><h3>AI-powered personalization</h3><p>I build features that use LLMs to help people rediscover their photos. My work covers curation, personalization, and making these features reliable for customers around the world.</p></div></article><article class="timeline-entry"><span class="timeline-date">2021–2024</span><div><p class="timeline-org">Amazon Photos · Platform</p><h3>Media platform engineering</h3><p>I built cloud services to store, process, and serve exabytes of customer photos. This included managing photos throughout their lifecycle and making them accessible across devices, with privacy and security built in.</p></div></article><article class="timeline-entry"><span class="timeline-date">2021</span><div><p class="timeline-org">Amazon Halo</p><h3>Service reliability</h3><p>I improved service monitoring and capacity, and used what we learned from incidents to make services more reliable.</p></div></article><article class="timeline-entry"><span class="timeline-date">2017–2021</span><div><p class="timeline-org">Prime Video</p><h3>Streaming data platforms</h3><p>I built catalog and entity platforms that help people find videos. That work included data pipelines, tools for operating the catalog, and ML-assisted duplicate detection to keep content records consistent.</p></div></article></div>
-    <p class="timeline-earlier">Earlier internships at <strong>Akamai Technologies</strong> and <strong>DromeBox Labs</strong>.</p>
-  </div>
-</section>
-<section class="page project-page" id="work" data-page data-group="work" data-label="Side projects" aria-labelledby="work-heading">
-  <div class="page-inner"><div class="spread-heading"><p class="section-index">02 / SIDE PROJECTS</p><h2 id="work-heading">Side projects</h2></div>
-    <div class="work-list"><article class="work-item">
-            <span class="work-number">01</span>
-            <div class="work-copy"><p class="work-type">DEVICE APP / C++</p><h3><a href="https://github.com/omkarkarande/remarkable-chess" target="_blank" rel="noopener noreferrer">reMarkable Chess <span aria-hidden="true">↗</span></a></h3><p>Play chess on a reMarkable 2 against Stockfish. Works offline and saves your games.</p></div>
-            <div class="work-sketch"><img src="res/images/sketch-chess.svg" alt="" loading="lazy"></div>
-          </article><article class="work-item">
-            <span class="work-number">02</span>
-            <div class="work-copy"><p class="work-type">GENERATIVE ART / WEBGL</p><h3><a href="https://github.com/omkarkarande/kinetic-canvas" target="_blank" rel="noopener noreferrer">Kinetic Canvas <span aria-hidden="true">↗</span></a></h3><p>Experiments with animation in WebGL, using noise, light, dots, and glass effects.</p></div>
-            <div class="work-sketch"><img src="res/images/sketch-kinetic.svg" alt="" loading="lazy"></div>
-          </article><article class="work-item">
-            <span class="work-number">03</span>
-            <div class="work-copy"><p class="work-type">MACOS APP / SWIFT</p><h3><a href="https://github.com/omkarkarande/youtube-macos" target="_blank" rel="noopener noreferrer">YouTube for macOS <span aria-hidden="true">↗</span></a></h3><p>A simple YouTube app for macOS, with a minimal window and edge-to-edge video.</p></div>
-            <div class="work-sketch"><img src="res/images/sketch-youtube.svg" alt="" loading="lazy"></div>
-          </article><article class="work-item">
-            <span class="work-number">04</span>
-            <div class="work-copy"><p class="work-type">DESKTOP DESIGN / JAVASCRIPT</p><h3><a href="https://github.com/omkarkarande/UbersichtWidgets" target="_blank" rel="noopener noreferrer">Übersicht Widgets <span aria-hidden="true">↗</span></a></h3><p>Time, date, and weather widgets for the desktop.</p></div>
-            <div class="work-sketch"><img src="res/images/sketch-widgets.svg" alt="" loading="lazy"></div>
-          </article></div>
-    <p class="section-tail">More on <a href="https://github.com/omkarkarande" target="_blank" rel="noopener noreferrer">GitHub ↗</a></p>
-  </div>
-</section>
-<section class="page contact-page" data-page data-group="contact" data-label="Contact" id="contact" aria-labelledby="contact-title">
-  <div class="page-inner contact-layout"><div><p class="section-index">03 / CONTACT</p><h2 id="contact-title">Say hello</h2>
-    <div class="contact-links"><a class="contact-email" href="mailto:omkar.karande@outlook.com">Email me <span aria-hidden="true">↗</span></a><div class="contact-social"><a href="https://www.linkedin.com/in/omkarkarande/" target="_blank" rel="noopener noreferrer">LINKEDIN ↗</a><a href="https://github.com/omkarkarande/" target="_blank" rel="noopener noreferrer">GITHUB ↗</a></div></div></div>
-    <div class="about-copy"><p>Outside work, I build small tools, play around with design, and make music. If you'd like to talk about any of that, get in touch.</p><div class="about-footnotes"><div><span>EDUCATION / 01</span><strong>MS, Computer Science</strong><small>University of Southern California</small></div><div><span>EDUCATION / 02</span><strong>BE, Computer Engineering</strong><small>University of Mumbai</small></div></div></div>
-  </div>
-</section>
-  </main>
-  <footer class="site-footer"><div class="reader-footer wrap"><span class="signature">omi © <span id="year">2026</span></span><div class="page-controls" hidden><button type="button" id="previous-page" aria-label="Previous page"><svg viewBox="0 0 20 34" aria-hidden="true" focusable="false"><path d="M15 3 5 17l10 14"/></svg></button><p id="page-status" role="status" aria-live="polite" aria-atomic="true"></p><button type="button" id="next-page" aria-label="Next page"><svg viewBox="0 0 20 34" aria-hidden="true" focusable="false"><path d="M5 3l10 14L5 31"/></svg></button></div><span class="reader-hint" hidden>SWIPE OR USE ← →</span></div></footer>
-</body>
+    <main id="main" aria-label="Portfolio">
+      <section
+        class="page intro-page"
+        id="intro"
+        data-page
+        data-group="intro"
+        data-label="Landing"
+        aria-labelledby="hero-title"
+      >
+        <div class="page-inner hero-copy">
+          <figure class="portrait-figure">
+            <img
+              src="res/images/profile-engraving-trimmed.webp"
+              alt="Fine-line engraved portrait of omi"
+              width="1254"
+              height="1254"
+              fetchpriority="high"
+              decoding="async"
+            />
+          </figure>
+          <div class="hero-text">
+            <p class="eyebrow">AT AMAZON · SINCE 2017</p>
+            <h1 id="hero-title">
+              I Build Software.<br /><em>For Work and for Fun.</em>
+            </h1>
+            <p class="hero-lede">
+              I'm a software engineer at Amazon. I've worked on streaming, photo
+              storage, and now AI-assisted photo memories.
+            </p>
+            <div class="hero-links">
+              <a class="ink-link" href="#experience"
+                >View Experience <span aria-hidden="true">↗</span></a
+              ><a class="quiet-link" href="#work"
+                >Side Projects <span aria-hidden="true">↗</span></a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+      <section
+        class="page experience-page"
+        id="experience"
+        data-page
+        data-group="experience"
+        data-label="Work Experience"
+        aria-labelledby="experience-heading"
+      >
+        <div class="page-inner experience-spread">
+          <div class="spread-heading">
+            <p class="section-index">01 / WORK EXPERIENCE</p>
+            <h2 id="experience-heading">Work Experience</h2>
+            <p>Amazon · 2017–present</p>
+          </div>
+          <div class="timeline">
+            <article class="timeline-entry">
+              <span class="timeline-date">2025–present</span>
+              <div>
+                <p class="timeline-org">Amazon Photos · Memories</p>
+                <h3>AI-Powered Personalization</h3>
+                <p>
+                  I build features that use LLMs to help people rediscover their
+                  photos. My work covers curation, personalization, and making
+                  these features reliable for customers around the world.
+                </p>
+              </div>
+            </article>
+            <article class="timeline-entry">
+              <span class="timeline-date">2021–2024</span>
+              <div>
+                <p class="timeline-org">Amazon Photos · Platform</p>
+                <h3>Media Platform Engineering</h3>
+                <p>
+                  I built cloud services to store, process, and serve exabytes
+                  of customer photos. This included managing photos throughout
+                  their lifecycle and making them accessible across devices,
+                  with privacy and security built in.
+                </p>
+              </div>
+            </article>
+            <article class="timeline-entry">
+              <span class="timeline-date">2021</span>
+              <div>
+                <p class="timeline-org">Amazon Halo</p>
+                <h3>Service Reliability</h3>
+                <p>
+                  I improved service monitoring and capacity, and used what we
+                  learned from incidents to make services more reliable.
+                </p>
+              </div>
+            </article>
+            <article class="timeline-entry">
+              <span class="timeline-date">2017–2021</span>
+              <div>
+                <p class="timeline-org">Prime Video</p>
+                <h3>Streaming Data Platforms</h3>
+                <p>
+                  I built catalog and entity platforms that help people find
+                  videos. That work included data pipelines, tools for operating
+                  the catalog, and ML-assisted duplicate detection to keep
+                  content records consistent.
+                </p>
+              </div>
+            </article>
+          </div>
+          <p class="timeline-earlier">
+            Earlier internships at <strong>Akamai Technologies</strong> and
+            <strong>DromeBox Labs</strong>.
+          </p>
+        </div>
+      </section>
+      <section
+        class="page project-page"
+        id="work"
+        data-page
+        data-group="work"
+        data-label="Side Projects"
+        aria-labelledby="work-heading"
+      >
+        <div class="page-inner">
+          <div class="spread-heading">
+            <p class="section-index">02 / SIDE PROJECTS</p>
+            <h2 id="work-heading">Side Projects</h2>
+          </div>
+          <div class="work-list">
+            <article class="work-item">
+              <div class="work-copy">
+                <p class="work-type">DEVICE APP / C++</p>
+                <h3>
+                  <a
+                    href="https://github.com/omkarkarande/remarkable-chess"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >reMarkable Chess <span aria-hidden="true">↗</span></a
+                  >
+                </h3>
+                <p>
+                  Play chess on a reMarkable 2 against Stockfish. Works offline
+                  and saves your games.
+                </p>
+              </div>
+              <div class="work-sketch">
+                <img
+                  src="res/images/sketch-chess.svg"
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  width="320"
+                  height="220"
+                />
+              </div>
+            </article>
+            <article class="work-item">
+              <div class="work-copy">
+                <p class="work-type">GENERATIVE ART / WEBGL</p>
+                <h3>
+                  <a
+                    href="https://github.com/omkarkarande/kinetic-canvas"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Kinetic Canvas <span aria-hidden="true">↗</span></a
+                  >
+                </h3>
+                <p>
+                  Experiments with animation in WebGL, using noise, light, dots,
+                  and glass effects.
+                </p>
+              </div>
+              <div class="work-sketch">
+                <img
+                  src="res/images/sketch-kinetic.svg"
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  width="320"
+                  height="220"
+                />
+              </div>
+            </article>
+            <article class="work-item">
+              <div class="work-copy">
+                <p class="work-type">MACOS APP / SWIFT</p>
+                <h3>
+                  <a
+                    href="https://github.com/omkarkarande/youtube-macos"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >YouTube for macOS <span aria-hidden="true">↗</span></a
+                  >
+                </h3>
+                <p>
+                  A simple YouTube app for macOS, with a minimal window and
+                  edge-to-edge video.
+                </p>
+              </div>
+              <div class="work-sketch">
+                <img
+                  src="res/images/sketch-youtube.svg"
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  width="320"
+                  height="220"
+                />
+              </div>
+            </article>
+            <article class="work-item">
+              <div class="work-copy">
+                <p class="work-type">DESKTOP DESIGN / JAVASCRIPT</p>
+                <h3>
+                  <a
+                    href="https://github.com/omkarkarande/UbersichtWidgets"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Übersicht Widgets <span aria-hidden="true">↗</span></a
+                  >
+                </h3>
+                <p>Time, date, and weather widgets for the desktop.</p>
+              </div>
+              <div class="work-sketch">
+                <img
+                  src="res/images/sketch-widgets.svg"
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  width="320"
+                  height="220"
+                />
+              </div>
+            </article>
+          </div>
+          <p class="section-tail">
+            More on
+            <a
+              href="https://github.com/omkarkarande"
+              target="_blank"
+              rel="noopener noreferrer"
+              >GitHub ↗</a
+            >
+          </p>
+        </div>
+      </section>
+      <section
+        class="page contact-page"
+        data-page
+        data-group="contact"
+        data-label="Contact"
+        id="contact"
+        aria-labelledby="contact-title"
+      >
+        <div class="page-inner contact-layout">
+          <div>
+            <p class="section-index">03 / CONTACT</p>
+            <h2 id="contact-title">Say Hello</h2>
+            <div class="contact-links">
+              <a class="contact-email" href="mailto:omkar.karande@outlook.com"
+                >Email Me <span aria-hidden="true">↗</span></a
+              >
+              <div class="contact-social">
+                <a
+                  href="https://www.linkedin.com/in/omkarkarande/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >LINKEDIN ↗</a
+                ><a
+                  href="https://github.com/omkarkarande/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >GITHUB ↗</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="about-copy">
+            <p>
+              Outside work, I build small tools, play around with design, and
+              make music. If you'd like to talk about any of that, get in touch.
+            </p>
+            <div class="about-footnotes">
+              <div>
+                <span>EDUCATION / 01</span><strong>MS, Computer Science</strong
+                ><small>University of Southern California</small>
+              </div>
+              <div>
+                <span>EDUCATION / 02</span
+                ><strong>BE, Computer Engineering</strong
+                ><small>University of Mumbai</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="reader-footer wrap">
+        <span class="signature">omi © <span id="year">2026</span></span>
+        <div class="page-controls" hidden>
+          <button type="button" id="previous-page" aria-label="Previous page">
+            <svg viewBox="0 0 20 34" aria-hidden="true" focusable="false">
+              <path d="M15 3 5 17l10 14" />
+            </svg>
+          </button>
+          <p
+            id="page-status"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+          ></p>
+          <button type="button" id="next-page" aria-label="Next page">
+            <svg viewBox="0 0 20 34" aria-hidden="true" focusable="false">
+              <path d="M5 3l10 14L5 31" />
+            </svg>
+          </button>
+        </div>
+        <span class="reader-hint" hidden>SWIPE OR USE ← →</span>
+      </div>
+    </footer>
+  </body>
 </html>

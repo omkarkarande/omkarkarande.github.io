@@ -1,54 +1,162 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex">
-<title>omi | Font variants</title>
-<link rel="stylesheet" href="css/fonts.css?v=variants-1">
-<style>
-* { box-sizing: border-box; }
-body { margin: 0; color: #30332f; background: #f4f1e9; font: 16px/1.5 'Source Sans 3', sans-serif; }
-header { padding: 18px 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-h1 { margin: 0; font-size: 20px; font-weight: 600; }
-a { color: inherit; text-underline-offset: 4px; }
-nav { display: grid; grid-template-columns: repeat(4, 1fr); padding: 0 28px 16px; gap: 16px; }
-button { cursor: pointer; text-align: left; padding: 10px 0; background: none; color: inherit; border: 0; border-bottom: 2px solid #d4d0c6; }
-button[aria-pressed="true"] { border-color: #786047; color: #786047; }
-button:focus-visible, a:focus-visible { outline: 2px solid #786047; outline-offset: 4px; }
-.sample { display: block; font-size: 34px; line-height: 1.3; font-weight: 400; }
-.label { font: 14px 'Source Sans 3', sans-serif; }
-iframe { display: block; width: 100%; height: calc(100dvh - 174px); min-height: 500px; border: 0; border-top: 1px solid #d4d0c6; }
-@media(max-width:600px) { header { padding: 12px 16px; } nav { padding: 0 16px 12px; gap: 12px; } .sample { font-size: 25px; } .label { font-size: 12px; } iframe { height: calc(100dvh - 146px); } }
-</style>
-</head>
-<body>
-<header><h1>Font variants</h1><a id="full-preview" href="index.html?font=mending#intro" target="_blank" rel="noopener">Open full preview ↗</a></header>
-<nav aria-label="Choose a font">
-<button type="button" data-font="transcity" aria-pressed="false"><span class="sample" style="font-family:Transcity,serif">omi.</span><span class="label">Transcity</span></button>
-<button type="button" data-font="quivert" aria-pressed="false"><span class="sample" style="font-family:Quivert,serif">omi.</span><span class="label">Quivert</span></button>
-<button type="button" data-font="runiga" aria-pressed="false"><span class="sample" style="font-family:Runiga,serif">omi.</span><span class="label">Runiga</span></button>
-<button type="button" data-font="mending" aria-pressed="true"><span class="sample" style="font-family:Mending,serif">omi.</span><span class="label">Mending</span></button>
-</nav>
-<iframe id="preview" title="Portfolio in Mending" src="index.html?font=mending#intro"></iframe>
-<script>
-const preview = document.querySelector('#preview');
-const full = document.querySelector('#full-preview');
-const choices = [...document.querySelectorAll('[data-font]')];
-function selectFont(button) {
-  const hash = preview.contentWindow.location.hash || '#intro';
-  const url = `index.html?font=${button.dataset.font}${hash}`;
-  choices.forEach(choice => choice.setAttribute('aria-pressed', String(choice === button)));
-  preview.title = `Portfolio in ${button.querySelector('.label').textContent}`;
-  preview.src = url;
-  full.href = url;
-}
-choices.forEach(button => button.addEventListener('click', () => selectFont(button)));
-preview.addEventListener('load', () => {
-  full.href = preview.contentWindow.location.href;
-  preview.contentWindow.addEventListener('hashchange', () => { full.href = preview.contentWindow.location.href; });
-});
-full.addEventListener('click', () => { full.href = preview.contentWindow.location.href; });
-</script>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>omi | Font Variants</title>
+    <link rel="stylesheet" href="css/fonts.css?v=review-2" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        color: #30332f;
+        background: #f4f1e9;
+        font:
+          16px/1.5 "Source Sans 3",
+          sans-serif;
+      }
+      header {
+        padding: 18px 28px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      h1 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 600;
+      }
+      a {
+        color: inherit;
+        text-underline-offset: 4px;
+      }
+      nav {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        padding: 0 28px 16px;
+        gap: 16px;
+      }
+      button {
+        cursor: pointer;
+        text-align: left;
+        padding: 10px 0;
+        background: none;
+        color: inherit;
+        border: 0;
+        border-bottom: 2px solid #d4d0c6;
+      }
+      button[aria-pressed="true"] {
+        border-color: #786047;
+        color: #786047;
+      }
+      button:focus-visible,
+      a:focus-visible {
+        outline: 2px solid #786047;
+        outline-offset: 4px;
+      }
+      .sample {
+        display: block;
+        font-size: 34px;
+        line-height: 1.3;
+        font-weight: 400;
+      }
+      .label {
+        font:
+          14px "Source Sans 3",
+          sans-serif;
+      }
+      iframe {
+        display: block;
+        width: 100%;
+        height: calc(100dvh - 174px);
+        min-height: 500px;
+        border: 0;
+        border-top: 1px solid #d4d0c6;
+      }
+      @media (max-width: 600px) {
+        header {
+          padding: 12px 16px;
+        }
+        nav {
+          padding: 0 16px 12px;
+          gap: 12px;
+        }
+        .sample {
+          font-size: 25px;
+        }
+        .label {
+          font-size: 12px;
+        }
+        iframe {
+          height: calc(100dvh - 146px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Font Variants</h1>
+      <a
+        id="full-preview"
+        href="index.html?font=transcity#intro"
+        target="_blank"
+        rel="noopener"
+        >Open full preview ↗</a
+      >
+    </header>
+    <nav aria-label="Choose a font">
+      <button type="button" data-font="transcity" aria-pressed="true">
+        <span class="sample" style="font-family: Transcity, serif">omi.</span
+        ><span class="label">Transcity</span>
+      </button>
+      <button type="button" data-font="quivert" aria-pressed="false">
+        <span class="sample" style="font-family: Quivert, serif">omi.</span
+        ><span class="label">Quivert</span>
+      </button>
+      <button type="button" data-font="runiga" aria-pressed="false">
+        <span class="sample" style="font-family: Runiga, serif">omi.</span
+        ><span class="label">Runiga</span>
+      </button>
+      <button type="button" data-font="mending" aria-pressed="false">
+        <span class="sample" style="font-family: Mending, serif">omi.</span
+        ><span class="label">Mending</span>
+      </button>
+    </nav>
+    <iframe
+      id="preview"
+      title="Portfolio in Transcity"
+      src="index.html?font=transcity#intro"
+    ></iframe>
+    <script>
+      const preview = document.querySelector("#preview");
+      const full = document.querySelector("#full-preview");
+      const choices = [...document.querySelectorAll("[data-font]")];
+      function selectFont(button) {
+        const hash = preview.contentWindow.location.hash || "#intro";
+        const url = `index.html?font=${button.dataset.font}${hash}`;
+        choices.forEach((choice) =>
+          choice.setAttribute("aria-pressed", String(choice === button)),
+        );
+        preview.title = `Portfolio in ${button.querySelector(".label").textContent}`;
+        preview.src = url;
+        full.href = url;
+      }
+      choices.forEach((button) =>
+        button.addEventListener("click", () => selectFont(button)),
+      );
+      preview.addEventListener("load", () => {
+        full.href = preview.contentWindow.location.href;
+        preview.contentWindow.addEventListener("portfoliochange", () => {
+          full.href = preview.contentWindow.location.href;
+        });
+      });
+      full.addEventListener("click", () => {
+        full.href = preview.contentWindow.location.href;
+      });
+    </script>
+  </body>
 </html>
