@@ -393,7 +393,31 @@ for (const name of names) {
         return ctx.getImageData(0,0,1,1).data[3];
       });
       assert.equal(alpha,0,'portrait corner must be genuinely transparent');
-      assert.equal(await page.locator('.portrait-figure img').evaluate(e=>getComputedStyle(e).mixBlendMode),'normal');
+      // Use a colored paper to verify the rendered face, not just the CSS value.
+      await page.addStyleTag({content: ':root { --paper: #ff0000; } body::after,.hero-engraving { display:none; }'});
+      const portraitImage = page.locator('.portrait-figure img');
+      const screenshot = await portraitImage.screenshot();
+      const tinted = await page.evaluate(async data => {
+        const image = new Image();
+        image.src = 'data:image/png;base64,' + data;
+        await image.decode();
+        const canvas = document.createElement('canvas');
+        canvas.width = image.width;
+        canvas.height = image.height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(image,0,0);
+        const pixels = ctx.getImageData(0,0,image.width,image.height).data;
+        let lightPixels = 0;
+        for (let i=0;i<pixels.length;i+=4) {
+          if (pixels[i]>120) {
+            lightPixels++;
+            if (pixels[i+1]>5 || pixels[i+2]>5) return false;
+          }
+        }
+        return lightPixels>100;
+      }, screenshot.toString('base64'));
+      assert.ok(tinted,'light face and hair pixels must take their color from the paper');
+      await page.addStyleTag({content: ':root { --paper: #f4f1e9; }'});
       // Desktop engines expose zero system insets; simulate them to check layout math.
       await page.addStyleTag({content:':root { --safe-top:59px; --safe-bottom:34px; }'});
       assert.equal(await page.locator('body').evaluate(e=>getComputedStyle(e).paddingTop),'59px');
