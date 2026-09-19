@@ -7,7 +7,7 @@ A static portfolio built for GitHub Pages. No build step or external JavaScript 
 - Edit the introduction, projects, experience, and contact links in `index.html`.
 - Adjust the warm paper palette, Transcity display typography, and spacing in `css/style.css`. The subtle grain is `res/images/paper-grain.svg`.
 - `js/main.js` powers the four-page portfolio reader: previous/next controls, keyboard navigation and native scroll snapping, URL history, and the footer year. Without JavaScript, all pages remain readable as a scrolling document.
-- The portrait illustration is `res/images/profile-engraving-trimmed.webp`, generated from the supplied portrait photo. The original PNG is retained. Its edit prompt is saved alongside the image. The four project sketches are SVG files in `res/images/`.
+- The portrait illustration is `res/images/profile-transparent.webp`, generated from the supplied portrait photo. The transparent PNG is retained. The image uses a real alpha channel, so it does not rely on CSS blending inside Safari’s scroll layers. Its edit prompt is saved alongside the image. The four project sketches are SVG files in `res/images/`.
 
 The featured project links point to public GitHub repositories. The professional summaries are intentionally broad.
 
@@ -32,3 +32,5 @@ TEST_BROWSERS=chromium,webkit npm test
 ```
 
 The tests start a temporary local static server and cover repeated native trackpad scrolling, touchscreen swipes, vertical scrolling, keyboard focus, history and deep links, responsive layout, resize alignment, font requests, WCAG accessibility checks, comparison previews, print and no-JavaScript fallbacks. Set `TEST_BROWSERS=firefox` to run against Firefox when its test engine is installed.
+
+The viewport uses `viewport-fit=cover`. Safe-area insets pad the content while fixed artwork extends to the viewport edges; Safari retains control of its toolbar.

@@ -1,0 +1,5 @@
+Background removed with the built-in image_gen tool from profile-engraving-trimmed.png.
+The site serves a WebP copy with its alpha channel preserved.
+
+Final prompt:
+Use case: background-extraction. Remove the white paper background from this existing graphite portrait and return an RGBA PNG with actual alpha transparency. This is a precise background removal, not a redraw. Preserve the exact face, expression, short beard, hair silhouette, detailed crosshatching, framing and scale. Keep all fine graphite strokes, including wispy hair edges and faint neck strokes, with antialiased semi-transparent edges. The white paper surrounding the portrait and white negative spaces between hair strands should become fully transparent. No white rectangular backing, no checkerboard painted into the image, no shadow, no added outline. Do not invent or alter facial features or change the hairstyle. Preserve the existing appearance.

@@ -375,3 +375,48 @@ test(
     }
   },
 );
+
+for (const name of names) {
+  test(`${name}: transparent portrait and safe-area layout`, async () => {
+    const browser = browsers.find(([n]) => n === name)[1];
+    const page = await browser.newPage({viewport:{width:390,height:844}});
+    try {
+      await page.goto(base + '/#intro');
+      assert.match(await page.locator('meta[name="viewport"]').getAttribute('content'), /viewport-fit=cover/);
+      const alpha = await page.locator('.portrait-figure img').evaluate(async image => {
+        await image.decode();
+        const canvas = document.createElement('canvas');
+        canvas.width = image.naturalWidth;
+        canvas.height = image.naturalHeight;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(image,0,0);
+        return ctx.getImageData(0,0,1,1).data[3];
+      });
+      assert.equal(alpha,0,'portrait corner must be genuinely transparent');
+      assert.equal(await page.locator('.portrait-figure img').evaluate(e=>getComputedStyle(e).mixBlendMode),'normal');
+      // Desktop engines expose zero system insets; simulate them to check layout math.
+      await page.addStyleTag({content:':root { --safe-top:59px; --safe-bottom:34px; }'});
+      assert.equal(await page.locator('body').evaluate(e=>getComputedStyle(e).paddingTop),'59px');
+      assert.equal(await page.locator('body').evaluate(e=>getComputedStyle(e).paddingBottom),'34px');
+      const portrait = await page.evaluate(()=>({
+        header:document.querySelector('.site-header').getBoundingClientRect().top,
+        footer:document.querySelector('.site-footer').getBoundingClientRect().bottom,
+        height:innerHeight,
+        overflow:document.documentElement.scrollHeight>innerHeight
+      }));
+      assert.ok(portrait.header>=59);
+      assert.ok(portrait.footer<=portrait.height-34);
+      assert.equal(portrait.overflow,false);
+      await page.setViewportSize({width:844,height:390});
+      await page.addStyleTag({content:':root { --safe-top:0px; --safe-bottom:21px; --safe-left:59px; --safe-right:59px; }'});
+      await active(page,'intro');
+      const landscape = await page.evaluate(()=>({
+        left:document.querySelector('#previous-page').getBoundingClientRect().left,
+        right:document.querySelector('#next-page').getBoundingClientRect().right,
+        width:innerWidth
+      }));
+      assert.ok(landscape.left>=59);
+      assert.ok(landscape.right<=landscape.width-59);
+    } finally { await page.close(); }
+  });
+}

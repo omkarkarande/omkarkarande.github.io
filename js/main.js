@@ -19,7 +19,6 @@
   };
   let current = -1;
   let settleTimer;
-  let resizeFrame;
 
   document.documentElement.classList.add("reader");
   document.querySelector(".page-controls").hidden = false;
@@ -149,10 +148,7 @@
     if (main.clientWidth === lastWidth) return;
     lastWidth = main.clientWidth;
     clearTimeout(settleTimer);
-    cancelAnimationFrame(resizeFrame);
-    resizeFrame = requestAnimationFrame(() =>
-      go(current, { updateUrl: false }),
-    );
+    main.scrollTo({ left: current * lastWidth, behavior: "instant" });
   }).observe(main);
 
   window.addEventListener("popstate", fromHash);
