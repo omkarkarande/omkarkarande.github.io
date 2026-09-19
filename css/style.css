@@ -67,6 +67,7 @@ button { font: inherit; color: inherit; }
 .contact-layout h2 { font-size: clamp(48px, 5.7vw, 78px); }
 .contact-links { margin-top: 35px; }
 .contact-email { font-size: 36px; }
+.contact-email span { font: 400 .65em/1 var(--sans); vertical-align: .06em; }
 .contact-social { display: flex; gap: 28px; margin-top: 32px; font-size: 11px; }
 .contact-social a { padding-block: 10px; }
 .about-copy > p { font-size: 21px; color: var(--muted); }
