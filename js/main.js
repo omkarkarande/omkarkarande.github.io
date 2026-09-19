@@ -62,24 +62,36 @@ if (pages.length && previous && next && status && main) {
     const target = { ArrowLeft: current - 1, ArrowRight: current + 1, Home: 0, End: pages.length - 1 }[event.key];
     if (target !== undefined) { event.preventDefault(); show(target); }
   });
-  // A trackpad emits a stream of wheel events, including momentum after release.
-  // Require a deliberate horizontal gesture and turn only once until it settles.
+  // Recognize a new gesture even when it arrives during the previous one's
+  // momentum tail. Vertical wheel events must not keep the horizontal lock alive.
   let wheelDistance = 0;
   let wheelTurned = false;
-  let wheelIdle;
+  let lastWheelAt = -Infinity;
+  let lastWheelDelta = 0;
+  let lastTurnAt = -Infinity;
   document.addEventListener('wheel', event => {
     if (event.ctrlKey || event.metaKey || event.target.closest('input, textarea, select, [contenteditable="true"]')) return;
-    clearTimeout(wheelIdle);
-    wheelIdle = setTimeout(() => { wheelDistance = 0; wheelTurned = false; }, 220);
     if (Math.abs(event.deltaX) <= Math.abs(event.deltaY) * 1.4) return;
     event.preventDefault();
-    if (wheelTurned || window.getSelection()?.toString()) return;
+    if (window.getSelection()?.toString()) return;
     const scale = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? main.clientWidth : 1;
     const delta = event.deltaX * scale;
+    const now = performance.now();
+    const reversed = Math.sign(delta) !== Math.sign(lastWheelDelta);
+    const renewed = Math.abs(lastWheelDelta) < 10 && Math.abs(delta) >= 12
+      && Math.abs(delta) > Math.abs(lastWheelDelta) * 1.8;
+    if (now - lastWheelAt > 180 || (now - lastTurnAt > 180 && (reversed || renewed))) {
+      wheelDistance = 0;
+      wheelTurned = false;
+    }
+    lastWheelAt = now;
+    lastWheelDelta = delta;
+    if (wheelTurned) return;
     if (Math.sign(delta) !== Math.sign(wheelDistance)) wheelDistance = 0;
     wheelDistance += delta;
     if (Math.abs(wheelDistance) >= 60) {
       wheelTurned = true;
+      lastTurnAt = now;
       show(current + (wheelDistance > 0 ? 1 : -1));
     }
   }, { passive: false });
