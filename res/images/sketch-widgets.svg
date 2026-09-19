@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" fill="none">
+  <defs><filter id="rough"><feTurbulence type="fractalNoise" baseFrequency=".021" numOctaves="2" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="1.6"/></filter></defs>
+  <g stroke="#494949" stroke-linecap="round" stroke-linejoin="round" filter="url(#rough)">
+    <path d="M39 42h242v145H39zM50 53h220v123H50zM59 164h199M39 32v-13m-6 6h12M281 32V19m-6 6h12" stroke-width="1.1"/>
+    <circle cx="224" cy="87" r="16" stroke-width="1.1"/>
+    <path d="M224 59v-9m0 74v-9m-28-28h-9m74 0h-9m-47-19-6-6m51 51-6-6m-39 0-6 6m51-51-6 6" stroke-width=".8"/>
+    <path d="M60 130h91m-91 8h60m47 1h90M58 154h46" stroke-width=".75"/>
+    <path d="M25 198h270M51 194v8M270 194v8" stroke-width=".7" opacity=".7"/>
+  </g>
+  <text x="59" y="112" fill="#494949" font-family="Georgia,serif" font-size="46" letter-spacing="-5">09:41</text>
+  <text x="59" y="69" fill="#494949" font-family="monospace" font-size="8" letter-spacing="1.2">FRIDAY / SEPTEMBER</text>
+  <text x="224" y="210" fill="#494949" font-family="monospace" font-size="8">DESKTOP STUDY</text>
+</svg>

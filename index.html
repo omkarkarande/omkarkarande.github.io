@@ -1,238 +1,82 @@
-<!DOCTYPE html>
-<html ng-app="resumeApp">
-
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hi! I'm Omi.</title>
-
-    <!--stylesheets-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="css/simpletextrotator.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/timeline.css">
-
-    <!--scripts-->
-    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-rc.0/angular.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.min.js"></script>
-    <script src="js/controller.js"></script>
-    <script src="js/jquery.simple-text-rotator.min.js"></script>
-    <script src="js/main.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f1e9">
+  <meta name="description" content="Software engineer at Amazon. Photo memories, cloud platforms, and side projects.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="omi | Software Engineer">
+  <meta property="og:description" content="My work at Amazon and the things I build outside work.">
+  <meta property="og:image" content="res/images/profile-engraving-trimmed.png">
+  <title>omi | Software Engineer</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="res/fonts/transcity-regular.otf?v=2" as="font" type="font/otf" crossorigin>
+  <link rel="stylesheet" href="css/fonts.css?v=variants-1">
+  <link rel="stylesheet" href="css/style.css?v=chevrons-1">
+  <script src="js/font-variant.js"></script>
+  <script src="js/main.js?v=gestures-1" defer></script>
 </head>
+<body>
+  <div class="hero-engraving" aria-hidden="true"></div>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header" id="top">
 
-<body data-spy="scroll" data-target=".navbar" data-offset="50" ng-controller="resumeCtrl">
-    <!--navigation-->
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#skills">SKILLS</a></li>
-                    <li><a href="#timeline">TIMELINE</a></li>
-                    <li><a href="#contact">CONTACT</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <!--end navigation-->
-    <div id="top"></div>
-    <div class="wrapper">
-        <!--about pane-->
-        <div id="about" class="section section-fixed">
-            <div id="titlecard" class="container vertically-center">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="container-fluid text-center">
-                            <img class="img img-responsive img-circle profile-image center-block" src="res/images/profile.jpg" alt="profile_image">
-                            <h2 class="inverse-color">{{resume_data.personal_info.first_name | uppercase}} {{resume_data.personal_info.last_name | uppercase}}</h2>
-                            <h4 class="inverse-color">{{resume_data.personal_info.position }}, {{resume_data.personal_info.institute}}</h4>
-                            <hr>
-                            <h3 class="inverse-color">IAMA
-                                <span class="rotate">DEVELOPER, UX DESIGNER, MUSICIAN</span>
-                            </h3>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 hidden-xs">
-                        <div class="container-fluid">
-                            <h1 class="super-heading inverse-color">Hi,</h1>
-                            <h4 class="inverse-color text-justify">
-                                I am a developer @ Amazon Video. My primary areas of interest include Artificial Intelligence, Machine Learning, Data Analysis, and IoT.
-                                <br>
-                                <br> I am proficient in Java and Python and have worked with C before. I enjoy developing web applications and I am skilled in HTML, CSS, JavaScript and frameworks like Bootstrap. Additionally, I have experience developing
-                                Android and Windows Phone applications.
-                                <br>
-                                <br> In my spare time I like to take online courses and learn new stuff. I am a design addict at heart who believes in 'less is more' ideology. I manage to squeeze in time to keep up with latest design standards and to come
-                                up with my own UI mock-ups. I like to play guitars and keyboards in my free time.
-                            </h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="wrap masthead-main">
+      <a class="wordmark" href="#intro" aria-label="omi, introduction">omi.</a>
 
-            <div class="contact-card">
-                <div class="container inverse-color">
-                    <h1>{{resume_data.personal_info.first_name}} {{resume_data.personal_info.last_name}}</h1>
-                    <h3>{{resume_data.personal_info.city}}, {{resume_data.personal_info.state}}.</h3>
-                    <h4> {{resume_data.personal_info.email[0]}} | {{resume_data.personal_info.email[1]}}</h4>
-
-                    <hr>
-
-                    <div class="container-fluid text-center">
-                        <a class="no-decoration" ng-repeat="(key, value) in resume_data.links" href="{{value}}" target="_blank">
-                            <div class="link-block">
-                                <h4>{{key}}</h4>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--skills pane-->
-        <div id="skills" class="section">
-            <div id="peel" class="center-block">
-                <div class="up-block center-block text-center">
-                    <a href="#skills" class="site-color">
-                        <span class="glyphicon glyphicon-menu-up"></span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="center-block covering">
-
-            </div>
-
-            <div class="container" style="padding-top:70px;">
-                <h1 class="center-block">Skills I picked up along the way</h1>
-                <hr>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <br>
-                        <h2>Core</h2>
-                        <br>
-                        <h4>Java</h4>
-                        <div class="progress flat-bar">
-                            <div id="java_progress" class="progress-bar progress-bar-striped" role="progressbar">
-                            </div>
-                        </div>
-                        <h4>Python</h4>
-                        <div class="progress flat-bar">
-                            <div id="python_progress" class="progress-bar progress-bar-striped" role="progressbar">
-                            </div>
-                        </div>
-                        <h4>C</h4>
-                        <div class="progress flat-bar">
-                            <div id="c_progress" class="progress-bar progress-bar-striped" role="progressbar">
-                            </div>
-                        </div>
-                        <h4>SQL</h4>
-                        <div class="progress flat-bar">
-                            <div id="sql_progress" class="progress-bar progress-bar-striped" role="progressbar">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <br>
-                        <h2>Web</h2>
-                        <br>
-                        <h4>HTML</h4>
-                        <div class="progress flat-bar">
-                            <div id="html_progress" class="progress-bar progress-bar-striped" role="progressbar">
-                            </div>
-                        </div>
-                        <h4>CSS</h4>
-                        <div class="progress flat-bar">
-                            <div id="css_progress" class="progress-bar progress-bar-striped" role="progressbar">
-                            </div>
-                        </div>
-                        <h4>JavaScript</h4>
-                        <div class="progress flat-bar">
-                            <div id="js_progress" class="progress-bar progress-bar-striped" role="progressbar">
-                            </div>
-                        </div>
-                        <h4>AngularJS / Angular2</h4>
-                        <div class="progress flat-bar">
-                            <div id="angular_progress" class="progress-bar progress-bar-striped" role="progressbar">
-                            </div>
-                        </div>
-                        <h4>Bootstrap</h4>
-                        <div class="progress flat-bar">
-                            <div id="bootstrap_progress" class="progress-bar progress-bar-striped" role="progressbar">
-                            </div>
-                        </div>
-                        <h4>Node.js</h4>
-                        <div class="progress flat-bar">
-                            <div id="node_progress" class="progress-bar progress-bar-striped" role="progressbar">
-                            </div>
-                        </div>
-                        <h4>PHP</h4>
-                        <div class="progress flat-bar">
-                            <div id="php_progress" class="progress-bar progress-bar-striped" role="progressbar">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <h2>Other things I know</h2>
-                    <hr>
-                    <div class="skillbox" ng-repeat="skill in resume_data.things_i_know">
-                        <h4>{{skill}}</h4>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--timeline pane-->
-        <div id="timeline" class="section">
-            <div class="container">
-                <h1>My Professional Timeline</h1>
-                <hr>
-                <ul class="timeline" ng-repeat="(time, data) in resume_data.timeline">
-                    <li>
-                        <div class="tldate">{{time}}</div>
-                    </li>
-                    <li ng-repeat="item in data" ng-class="{'timeline-inverted': $parent.$index % 2 === 0}">
-
-                        <div class="tl-circ"></div>
-                        <div class="timeline-panel">
-                            <div class="tl-heading">
-                                <h4>{{item.title}}</h4>
-                            </div>
-                            <div class="tl-body">
-                                <br>
-                                <p ng-repeat="line in item.desc">- {{line}}</p>
-                            </div>
-                        </div>
-                    </li>
-
-                </ul>
-            </div>
-
-        </div>
-        <div id="contact">
-            <br>
-        </div>
-
-        <!--gototop button-->
-        <div class="top-button text-center hidden-xs">
-            <a href="#top">
-                <h3 id="glyph-arrow" class="shift-up inverse-color">
-                    <span class="glyphicon glyphicon-menu-up"></span>
-                </h3>
-            </a>
-        </div>
+      <nav class="site-nav" id="site-nav" aria-label="Main navigation"><a href="#intro">Home</a><a href="#experience">Experience</a><a href="#work">Projects</a><a href="#contact">Contact</a></nav>
     </div>
-    <noscript>
-</body>
+  </header>
 
+  <main id="main" aria-label="Portfolio">
+<section class="page intro-page" id="intro" data-page data-group="intro" data-label="Landing" aria-labelledby="hero-title">
+      <div class="page-inner hero-copy">
+        <figure class="portrait-figure"><img src="res/images/profile-engraving-trimmed.png" alt="Fine-line engraved portrait of omi" width="1254" height="1254" fetchpriority="high"></figure>
+        <div class="hero-text"><p class="eyebrow">AT AMAZON · SINCE 2017</p>
+        <h1 id="hero-title">I build software.<br><em>For work and for fun.</em></h1>
+        <p class="hero-lede">I'm a software engineer at Amazon. I've worked on streaming, photo storage, and now AI-assisted photo memories.</p>
+        <div class="hero-links"><a class="ink-link" href="#experience">View experience <span aria-hidden="true">↗</span></a><a class="quiet-link" href="#work">Side projects <span aria-hidden="true">↗</span></a></div></div>
+      </div>
+
+
+    </section>
+<section class="page experience-page" id="experience" data-page data-group="experience" data-label="Work experience" aria-labelledby="experience-heading">
+  <div class="page-inner experience-spread">
+    <div class="spread-heading"><p class="section-index">01 / WORK EXPERIENCE</p><h2 id="experience-heading">Work experience</h2><p>Amazon · 2017–present</p></div>
+    <div class="timeline"><article class="timeline-entry"><span class="timeline-date">2025–present</span><div><p class="timeline-org">Amazon Photos · Memories</p><h3>AI-powered personalization</h3><p>I build features that use LLMs to help people rediscover their photos. My work covers curation, personalization, and making these features reliable for customers around the world.</p></div></article><article class="timeline-entry"><span class="timeline-date">2021–2024</span><div><p class="timeline-org">Amazon Photos · Platform</p><h3>Media platform engineering</h3><p>I built cloud services to store, process, and serve exabytes of customer photos. This included managing photos throughout their lifecycle and making them accessible across devices, with privacy and security built in.</p></div></article><article class="timeline-entry"><span class="timeline-date">2021</span><div><p class="timeline-org">Amazon Halo</p><h3>Service reliability</h3><p>I improved service monitoring and capacity, and used what we learned from incidents to make services more reliable.</p></div></article><article class="timeline-entry"><span class="timeline-date">2017–2021</span><div><p class="timeline-org">Prime Video</p><h3>Streaming data platforms</h3><p>I built catalog and entity platforms that help people find videos. That work included data pipelines, tools for operating the catalog, and ML-assisted duplicate detection to keep content records consistent.</p></div></article></div>
+    <p class="timeline-earlier">Earlier internships at <strong>Akamai Technologies</strong> and <strong>DromeBox Labs</strong>.</p>
+  </div>
+</section>
+<section class="page project-page" id="work" data-page data-group="work" data-label="Side projects" aria-labelledby="work-heading">
+  <div class="page-inner"><div class="spread-heading"><p class="section-index">02 / SIDE PROJECTS</p><h2 id="work-heading">Side projects</h2></div>
+    <div class="work-list"><article class="work-item">
+            <span class="work-number">01</span>
+            <div class="work-copy"><p class="work-type">DEVICE APP / C++</p><h3><a href="https://github.com/omkarkarande/remarkable-chess" target="_blank" rel="noopener noreferrer">reMarkable Chess <span aria-hidden="true">↗</span></a></h3><p>Play chess on a reMarkable 2 against Stockfish. Works offline and saves your games.</p></div>
+            <div class="work-sketch"><img src="res/images/sketch-chess.svg" alt="" loading="lazy"></div>
+          </article><article class="work-item">
+            <span class="work-number">02</span>
+            <div class="work-copy"><p class="work-type">GENERATIVE ART / WEBGL</p><h3><a href="https://github.com/omkarkarande/kinetic-canvas" target="_blank" rel="noopener noreferrer">Kinetic Canvas <span aria-hidden="true">↗</span></a></h3><p>Experiments with animation in WebGL, using noise, light, dots, and glass effects.</p></div>
+            <div class="work-sketch"><img src="res/images/sketch-kinetic.svg" alt="" loading="lazy"></div>
+          </article><article class="work-item">
+            <span class="work-number">03</span>
+            <div class="work-copy"><p class="work-type">MACOS APP / SWIFT</p><h3><a href="https://github.com/omkarkarande/youtube-macos" target="_blank" rel="noopener noreferrer">YouTube for macOS <span aria-hidden="true">↗</span></a></h3><p>A simple YouTube app for macOS, with a minimal window and edge-to-edge video.</p></div>
+            <div class="work-sketch"><img src="res/images/sketch-youtube.svg" alt="" loading="lazy"></div>
+          </article><article class="work-item">
+            <span class="work-number">04</span>
+            <div class="work-copy"><p class="work-type">DESKTOP DESIGN / JAVASCRIPT</p><h3><a href="https://github.com/omkarkarande/UbersichtWidgets" target="_blank" rel="noopener noreferrer">Übersicht Widgets <span aria-hidden="true">↗</span></a></h3><p>Time, date, and weather widgets for the desktop.</p></div>
+            <div class="work-sketch"><img src="res/images/sketch-widgets.svg" alt="" loading="lazy"></div>
+          </article></div>
+    <p class="section-tail">More on <a href="https://github.com/omkarkarande" target="_blank" rel="noopener noreferrer">GitHub ↗</a></p>
+  </div>
+</section>
+<section class="page contact-page" data-page data-group="contact" data-label="Contact" id="contact" aria-labelledby="contact-title">
+  <div class="page-inner contact-layout"><div><p class="section-index">03 / CONTACT</p><h2 id="contact-title">Say hello</h2>
+    <div class="contact-links"><a class="contact-email" href="mailto:omkar.karande@outlook.com">Email me <span aria-hidden="true">↗</span></a><div class="contact-social"><a href="https://www.linkedin.com/in/omkarkarande/" target="_blank" rel="noopener noreferrer">LINKEDIN ↗</a><a href="https://github.com/omkarkarande/" target="_blank" rel="noopener noreferrer">GITHUB ↗</a></div></div></div>
+    <div class="about-copy"><p>Outside work, I build small tools, play around with design, and make music. If you'd like to talk about any of that, get in touch.</p><div class="about-footnotes"><div><span>EDUCATION / 01</span><strong>MS, Computer Science</strong><small>University of Southern California</small></div><div><span>EDUCATION / 02</span><strong>BE, Computer Engineering</strong><small>University of Mumbai</small></div></div></div>
+  </div>
+</section>
+  </main>
+  <footer class="site-footer"><div class="reader-footer wrap"><span class="signature">omi © <span id="year">2026</span></span><div class="page-controls" hidden><button type="button" id="previous-page" aria-label="Previous page"><svg viewBox="0 0 20 34" aria-hidden="true" focusable="false"><path d="M15 3 5 17l10 14"/></svg></button><p id="page-status" role="status" aria-live="polite" aria-atomic="true"></p><button type="button" id="next-page" aria-label="Next page"><svg viewBox="0 0 20 34" aria-hidden="true" focusable="false"><path d="M5 3l10 14L5 31"/></svg></button></div><span class="reader-hint" hidden>SWIPE OR USE ← →</span></div></footer>
+</body>
 </html>

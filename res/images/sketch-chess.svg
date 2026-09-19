@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" fill="none">
+  <defs><filter id="rough"><feTurbulence type="fractalNoise" baseFrequency=".025" numOctaves="2" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="1.8"/></filter><pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse"><path d="M-1 7 7-1M3 9 9 3" stroke="#686868" stroke-opacity=".22" stroke-width=".7"/></pattern></defs>
+  <g stroke="#494949" stroke-linecap="round" stroke-linejoin="round" filter="url(#rough)">
+    <path d="M22 189H298M38 203H280" stroke-width=".8" opacity=".55"/>
+    <path d="m69 170 37-20 44 18-35 20-46-18Zm37-20 1-47 44 16-1 49m-81 2 1-47 37-20m8 85 1-47m-46-18 45 18m-31 2 36-21m-20 29 36-21" stroke-width="1.2"/>
+    <path d="M167 174h91m-83-4c-4-13-5-23-4-32 1-10 9-19 17-29l-6-18 15-9 9-22 19 3 18 20-8 20-15 4-5 11 15 14 8 37m-62-61 15 8 21-5 13-9m-31 19 18 6m-33 13 19 8m-12-85 12 4m-50 98 9-12h64l9 12" stroke-width="2"/>
+    <path d="m175 173 9-12h62l10 12m-70-58 8 2m-7 7 15 8m-30 8 22 8m-16-63 27 15m-11-17 25 14m-16-28 22 19" stroke-width=".7" opacity=".72"/>
+    <circle cx="219" cy="84" r="2" fill="#494949"/>
+    <path d="M251 55v-16m-7 8h15M43 56v-15m-7 8h15" stroke-width=".7" opacity=".7"/>
+  </g>
+  <text x="24" y="34" fill="#494949" font-family="monospace" font-size="9" letter-spacing="1.8">STUDY / 001</text>
+  <text x="260" y="201" fill="#494949" font-family="monospace" font-size="8">8 × 8</text>
+</svg>

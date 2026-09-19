@@ -1,0 +1,4 @@
+Edited with the built-in image_gen tool from profile-engraving.png.
+
+Final prompt:
+Edit only the beard in this illustrated portrait. Give it a subtle trim: about 20 percent shorter and slightly less dense along the chin and jaw, so more individual etched strokes and a little skin show through. Keep a natural short full beard, not clean-shaven and not stubble. Preserve the mustache, exact facial identity, expression, facial structure, eyes, head angle, long wavy hair, framing and white background. Preserve the existing detailed antique graphite engraving/crosshatching style everywhere. Do not simplify the rest of the drawing or change the hair. No other changes.
