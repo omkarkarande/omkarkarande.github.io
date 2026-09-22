@@ -409,6 +409,8 @@ for (const name of names) {
       try {
         await page.goto(base + '/#intro');
         await page.evaluate(() => document.fonts.ready);
+        assert.equal(await page.locator('#intro .eyebrow, #intro figcaption').count(), 0);
+        assert.doesNotMatch(await page.locator('#intro').textContent(), /Currently|Amazon Photos Memories|SOFTWARE & SIDE PROJECTS/);
         await page.locator('.portrait-figure img').evaluate(image => image.decode());
         for (const width of [320, 390, 430, 600, 601, 768, 1440, 390]) {
           await page.setViewportSize({ width, height: 900 });
@@ -416,7 +418,7 @@ for (const name of names) {
           const text = await page.locator('.hero-text').boundingBox();
           if (width <= 600) {
             assert.ok(photo.y + photo.height <= text.y,
-              `${width}px: portrait and caption must be above the text (JS: ${javaScriptEnabled})`);
+              `${width}px: portrait must be above the text (JS: ${javaScriptEnabled})`);
           } else {
             assert.ok(text.x + text.width <= photo.x,
               `${width}px: desktop text must remain left of the portrait`);
