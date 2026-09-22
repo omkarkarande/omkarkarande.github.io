@@ -417,6 +417,8 @@ for (const name of names) {
           const photo = await page.locator('.portrait-figure').boundingBox();
           const text = await page.locator('.hero-text').boundingBox();
           if (width <= 600) {
+            assert.ok(Math.abs(photo.x - text.x) < 1,
+              `${width}px: mobile portrait must align left with the text`);
             assert.ok(photo.y + photo.height <= text.y,
               `${width}px: portrait must be above the text (JS: ${javaScriptEnabled})`);
           } else {
