@@ -63,14 +63,6 @@ button { font: inherit; color: inherit; }
 .work-copy h3 span { font: 17px var(--sans); color: var(--accent); }
 .work-copy > p:last-child { font-size: 15px; color: var(--muted); }
 .section-tail { margin-top: 27px; font-size: 14px; color: var(--muted); }
-.game-mods { margin-top: 36px; }
-.game-mods > h3 { font-size: 28px; margin-bottom: 18px; }
-.mod-list { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 28px; }
-.mod-list h4 { margin: 0 0 8px; font: 600 18px/1.3 var(--sans); }
-.mod-list h4 a { text-decoration: none; }
-.mod-list h4 a:hover { text-decoration: underline; }
-.mod-list h4 span { font-weight: 400; white-space: nowrap; }
-.mod-list article > p:last-child { font-size: 15px; color: var(--muted); }
 .contact-layout { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 65px; align-items: center; }
 .contact-layout h2 { font-size: clamp(48px, 5.7vw, 78px); }
 .contact-links { margin-top: 35px; }
@@ -146,7 +138,6 @@ button { font: inherit; color: inherit; }
  .timeline-entry div > p:last-child { line-height: 1.55; }
  .timeline-earlier { font-size: 12px; }
  .work-list { grid-template-columns: 1fr; gap: 29px; }
- .mod-list { grid-template-columns: 1fr; gap: 24px; }
  .work-item,.work-item:nth-child(even) { display: flex; flex-direction: column; align-items: stretch; gap: 14px; }
  .work-sketch { order: -1; width: 65%; align-self: flex-start; }
  .work-item:nth-child(even) .work-sketch { align-self: flex-end; }

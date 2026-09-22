@@ -7,9 +7,9 @@ A static portfolio built for GitHub Pages. No build step or external JavaScript 
 - Edit the introduction, projects, experience, and contact links in `index.html`.
 - Adjust the warm paper palette, Transcity display typography, and spacing in `css/style.css`. The subtle grain is `res/images/paper-grain.svg`.
 - `js/main.js` powers the four-page portfolio reader: previous/next controls, keyboard navigation and native scroll snapping, URL history, and the footer year. Without JavaScript, all pages remain readable as a scrolling document.
-- The portrait illustration is `res/images/profile-transparent.webp`, generated from the supplied portrait photo. The transparent PNG is retained. The outer background uses a real alpha channel. Multiply blending lets the paper color show through the face and hair highlights; the scrolling surface also blends so Safari preserves this effect across its compositing layers. Its edit prompt is saved alongside the image. The four project sketches are SVG files in `res/images/`.
+- The portrait illustration is `res/images/profile-transparent.webp`, generated from the supplied portrait photo. The transparent PNG is retained. The outer background uses a real alpha channel. Multiply blending lets the paper color show through the face and hair highlights; the scrolling surface also blends so Safari preserves this effect across its compositing layers. Its edit prompt is saved alongside the image. The five project sketches are SVG files in `res/images/`.
 
-The featured apps link to public GitHub repositories. Game Mods lists three published mods with direct Nexus Mods links and a link to the author's profile. The professional summaries are intentionally broad.
+The featured apps link to public GitHub repositories. Game Mods links to the author's Nexus Mods profile. The professional summaries are intentionally broad.
 
 Fonts are self-hosted in `res/fonts/`. Transcity is the display face; the supplied file is a personal-use font for local evaluation. Obtain the appropriate professional/web license before publishing it (see `res/fonts/Transcity-NOTICE.txt`). Fraunces is the fallback for glyphs absent from Transcity; Source Sans 3 remains the body face. These two fallback/body families retain their SIL Open Font Licenses. No external font service or build process is required.
 
