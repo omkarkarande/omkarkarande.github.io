@@ -84,7 +84,7 @@ button { font: inherit; color: inherit; }
 .hero-links a { padding-block: 8px; }
 .link-arrow { display: inline-block; width: .8em; height: .8em; margin-left: .2em; vertical-align: -.02em; fill: none; stroke: currentColor; stroke-width: 1.3; stroke-linecap: square; }
 .portrait-figure { width: 100%; max-width: 425px; justify-self: end; margin-top: 42px; }
-.portrait-figure img { width: 100%; height: auto; filter: grayscale(1) contrast(1.08) brightness(1.08); mix-blend-mode: multiply; }
+.portrait-figure img { width: 85%; height: auto; margin-inline: auto; filter: grayscale(1) contrast(1.08) brightness(1.08); mix-blend-mode: multiply; }
 .portrait-figure figcaption { margin-top: 28px; max-width: 270px; margin-inline: auto; color: var(--muted); font: 12px/1.65 var(--mono); }
 .portrait-figure figcaption span { display: block; color: var(--accent); text-transform: uppercase; font-size: 10px; letter-spacing: .1em; margin-bottom: 3px; }
 .spread-heading { margin-bottom: 38px; }
