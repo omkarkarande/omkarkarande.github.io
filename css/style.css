@@ -41,6 +41,8 @@ body::after {
 a { color: inherit; text-underline-offset: .22em; text-decoration-thickness: 1px; }
 a:hover { color: var(--accent); }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
+/* Section titles receive focus for reading order, but are not controls. */
+.page :is(h1,h2)[tabindex="-1"]:focus { outline: none; }
 h1,h2,h3,p,figure { margin: 0; }
 h1,h2,h3,.wordmark,.contact-email {
   font-family: var(--serif);
