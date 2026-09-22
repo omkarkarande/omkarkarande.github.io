@@ -201,7 +201,7 @@ button { font: inherit; color: inherit; }
   .hero-deck { font-size: 24px; margin-top: 17px; }
   .hero-lede { margin-top: 22px; font-size: 17px; }
   .hero-links { margin-top: 17px; gap: 18px; font-size: 15px; }
-  .portrait-figure { order: -1; margin: 0; width: 62%; max-width: 220px; align-self: flex-start; }
+  .portrait-figure { order: -1; margin: 0 0 0 -8px; width: 62%; max-width: 220px; align-self: flex-start; }
   .portrait-figure figcaption { margin-top: 10px; }
   .portrait-figure figcaption span { font-size: 9px; }
   h2,.editorial-spread h2 { font-size: clamp(40px,10.8vw,54px); }
