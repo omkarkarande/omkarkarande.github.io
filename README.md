@@ -5,7 +5,7 @@ A static portfolio built for GitHub Pages. No build step or external JavaScript 
 ## Update the content
 
 - Edit the introduction, projects, experience, and contact links in `index.html`.
-- Adjust the warm paper palette, Transcity display typography, and spacing in `css/style.css`. The subtle grain is `res/images/paper-grain.svg`.
+- Adjust the warm paper palette, Transcity headlines, Fraunces editorial accents, and spacing in `css/style.css`. The subtle grain is `res/images/paper-grain.svg`.
 - `js/main.js` powers the four-page portfolio reader: previous/next controls, keyboard navigation and native scroll snapping, URL history, and the footer year. Without JavaScript, all pages remain readable as a scrolling document.
 - The portrait illustration is `res/images/profile-transparent.webp`, generated from the supplied portrait photo. The transparent PNG is retained. The outer background uses a real alpha channel. Multiply blending lets the paper color show through the face and hair highlights; the scrolling surface also blends so Safari preserves this effect across its compositing layers. Its edit prompt is saved alongside the image. The five project sketches are SVG files in `res/images/`.
 
@@ -19,7 +19,7 @@ The reader uses the viewport height. On short screens or at high zoom, an indivi
 
 Font comparisons are available at `variants.html`. Each full portfolio variant can also be opened with `index.html?font=transcity`, `?font=quivert`, `?font=runiga`, or `?font=mending`. All variants share the same content, layout, and navigation. The default is Transcity. Runiga and Mending are personal-use evaluation fonts; see their notices in `res/fonts/` for licensing details.
 
-Swipe horizontally with a trackpad or touchscreen to change sections. The browser handles momentum and snapping without custom wheel or touch locks. Vertical scrolling remains available within long pages. Offscreen pages are inert so keyboard focus and screen readers stay on the current section.
+Swipe horizontally with a trackpad or touchscreen to change sections. Touch uses native scrolling and snapping. Horizontal wheel deltas are routed to the outer reader so a long page cannot trap diagonal trackpad gestures in its vertical scroller. Wheel scrolling snaps after 140 ms of quiet, with no cooldown or direction lock. Vertical scrolling remains available within long pages. Offscreen pages are inert so keyboard focus and screen readers stay on the current section.
 
 ## Checks
 
@@ -31,6 +31,8 @@ npx playwright install chromium webkit
 TEST_BROWSERS=chromium,webkit npm test
 ```
 
-The tests start a temporary local static server and cover repeated native trackpad scrolling, touchscreen swipes, vertical scrolling, keyboard focus, history and deep links, responsive layout, resize alignment, font requests, WCAG accessibility checks, comparison previews, print and no-JavaScript fallbacks. Set `TEST_BROWSERS=firefox` to run against Firefox when its test engine is installed.
+The tests start a temporary local static server and cover repeated trackpad scrolling, diagonal wheel bursts on long pages, touchscreen swipes, vertical scrolling, keyboard focus, history and deep links, responsive layout, resize alignment, font requests, WCAG accessibility checks, comparison previews, print and no-JavaScript fallbacks. Set `TEST_BROWSERS=firefox` to run against Firefox when its test engine is installed.
+
+Primary fonts are self-hosted Latin WOFF2 subsets (Latin, Latin Extended-A/B, punctuation, currency and arrows). Their original TTF/OTF files and notices are retained. The five served font files total about 105 KB, down from about 645 KB.
 
 The viewport uses `viewport-fit=cover`. Safe-area insets pad the content while fixed artwork extends to the viewport edges; Safari retains control of its toolbar.

@@ -30,6 +30,7 @@ before(async () => {
         ".webp": "image/webp",
         ".otf": "font/otf",
         ".ttf": "font/ttf",
+        ".woff2": "font/woff2",
       }[path.extname(file)];
       res.writeHead(200, {
         "Content-Type": type || "application/octet-stream",
@@ -74,7 +75,7 @@ async function go(page, id) {
 }
 
 for (const name of names) {
-  test(`${name}: repeated native trackpad swipes, reversals and endpoints`, async () => {
+  test(`${name}: repeated trackpad swipes, reversals and endpoints`, async () => {
     const browser = browsers.find(([n]) => n === name)[1];
     const page = await browser.newPage({
       viewport: { width: 960, height: 900 },
@@ -107,6 +108,30 @@ for (const name of names) {
     } finally {
       await page.close();
     }
+  });
+
+  test(`${name}: diagonal wheel bursts escape a long page and navigation cancels pending movement`, async () => {
+    const browser = browsers.find(([n]) => n === name)[1];
+    const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
+    try {
+      await page.goto(base + "/#experience");
+      await active(page, "experience");
+      assert.ok(await page.locator("#experience").evaluate(e => e.scrollHeight > e.clientHeight));
+      await page.mouse.move(210, 440);
+      for (let i = 0; i < 5; i++) await page.mouse.wheel(52, 3);
+      await active(page, "work");
+      for (let i = 0; i < 5; i++) await page.mouse.wheel(-52, 3);
+      await active(page, "experience");
+      await page.mouse.wheel(0, 240);
+      await page.waitForFunction(() => document.querySelector("#experience").scrollTop > 0);
+      await active(page, "experience");
+      await page.mouse.wheel(65, 0);
+      await page.keyboard.press("End");
+      await active(page, "contact");
+      await page.waitForTimeout(250);
+      await active(page, "contact");
+      assert.equal(await page.locator("#main").evaluate(e => e.style.scrollSnapType), "");
+    } finally { await page.close(); }
   });
 
   test(`${name}: keyboard, links, deep links, focus and history`, async () => {
@@ -217,7 +242,7 @@ for (const name of names) {
         performance.getEntriesByType("resource").map((r) => r.name),
       );
       assert.equal(
-        resources.filter((url) => url.includes("transcity-regular.otf")).length,
+        resources.filter((url) => url.includes("transcity-regular.woff2")).length,
         1,
       );
     } finally {

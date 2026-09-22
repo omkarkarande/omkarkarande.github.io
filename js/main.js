@@ -19,6 +19,8 @@
   };
   let current = -1;
   let settleTimer;
+  let wheelTimer;
+  let wheelScrolling = false;
 
   document.documentElement.classList.add("reader");
   document.querySelector(".page-controls").hidden = false;
@@ -62,6 +64,9 @@
   }
 
   function go(index, { updateUrl = true, focus = false } = {}) {
+    clearTimeout(wheelTimer);
+    wheelScrolling = false;
+    main.style.removeProperty("scroll-snap-type");
     clearTimeout(settleTimer);
     select(index, { updateUrl, focus });
     // Explicit navigation is immediate. This also avoids WebKit cancelling a
@@ -85,7 +90,7 @@
   // JavaScript only updates navigation once the native scroll has settled.
   function settled() {
     clearTimeout(settleTimer);
-    if (main.clientWidth)
+    if (!wheelScrolling && main.clientWidth)
       select(Math.round(main.scrollLeft / main.clientWidth));
   }
   main.addEventListener("scrollend", settled);
@@ -97,6 +102,24 @@
     },
     { passive: true },
   );
+
+  // A vertically overflowing sheet consumes diagonal wheel events, even when
+  // deltaX dominates. Route those deltas to the outer reader without a gesture
+  // lock; reversal and momentum continue to move it until the wheel goes quiet.
+  main.addEventListener("wheel", (event) => {
+    if (event.ctrlKey || event.defaultPrevented ||
+        Math.abs(event.deltaX) <= Math.abs(event.deltaY) * 1.5 || !event.deltaX) return;
+    event.preventDefault();
+    clearTimeout(settleTimer);
+    clearTimeout(wheelTimer);
+    wheelScrolling = true;
+    main.style.scrollSnapType = "none";
+    const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? main.clientWidth : 1;
+    main.scrollLeft += event.deltaX * unit;
+    wheelTimer = setTimeout(() => {
+      go(Math.round(main.scrollLeft / main.clientWidth));
+    }, 140);
+  }, { passive: false });
 
   document.addEventListener("click", (event) => {
     if (
@@ -154,4 +177,8 @@
   window.addEventListener("popstate", fromHash);
   window.addEventListener("hashchange", fromHash);
   fromHash();
+  // WebKit can re-snap during the first font layout. Keep deep links aligned.
+  document.fonts.ready.then(() => {
+    if (!wheelScrolling) go(current, { updateUrl: false });
+  });
 })();

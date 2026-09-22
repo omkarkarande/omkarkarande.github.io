@@ -1,8 +1,8 @@
-@font-face { font-family: 'Source Sans 3'; font-style: normal; font-weight: 400; font-display: swap; src: url('../res/fonts/source-sans-3-400-normal.ttf') format('truetype'); }
-@font-face { font-family: 'Source Sans 3'; font-style: normal; font-weight: 600; font-display: swap; src: url('../res/fonts/source-sans-3-600-normal.ttf') format('truetype'); }
-@font-face { font-family: 'Fraunces'; font-style: normal; font-weight: 400; font-display: swap; src: url('../res/fonts/fraunces-400-normal.ttf') format('truetype'); }
-@font-face { font-family: 'Fraunces'; font-style: italic; font-weight: 400; font-display: swap; src: url('../res/fonts/fraunces-400-italic.ttf') format('truetype'); }
+@font-face { font-family: 'Source Sans 3'; font-style: normal; font-weight: 400; font-display: swap; src: url('../res/fonts/source-sans-3-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Source Sans 3'; font-style: normal; font-weight: 600; font-display: swap; src: url('../res/fonts/source-sans-3-600-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Fraunces'; font-style: normal; font-weight: 400; font-display: swap; src: url('../res/fonts/fraunces-400-normal.woff2') format('woff2'); }
+@font-face { font-family: 'Fraunces'; font-style: italic; font-weight: 400; font-display: swap; src: url('../res/fonts/fraunces-400-italic.woff2') format('woff2'); }
 @font-face { font-family: 'Quivert'; font-style: normal; font-weight: 400; font-display: swap; src: url('../res/fonts/quivert-regular.otf?v=1') format('opentype'); }
-@font-face { font-family: 'Transcity'; font-style: normal; font-weight: 400; font-display: swap; src: url('../res/fonts/transcity-regular.otf') format('opentype'); }
+@font-face { font-family: 'Transcity'; font-style: normal; font-weight: 400; font-display: swap; src: url('../res/fonts/transcity-regular.woff2') format('woff2'); }
 @font-face { font-family: 'Runiga'; font-style: normal; font-weight: 400; font-display: swap; src: url('../res/fonts/runiga-regular.otf') format('opentype'); }
 @font-face { font-family: 'Mending'; font-style: normal; font-weight: 400; font-display: swap; src: url('../res/fonts/mending-regular.otf') format('opentype'); }

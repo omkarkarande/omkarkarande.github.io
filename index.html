@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#f4f1e9" />
+    <meta name="theme-color" content="#f0eadf" />
     <meta
       name="description"
       content="Software engineer at Amazon. Photo memories, cloud platforms, and side projects."
@@ -16,23 +16,23 @@
     />
     <meta
       property="og:image"
-      content="https://www.omkarkarande.com/res/images/profile-engraving-trimmed.png"
+      content="https://omikarande.com/res/images/profile-transparent.png"
     />
-    <meta property="og:url" content="https://www.omkarkarande.com/" />
-    <link rel="canonical" href="https://www.omkarkarande.com/" />
+    <meta property="og:url" content="https://omikarande.com/" />
+    <link rel="canonical" href="https://omikarande.com/" />
     <title>omi | Software Engineer</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link
       rel="preload"
-      href="res/fonts/transcity-regular.otf"
+      href="res/fonts/transcity-regular.woff2"
       as="font"
-      type="font/otf"
+      type="font/woff2"
       crossorigin
     />
-    <link rel="stylesheet" href="css/fonts.css?v=review-2" />
-    <link rel="stylesheet" href="css/style.css?v=game-mods-2" />
+    <link rel="stylesheet" href="css/fonts.css?v=editorial-1" />
+    <link rel="stylesheet" href="css/style.css?v=editorial-1" />
     <script src="js/font-variant.js" defer></script>
-    <script src="js/main.js?v=safari-safe-area-1" defer></script>
+    <script src="js/main.js?v=editorial-1" defer></script>
   </head>
   <body>
     <div class="hero-engraving" aria-hidden="true"></div>
@@ -43,9 +43,12 @@
           >omi.</a
         >
 
+        <p class="masthead-note">Software Engineer<br />Amazon, Since 2017</p>
         <nav class="site-nav" id="site-nav" aria-label="Main navigation">
-          <a href="#intro">Home</a><a href="#experience">Experience</a
-          ><a href="#work">Projects</a><a href="#contact">Contact</a>
+          <a href="#intro"><span aria-hidden="true">01</span> Home</a>
+          <a href="#experience"><span aria-hidden="true">02</span> Experience</a>
+          <a href="#work"><span aria-hidden="true">03</span> Projects</a>
+          <a href="#contact"><span aria-hidden="true">04</span> Contact</a>
         </nav>
       </div>
     </header>
@@ -60,33 +63,35 @@
         aria-labelledby="hero-title"
       >
         <div class="page-inner hero-copy">
-          <figure class="portrait-figure">
-            <img
-              src="res/images/profile-transparent.webp"
-              alt="Fine-line engraved portrait of omi"
-              width="1254"
-              height="1254"
-              fetchpriority="high"
-              decoding="async"
-            />
-          </figure>
           <div class="hero-text">
-            <p class="eyebrow">AT AMAZON · SINCE 2017</p>
+            <p class="eyebrow">SOFTWARE, SYSTEMS &amp; SIDE PROJECTS</p>
             <h1 id="hero-title">
-              I Build Software.<br /><em>For Work and for Fun.</em>
+              I Build<br />Software.
             </h1>
+            <p class="hero-deck">For Work and for Fun.</p>
             <p class="hero-lede">
               I'm a software engineer at Amazon. I've worked on streaming, photo
               storage, and now AI-assisted photo memories.
             </p>
             <div class="hero-links">
               <a class="ink-link" href="#experience"
-                >View Experience <span aria-hidden="true">↗</span></a
+                >View Experience <svg class="link-arrow" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 16 16 4M5 4h11v11" /></svg></a
               ><a class="quiet-link" href="#work"
-                >Side Projects <span aria-hidden="true">↗</span></a
+                >Side Projects <svg class="link-arrow" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 16 16 4M5 4h11v11" /></svg></a
               >
             </div>
           </div>
+          <figure class="portrait-figure">
+            <img
+              src="res/images/profile-transparent.webp"
+              alt="Sketch portrait of omi"
+              width="1254"
+              height="1254"
+              fetchpriority="high"
+              decoding="async"
+            />
+            <figcaption><span>Currently</span> Amazon Photos Memories</figcaption>
+          </figure>
         </div>
       </section>
       <section
@@ -99,13 +104,14 @@
       >
         <div class="page-inner experience-spread">
           <div class="spread-heading">
-            <p class="section-index">01 / WORK EXPERIENCE</p>
-            <h2 id="experience-heading">Work Experience</h2>
-            <p>Amazon · 2017–present</p>
+            <p class="section-index">02 / WORK EXPERIENCE</p>
+            <h2 id="experience-heading">Work<br />Experience.</h2>
+            <p>From streaming catalogs to photo libraries and the memories inside them.</p>
+            <p class="spread-note">AMAZON / 2017–PRESENT</p>
           </div>
           <div class="timeline">
             <article class="timeline-entry">
-              <span class="timeline-date">2025–present</span>
+              <span class="timeline-date">2025<span>–present</span></span>
               <div>
                 <p class="timeline-org">Amazon Photos · Memories</p>
                 <h3>AI-Powered Personalization</h3>
@@ -117,7 +123,7 @@
               </div>
             </article>
             <article class="timeline-entry">
-              <span class="timeline-date">2021–2024</span>
+              <span class="timeline-date">2021<span>–2024</span></span>
               <div>
                 <p class="timeline-org">Amazon Photos · Platform</p>
                 <h3>Media Platform Engineering</h3>
@@ -141,7 +147,7 @@
               </div>
             </article>
             <article class="timeline-entry">
-              <span class="timeline-date">2017–2021</span>
+              <span class="timeline-date">2017<span>–2021</span></span>
               <div>
                 <p class="timeline-org">Prime Video</p>
                 <h3>Streaming Data Platforms</h3>
@@ -170,8 +176,9 @@
       >
         <div class="page-inner">
           <div class="spread-heading">
-            <p class="section-index">02 / SIDE PROJECTS</p>
-            <h2 id="work-heading">Side Projects</h2>
+            <p class="section-index">03 / SIDE PROJECTS</p>
+            <h2 id="work-heading">Side Projects.</h2>
+            <p>Small tools, visual experiments, and things I wanted to exist.</p>
           </div>
           <div class="work-list">
             <article class="work-item">
@@ -182,7 +189,7 @@
                     href="https://github.com/omkarkarande/remarkable-chess"
                     target="_blank"
                     rel="noopener noreferrer"
-                    >reMarkable Chess <span aria-hidden="true">↗</span></a
+                    >reMarkable Chess <svg class="link-arrow" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 16 16 4M5 4h11v11" /></svg></a
                   >
                 </h3>
                 <p>
@@ -209,7 +216,7 @@
                     href="https://github.com/omkarkarande/kinetic-canvas"
                     target="_blank"
                     rel="noopener noreferrer"
-                    >Kinetic Canvas <span aria-hidden="true">↗</span></a
+                    >Kinetic Canvas <svg class="link-arrow" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 16 16 4M5 4h11v11" /></svg></a
                   >
                 </h3>
                 <p>
@@ -236,7 +243,7 @@
                     href="https://github.com/omkarkarande/youtube-macos"
                     target="_blank"
                     rel="noopener noreferrer"
-                    >YouTube for macOS <span aria-hidden="true">↗</span></a
+                    >YouTube for macOS <svg class="link-arrow" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 16 16 4M5 4h11v11" /></svg></a
                   >
                 </h3>
                 <p>
@@ -263,7 +270,7 @@
                     href="https://github.com/omkarkarande/UbersichtWidgets"
                     target="_blank"
                     rel="noopener noreferrer"
-                    >Übersicht Widgets <span aria-hidden="true">↗</span></a
+                    >Übersicht Widgets <svg class="link-arrow" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 16 16 4M5 4h11v11" /></svg></a
                   >
                 </h3>
                 <p>Time, date, and weather widgets for the desktop.</p>
@@ -287,7 +294,7 @@
                     href="https://www.nexusmods.com/profile/montaguezer"
                     target="_blank"
                     rel="noopener noreferrer"
-                    >Game Mods <span aria-hidden="true">↗&#xfe0e;</span></a
+                    >Game Mods <svg class="link-arrow" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 16 16 4M5 4h11v11" /></svg></a
                   >
                 </h3>
                 <p>Custom armor and ultrawide fixes for the games I play.</p>
@@ -310,7 +317,7 @@
               href="https://github.com/omkarkarande"
               target="_blank"
               rel="noopener noreferrer"
-              >GitHub ↗</a
+              >GitHub <svg class="link-arrow" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 16 16 4M5 4h11v11" /></svg></a
             >
           </p>
         </div>
@@ -325,23 +332,23 @@
       >
         <div class="page-inner contact-layout">
           <div>
-            <p class="section-index">03 / CONTACT</p>
-            <h2 id="contact-title">Say Hello</h2>
+            <p class="section-index">04 / CONTACT</p>
+            <h2 id="contact-title">Let’s<br /><em>Talk.</em></h2>
             <div class="contact-links">
               <a class="contact-email" href="mailto:omkar.karande@outlook.com"
-                >Email Me <span aria-hidden="true">↗&#xfe0e;</span></a
+                >Email Me <svg class="link-arrow" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 16 16 4M5 4h11v11" /></svg></a
               >
               <div class="contact-social">
                 <a
                   href="https://www.linkedin.com/in/omkarkarande/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  >LINKEDIN ↗</a
+                  >LinkedIn <svg class="link-arrow" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 16 16 4M5 4h11v11" /></svg></a
                 ><a
                   href="https://github.com/omkarkarande/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  >GITHUB ↗</a
+                  >GitHub <svg class="link-arrow" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M4 16 16 4M5 4h11v11" /></svg></a
                 >
               </div>
             </div>
@@ -353,13 +360,13 @@
             </p>
             <div class="about-footnotes">
               <div>
-                <span>EDUCATION / 01</span><strong>MS, Computer Science</strong
-                ><small>University of Southern California</small>
+                <span>UNIVERSITY OF SOUTHERN CALIFORNIA</span><strong>MS, Computer Science</strong
+                >
               </div>
               <div>
-                <span>EDUCATION / 02</span
+                <span>UNIVERSITY OF MUMBAI</span
                 ><strong>BE, Computer Engineering</strong
-                ><small>University of Mumbai</small>
+                >
               </div>
             </div>
           </div>
@@ -368,7 +375,7 @@
     </main>
     <footer class="site-footer">
       <div class="reader-footer wrap">
-        <span class="signature">omi © <span id="year">2026</span></span>
+        <span class="signature">© <span id="year">2026</span> omi.</span>
         <div class="page-controls" hidden>
           <button type="button" id="previous-page" aria-label="Previous page">
             <svg viewBox="0 0 20 34" aria-hidden="true" focusable="false">
@@ -387,7 +394,7 @@
             </svg>
           </button>
         </div>
-        <span class="reader-hint" hidden>SWIPE OR USE ← →</span>
+        <span class="reader-hint" hidden>FOUR PAGES / SWIPE TO EXPLORE</span>
       </div>
     </footer>
   </body>
