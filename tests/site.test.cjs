@@ -402,6 +402,30 @@ test(
 );
 
 for (const name of names) {
+  test(`${name}: portrait precedes mobile copy and stays beside desktop copy`, async () => {
+    const browser = browsers.find(([n]) => n === name)[1];
+    for (const javaScriptEnabled of [true, false]) {
+      const page = await browser.newPage({ javaScriptEnabled });
+      try {
+        await page.goto(base + '/#intro');
+        await page.evaluate(() => document.fonts.ready);
+        await page.locator('.portrait-figure img').evaluate(image => image.decode());
+        for (const width of [320, 390, 430, 600, 601, 768, 1440, 390]) {
+          await page.setViewportSize({ width, height: 900 });
+          const photo = await page.locator('.portrait-figure').boundingBox();
+          const text = await page.locator('.hero-text').boundingBox();
+          if (width <= 600) {
+            assert.ok(photo.y + photo.height <= text.y,
+              `${width}px: portrait and caption must be above the text (JS: ${javaScriptEnabled})`);
+          } else {
+            assert.ok(text.x + text.width <= photo.x,
+              `${width}px: desktop text must remain left of the portrait`);
+          }
+        }
+      } finally { await page.close(); }
+    }
+  });
+
   test(`${name}: transparent portrait and safe-area layout`, async () => {
     const browser = browsers.find(([n]) => n === name)[1];
     const page = await browser.newPage({viewport:{width:390,height:844}});
