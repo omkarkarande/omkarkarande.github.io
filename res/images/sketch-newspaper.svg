@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" fill="none">
+  <defs><filter id="rough"><feTurbulence type="fractalNoise" baseFrequency=".021" numOctaves="2" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="1.6"/></filter></defs>
+  <g stroke="#494949" stroke-linecap="round" stroke-linejoin="round" filter="url(#rough)">
+    <path d="M57 28h195v158H66q-9 0-9-9V28Zm195 13h13v135q0 10-13 10M69 65h171M69 70h171M151 81v91" stroke-width="1.1"/>
+    <path d="M70 83h68v42H70zM70 125l20-23 15 12 14-18 19 29M70 137h68m-68 7h68m-68 7h68m-68 7h68m-68 7h49M164 84h75m-75 7h75m-75 7h75m-75 7h60m-60 15h75m-75 7h75m-75 7h75m-75 7h58m-58 15h75m-75 7h75m-75 7h45" stroke-width=".75"/>
+    <circle cx="124" cy="94" r="4" stroke-width=".75"/>
+    <path d="M43 198h235M57 194v8M265 194v8" stroke-width=".7" opacity=".7"/>
+  </g>
+  <text x="155" y="53" text-anchor="middle" fill="#494949" font-family="Georgia,serif" font-size="18">The Morning Brief</text>
+</svg>

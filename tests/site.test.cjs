@@ -188,6 +188,10 @@ for (const name of names) {
     });
     try {
       await page.goto(base + "/#intro");
+      const dailyPaper = page.locator('#work a[href="https://github.com/omkarkarande/daily-paper"]');
+      assert.equal(await dailyPaper.count(), 1);
+      assert.match(await dailyPaper.textContent(), /Daily Paper/);
+      assert.equal(await dailyPaper.getAttribute('rel'), 'noopener noreferrer');
       for (const [width, height] of [
         [1440, 900],
         [1024, 768],
