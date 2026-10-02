@@ -1,29 +1,33 @@
 # omi portfolio
 
-A static portfolio built for GitHub Pages. No build step or external JavaScript libraries are needed.
+A static portfolio built for GitHub Pages. No build step or production dependencies.
 
-## Update the content
+## Content and design
 
-- Edit the introduction, projects, experience, and contact links in `index.html`.
-- Adjust the warm paper palette, Transcity headlines, Fraunces editorial accents, and spacing in `css/style.css`. The subtle grain is `res/images/paper-grain.svg`.
-- `js/main.js` powers the four-page portfolio reader: previous/next controls, keyboard navigation and native scroll snapping, URL history, and the footer year. Without JavaScript, all pages remain readable as a scrolling document.
-- The portrait illustration is `res/images/profile-transparent.webp`, generated from the supplied portrait photo. The transparent PNG is retained. The outer background uses a real alpha channel. Multiply blending lets the paper color show through the face and hair highlights; the scrolling surface also blends so Safari preserves this effect across its compositing layers. Its edit prompt is saved alongside the image. The five project sketches are SVG files in `res/images/`.
+- Edit the introduction, experience, projects, and contact links in `index.html`.
+- `css/style.css` implements the **magzinize** editorial composition: serif headlines, asymmetrical spreads, thin rules, marginal details, and illustrated project rows rather than cards. No background textures, gradients, or external services are loaded.
+- The default edition is light, selected by `<html data-theme="light">`. Set that attribute to `dark` for the black-paper edition. Both token sets live in the stylesheet and share the same layout. There is intentionally no theme-switching UI or automatic system-theme override.
+- Light tokens: paper `#f2eee5`, ink `#25231f`, muted `#686259`, rule `#c6bfb2`, accent `#974a32`. Dark tokens: paper `#000`, ink `#f3f0e7`, muted `#a6a69c`, rule `#383a34`, accent `#d99376`.
+- Fraunces is the default display serif; Source Sans 3 is the body face. Both are self-hosted WOFF2 fonts with their SIL Open Font Licenses retained in `res/fonts/`. The default page does not request the personal-use evaluation fonts.
+- The portrait is `res/images/profile-transparent.webp`, generated from the supplied portrait photo. Original assets and edit notes are retained. Light mode blends the illustration into the paper; dark mode displays its original tones without inversion. Project sketches retain their original colours, on light paper plates in the dark edition.
+- Below 601px, the portrait precedes “I Build.” and remains left aligned with its existing 8px left nudge. Landing labels and captions intentionally remain absent.
 
-The featured apps link to public GitHub repositories. Game Mods links to the author's Nexus Mods profile. The professional summaries are intentionally broad.
+Professional summaries remain intentionally broad. Daily Paper and the other featured apps link to their public repositories; Game Mods links to the author's Nexus Mods profile.
 
-Fonts are self-hosted in `res/fonts/`. Transcity is the display face; the supplied file is a personal-use font for local evaluation. Obtain the appropriate professional/web license before publishing it (see `res/fonts/Transcity-NOTICE.txt`). Fraunces is the fallback for glyphs absent from Transcity; Source Sans 3 remains the body face. These two fallback/body families retain their SIL Open Font Licenses. No external font service or build process is required.
+## Reader behavior
 
-The border uses `res/images/engraved-border.webp`; its original is `res/images/engraved-border.png`, made with the built-in image generation tool. Its full generation prompt is in `res/images/engraved-border.prompt.txt`.
+`js/main.js` enhances the four sections into a horizontal reader:
 
-The reader uses the viewport height. On short screens or at high zoom, an individual page can scroll so no content is clipped. Button and keyboard navigation are instant; there are no scripted motion effects. Printing includes all pages.
-
-Font comparisons are available at `variants.html`. Each full portfolio variant can also be opened with `index.html?font=transcity`, `?font=quivert`, `?font=runiga`, or `?font=mending`. All variants share the same content, layout, and navigation. The default is Transcity. Runiga and Mending are personal-use evaluation fonts; see their notices in `res/fonts/` for licensing details.
-
-Swipe horizontally with a trackpad or touchscreen to change sections. Touch uses native scrolling and snapping. Horizontal wheel deltas are routed to the outer reader so a long page cannot trap diagonal trackpad gestures in its vertical scroller. Wheel scrolling snaps after 140 ms of quiet, with no cooldown or direction lock. Vertical scrolling remains available within long pages. Offscreen pages are inert so keyboard focus and screen readers stay on the current section.
+- Previous/next buttons, arrow keys, touch swipes, and horizontal trackpad gestures move between pages. Links and history preserve fragment navigation; older fragment aliases still resolve.
+- Native touch scrolling and snapping handle touchscreen movement. Explicit links, keyboard navigation, and wheel gestures choose exact pages without native snapping. A new pointer gesture restores snapping; this avoids WebKit restoring an obsolete snap target after explicit navigation.
+- Vertical scrolling remains native within long pages. Home/End scroll the focused article; outside the article, they navigate to the first/last page.
+- Paging controls preserve each sheet's reading position. Content links return to its heading and move focus there. Offscreen pages are inert and excluded from the accessibility tree.
+- Without JavaScript, all four sections form a normal scrolling document with working anchor links. Print renders every section in light ink on white paper without fixed controls or clipped scroll containers.
+- Safe-area insets protect content and controls on notched devices. Reduced-motion preferences are respected; explicit navigation is instant.
 
 ## Checks
 
-The site has no production dependencies. Playwright and axe are only used for development checks:
+Development dependencies are Playwright and axe-core:
 
 ```sh
 npm ci
@@ -31,8 +35,14 @@ npx playwright install chromium webkit
 TEST_BROWSERS=chromium,webkit npm test
 ```
 
-The tests start a temporary local static server and cover repeated trackpad scrolling, diagonal wheel bursts on long pages, touchscreen swipes, vertical scrolling, keyboard focus, history and deep links, responsive layout, resize alignment, font requests, WCAG accessibility checks, comparison previews, print and no-JavaScript fallbacks. Set `TEST_BROWSERS=firefox` to run against Firefox when its test engine is installed.
+Optional screenshot evidence:
 
-Primary fonts are self-hosted Latin WOFF2 subsets (Latin, Latin Extended-A/B, punctuation, currency and arrows). Their original TTF/OTF files and notices are retained. The five served font files total about 105 KB, down from about 645 KB.
+```sh
+TEST_BROWSERS=chromium,webkit TEST_SCREENSHOTS=/absolute/path/to/evidence npm test
+```
 
-The viewport uses `viewport-fit=cover`. Safe-area insets pad the content while fixed artwork extends to the viewport edges; Safari retains control of its toolbar.
+Tests cover repeated trackpad gestures, real Chromium touch input, keyboard focus, history, legacy fragments, scroll restoration, resize and safe-area behavior, portrait placement, local assets, print, and no-JavaScript reading. Edition tests exercise light/dark layouts at 320, 390, 768, and 1440px, check identical geometry, reachable content endings, visible keyboard focus, and run axe WCAG checks in Chromium. Screenshots include every section and the bottom of the projects sheet. Firefox can be selected with `TEST_BROWSERS=firefox` if its engine is installed.
+
+## Optional font studies
+
+`variants.html` retains the earlier font-comparison tool, with explicit `?font=transcity`, `?font=quivert`, `?font=runiga`, and `?font=mending` previews. These are not the default design. Transcity, Runiga, and Mending are personal-use evaluation fonts: consult their notices and obtain the appropriate web/professional license before using those variants commercially. Original font files, historical border artwork, and unused sketches are retained but are not fetched by the default page.

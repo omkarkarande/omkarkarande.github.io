@@ -67,7 +67,16 @@ async function active(page, id) {
     },
     id,
     { timeout: 6000 },
-  );
+  ).catch(async error => {
+    const state = await page.evaluate(() => ({
+      hash: location.hash, scroll: document.querySelector('#main').scrollLeft,
+      focus: document.activeElement.outerHTML.slice(0, 200),
+      pages: [...document.querySelectorAll('[data-page]')].map(e => ({
+        id: e.id, hidden: e.getAttribute('aria-hidden'), x: e.getBoundingClientRect().x
+      }))
+    }));
+    throw new Error(`Expected ${id}: ${JSON.stringify(state)}`, { cause: error });
+  });
 }
 async function go(page, id) {
   await page.locator(`.site-nav a[href="#${id}"]`).click();
@@ -125,12 +134,17 @@ for (const name of names) {
       await page.mouse.wheel(0, 240);
       await page.waitForFunction(() => document.querySelector("#experience").scrollTop > 0);
       await active(page, "experience");
+      // Wheel input can focus the scrollable sheet; reader endpoints belong
+      // to controls outside it, not the article's native Home/End behavior.
+      await page.locator('#next-page').focus();
       await page.mouse.wheel(65, 0);
       await page.keyboard.press("End");
       await active(page, "contact");
       await page.waitForTimeout(250);
       await active(page, "contact");
-      assert.equal(await page.locator("#main").evaluate(e => e.style.scrollSnapType), "");
+      assert.equal(await page.locator("#main").evaluate(e => e.style.scrollSnapType), "none");
+      await page.locator('#main').dispatchEvent('pointerdown');
+      assert.equal(await page.locator('#main').evaluate(e => getComputedStyle(e).scrollSnapType), 'x mandatory');
     } finally { await page.close(); }
   });
 
@@ -148,6 +162,7 @@ for (const name of names) {
       await active(page, "work");
       await page.goForward();
       await active(page, "contact");
+      await page.locator('#previous-page').focus();
       await page.keyboard.press("Home");
       await active(page, "intro");
       await page.locator('.hero-links a[href="#experience"]').click();
@@ -170,6 +185,8 @@ for (const name of names) {
         await page.evaluate(() => document.activeElement.id),
         "experience-heading",
       );
+      // Outside the reading surface, Home/End still provide reader endpoints.
+      await page.locator('#next-page').focus();
       await page.keyboard.press("End");
       await active(page, "contact");
       assert.equal(await page.locator("#next-page").isDisabled(), true);
@@ -198,6 +215,8 @@ for (const name of names) {
         [390, 844],
         [320, 568],
         [768, 1024],
+        [844, 390],
+        [667, 320],
       ]) {
         await page.setViewportSize({ width, height });
         for (const id of ["intro", "experience", "work", "contact"]) {
@@ -222,6 +241,10 @@ for (const name of names) {
               .evaluate((e) => e.getBoundingClientRect().width),
             width,
           );
+          if (process.env.TEST_SCREENSHOTS) {
+            await page.screenshot({ path: path.join(process.env.TEST_SCREENSHOTS,
+              `portfolio-${name}-${width}x${height}-${id}.png`) });
+          }
         }
       }
       await page.setViewportSize({ width: 390, height: 844 });
@@ -234,11 +257,17 @@ for (const name of names) {
       const top = await page
         .locator("#experience")
         .evaluate((e) => e.scrollTop);
-      await go(page, "experience"); // Reselecting the current page preserves reading position.
+      // Paging controls preserve reading position; explicit content links reveal the heading.
+      await page.locator('#next-page').click();
+      await active(page, 'work');
+      await page.locator('#previous-page').click();
+      await active(page, 'experience');
       assert.equal(
         await page.locator("#experience").evaluate((e) => e.scrollTop),
         top,
       );
+      await go(page, 'experience');
+      assert.equal(await page.locator('#experience').evaluate(e => e.scrollTop), 0);
       await page.setViewportSize({ width: 1200, height: 800 });
       await active(page, "experience");
       assert.deepEqual(errors, []);
@@ -246,7 +275,7 @@ for (const name of names) {
         performance.getEntriesByType("resource").map((r) => r.name),
       );
       assert.equal(
-        resources.filter((url) => url.includes("transcity-regular.woff2")).length,
+        resources.filter((url) => url.includes("fraunces-400-normal.woff2")).length,
         1,
       );
     } finally {
@@ -268,6 +297,11 @@ for (const name of names) {
         "block",
       );
       assert.equal(await page.locator(".page:visible").count(), 4);
+      assert.equal(await page.locator('.site-nav').isVisible(), false);
+      assert.ok(await page.locator('[data-page]').evaluateAll(pages => pages.every(e =>
+        e.clientHeight >= e.scrollHeight - 1)), 'print must not clip a scrolled sheet');
+      if (process.env.TEST_SCREENSHOTS) await page.screenshot({
+        path: path.join(process.env.TEST_SCREENSHOTS, `portfolio-${name}-print.png`), fullPage: true });
     } finally {
       await page.close();
     }
@@ -278,6 +312,13 @@ for (const name of names) {
       assert.equal(await plain.locator(".page-controls").isVisible(), false);
       await plain.locator('.site-nav a[href="#work"]').click();
       assert.equal(new URL(plain.url()).hash, "#work");
+      for (const width of [320, 390, 1440]) {
+        await plain.setViewportSize({ width, height: 844 });
+        assert.equal(await plain.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
+        assert.equal(await plain.locator('[data-page][inert], [data-page][aria-hidden]').count(), 0);
+        if (process.env.TEST_SCREENSHOTS) await plain.screenshot({
+          path: path.join(process.env.TEST_SCREENSHOTS, `portfolio-${name}-nojs-${width}.png`), fullPage: true });
+      }
     } finally {
       await plain.close();
     }
@@ -377,8 +418,8 @@ test(
     const browser = browsers.find(([name]) => name === "chromium")[1];
     const page = await browser.newPage();
     try {
-      for (const width of [1440, 390]) {
-        await page.setViewportSize({ width, height: 900 });
+      for (const [width, height] of [[1440, 900], [390, 844], [320, 568], [667, 320]]) {
+        await page.setViewportSize({ width, height });
         for (const id of ["intro", "experience", "work", "contact"]) {
           await page.goto(base + "/#" + id);
           await page.evaluate(() => document.fonts.ready);
@@ -406,6 +447,154 @@ test(
 );
 
 for (const name of names) {
+  test(`${name}: editorial editions, layout, focus and complete reading at every width`, async () => {
+    const browser = browsers.find(([n]) => n === name)[1];
+    const page = await browser.newPage({ reducedMotion: 'reduce' });
+    const errors = [];
+    page.on('pageerror', e => errors.push(e.message));
+    page.on('response', r => { if (r.status() >= 400) errors.push(r.url()); });
+    try {
+      await page.goto(base + '/#intro');
+      assert.equal(await page.locator('html').getAttribute('data-theme'), 'light');
+      assert.equal(await page.locator('h1').count(), 1);
+      assert.equal(await page.locator('.work-item').count(), 5);
+      assert.doesNotMatch(await page.locator('#work').textContent(), /Übersicht/);
+      assert.equal(await page.locator('.hero-engraving').count(), 0);
+      for (const width of [320, 390, 768, 1440]) {
+        await page.setViewportSize({ width, height: width === 320 ? 568 : 900 });
+        const dimensions = {};
+        for (const theme of ['light', 'dark']) {
+          await page.evaluate(t => document.documentElement.dataset.theme = t, theme);
+          assert.equal(await page.locator('body').evaluate(e => getComputedStyle(e).backgroundColor),
+            theme === 'light' ? 'rgb(242, 238, 229)' : 'rgb(0, 0, 0)');
+          for (const id of ['intro', 'experience', 'work', 'contact']) {
+            await go(page, id);
+            await page.evaluate(() => document.fonts.ready);
+            const geometry = await page.locator(`#${id}`).evaluate(sheet => {
+              const bounds = sheet.getBoundingClientRect();
+              const content = sheet.querySelector('.page-inner').getBoundingClientRect();
+              return { width: content.width, height: content.height,
+                overflow: sheet.scrollWidth > sheet.clientWidth + 1,
+                clipped: [...sheet.querySelectorAll('h1,h2,h3,p,img,aside')].some(e => {
+                  const r = e.getBoundingClientRect();
+                  return r.left < bounds.left - 1 || r.right > bounds.right + 1;
+                }) };
+            });
+            assert.equal(geometry.overflow, false, `${theme}/${width}/${id} overflow`);
+            assert.equal(geometry.clipped, false, `${theme}/${width}/${id} clipped content`);
+            if (theme === 'light') dimensions[id] = geometry;
+            else assert.deepEqual(geometry, dimensions[id], 'editions must share their composition');
+            await page.locator(`#${id} img`).evaluateAll(images => Promise.all(images.map(i => {
+              i.loading = 'eager';
+              return i.decode();
+            })));
+            assert.ok(await page.locator(`#${id} img`).evaluateAll(images => images.every(i => i.complete && i.naturalWidth > 0)));
+            if (process.env.TEST_SCREENSHOTS) await page.screenshot({ path: path.join(process.env.TEST_SCREENSHOTS,
+              `editorial-${name}-${theme}-${width}-${id}.png`) });
+            await page.locator(`#${id}`).evaluate(e => { e.scrollTop = e.scrollHeight; });
+            assert.ok(await page.locator(`#${id}`).evaluate(e => {
+              const end = e.querySelector('.page-inner').getBoundingClientRect().bottom;
+              return end <= e.getBoundingClientRect().bottom + 1;
+            }), 'last content must remain reachable above the footer');
+            if (id === 'work' && process.env.TEST_SCREENSHOTS) await page.screenshot({ path: path.join(process.env.TEST_SCREENSHOTS,
+              `editorial-${name}-${theme}-${width}-work-end.png`) });
+            if (name === 'chromium') {
+              await page.addScriptTag({ content: require('axe-core').source });
+              const violations = await page.evaluate(async () => (await axe.run(document, {
+                runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21aa'] }
+              })).violations.map(v => ({ id: v.id, targets: v.nodes.map(n => n.target) })));
+              assert.deepEqual(violations, [], `${theme}/${width}/${id}`);
+            }
+          }
+          await page.keyboard.press('Tab');
+          await page.locator('.site-nav a').first().focus();
+          assert.equal(await page.locator('.site-nav a').first().evaluate(e => getComputedStyle(e).outlineStyle), 'solid');
+        }
+      }
+      const resources = await page.evaluate(() => performance.getEntriesByType('resource').map(r => r.name));
+      assert.ok(resources.every(url => !/paper-grain|engraved-border|transcity-regular/.test(url)), 'no texture or evaluation font payload');
+      assert.deepEqual(errors, []);
+    } finally { await page.close(); }
+  });
+
+  test(`${name}: explicit navigation stays aligned after native scroll settling`, async () => {
+    const browser = browsers.find(([n]) => n === name)[1];
+    const page = await browser.newPage();
+    try {
+      for (let i = 0; i < 8; i++) {
+        await page.goto(base + '/?font=transcity#experience');
+        await active(page, 'experience');
+        await page.locator('#next-page').click();
+        await active(page, 'work');
+        // Catch WebKit reverting to the prior native snap target after a frame.
+        await page.waitForTimeout(300);
+        await active(page, 'work');
+        await page.locator('.site-nav a[href="#intro"]').click();
+        await page.waitForTimeout(250);
+        await active(page, 'intro');
+      }
+    } finally { await page.close(); }
+  });
+
+  test(`${name}: Home and End scroll the focused sheet without changing pages`, async () => {
+    const browser = browsers.find(([n]) => n === name)[1];
+    const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
+    try {
+      await page.goto(base + '/#experience');
+      await active(page, 'experience');
+      await page.locator('#experience').focus();
+      await page.keyboard.press('End');
+      await page.waitForTimeout(400);
+      assert.equal(new URL(page.url()).hash, '#experience', 'End must not leave the article being read');
+      assert.ok(await page.locator('#experience').evaluate(e => e.scrollTop > 0));
+      await page.keyboard.press('Home');
+      await page.waitForTimeout(400);
+      assert.equal(new URL(page.url()).hash, '#experience');
+      assert.equal(await page.locator('#experience').evaluate(e => e.scrollTop), 0);
+      await page.keyboard.press('ArrowRight');
+      await active(page, 'work');
+    } finally { await page.close(); }
+  });
+
+  test(`${name}: legacy deep links do not add duplicate history entries`, async () => {
+    const browser = browsers.find(([n]) => n === name)[1];
+    const page = await browser.newPage();
+    try {
+      await page.goto(base + '/#intro');
+      await active(page, 'intro');
+      const initial = await page.evaluate(() => history.length);
+      await page.evaluate(() => { location.hash = 'kinetic-canvas'; });
+      await page.waitForTimeout(500);
+      assert.equal(await page.locator('[data-page]:not([aria-hidden])').getAttribute('id'), 'work');
+      assert.equal(await page.evaluate(() => history.length), initial + 1,
+        'resolving a legacy fragment must not push an extra history entry');
+      await page.goBack();
+      await active(page, 'intro');
+      await page.goForward();
+      await page.waitForTimeout(300);
+      assert.equal(await page.locator('[data-page]:not([aria-hidden])').getAttribute('id'), 'work');
+    } finally { await page.close(); }
+  });
+
+  test(`${name}: content navigation reveals a previously scrolled heading`, async () => {
+    const browser = browsers.find(([n]) => n === name)[1];
+    const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
+    try {
+      await page.goto(base + '/#experience');
+      await active(page, 'experience');
+      await page.locator('#experience').evaluate(e => { e.scrollTop = e.scrollHeight; });
+      await go(page, 'intro');
+      await page.locator('.hero-links a[href="#experience"]').click();
+      await active(page, 'experience');
+      const visible = await page.locator('#experience-heading').evaluate(e => {
+        const heading = e.getBoundingClientRect();
+        const sheet = e.closest('[data-page]').getBoundingClientRect();
+        return document.activeElement === e && heading.top >= sheet.top && heading.bottom <= sheet.bottom;
+      });
+      assert.ok(visible, 'the focused heading must be visible, not above the scrolled sheet');
+    } finally { await page.close(); }
+  });
+
   test(`${name}: portrait precedes mobile copy and stays beside desktop copy`, async () => {
     const browser = browsers.find(([n]) => n === name)[1];
     for (const javaScriptEnabled of [true, false]) {
@@ -451,7 +640,7 @@ for (const name of names) {
       });
       assert.equal(alpha,0,'portrait corner must be genuinely transparent');
       // Use a colored paper to verify the rendered face, not just the CSS value.
-      await page.addStyleTag({content: ':root { --paper: #ff0000; } body::after,.hero-engraving { display:none; }'});
+      await page.addStyleTag({content: ':root[data-theme] { --paper: #ff0000; }'});
       const portraitImage = page.locator('.portrait-figure img');
       const screenshot = await portraitImage.screenshot();
       const tinted = await page.evaluate(async data => {
@@ -474,7 +663,7 @@ for (const name of names) {
         return lightPixels>100;
       }, screenshot.toString('base64'));
       assert.ok(tinted,'light face and hair pixels must take their color from the paper');
-      await page.addStyleTag({content: ':root { --paper: #f4f1e9; }'});
+      await page.addStyleTag({content: ':root[data-theme] { --paper: #f2eee5; }'});
       // Desktop engines expose zero system insets; simulate them to check layout math.
       await page.addStyleTag({content:':root { --safe-top:59px; --safe-bottom:34px; }'});
       assert.equal(await page.locator('body').evaluate(e=>getComputedStyle(e).paddingTop),'59px');

@@ -21,6 +21,7 @@
   let settleTimer;
   let wheelTimer;
   let wheelScrolling = false;
+  let nativeGesture = false;
 
   document.documentElement.classList.add("reader");
   document.querySelector(".page-controls").hidden = false;
@@ -57,8 +58,11 @@
       // pushState does not emit hashchange; the font comparison preview uses this.
       window.dispatchEvent(new Event("portfoliochange"));
     }
-    if (moveFocus)
+    if (moveFocus) {
+      // Reveal the reading start before focusing it, without scrolling the outer reader.
+      pages[current].scrollTop = 0;
       pages[current].querySelector("h1, h2").focus({ preventScroll: true });
+    }
     if (document.activeElement === previous && previous.disabled) next.focus();
     if (document.activeElement === next && next.disabled) previous.focus();
   }
@@ -66,7 +70,11 @@
   function go(index, { updateUrl = true, focus = false } = {}) {
     clearTimeout(wheelTimer);
     wheelScrolling = false;
-    main.style.removeProperty("scroll-snap-type");
+    nativeGesture = false;
+    // WebKit may restore an obsolete native snap target after instant navigation.
+    // Explicit links/keys/wheels already choose exact pages; enable native snap
+    // again only when a pointer starts a new gesture, not on an animation timer.
+    main.style.scrollSnapType = "none";
     clearTimeout(settleTimer);
     select(index, { updateUrl, focus });
     // Explicit navigation is immediate. This also avoids WebKit cancelling a
@@ -90,10 +98,22 @@
   // JavaScript only updates navigation once the native scroll has settled.
   function settled() {
     clearTimeout(settleTimer);
-    if (!wheelScrolling && main.clientWidth)
-      select(Math.round(main.scrollLeft / main.clientWidth));
+    if (!wheelScrolling && main.clientWidth) {
+      const index = Math.round(main.scrollLeft / main.clientWidth);
+      // Programmatic alignment (including history restoration) is not a new visit.
+      if (index !== current) {
+        if (nativeGesture) select(index);
+        else go(current, { updateUrl: false });
+      }
+    }
   }
   main.addEventListener("scrollend", settled);
+  // Only a real gesture can supersede explicit navigation. Safari's async
+  // scrolling layer may deliver an old position after links/history/resize.
+  main.addEventListener("pointerdown", () => {
+    main.style.removeProperty("scroll-snap-type");
+    nativeGesture = true;
+  }, { passive: true });
   main.addEventListener(
     "scroll",
     () => {
@@ -153,6 +173,9 @@
       )
     )
       return;
+    // Home/End belong to the vertical reading surface when focus is inside it.
+    if ((event.key === "Home" || event.key === "End") &&
+        event.target.closest?.("[data-page]")) return;
     const index = {
       ArrowLeft: current - 1,
       ArrowRight: current + 1,
@@ -170,8 +193,7 @@
   new ResizeObserver(() => {
     if (main.clientWidth === lastWidth) return;
     lastWidth = main.clientWidth;
-    clearTimeout(settleTimer);
-    main.scrollTo({ left: current * lastWidth, behavior: "instant" });
+    go(current, { updateUrl: false });
   }).observe(main);
 
   window.addEventListener("popstate", fromHash);
@@ -179,6 +201,6 @@
   fromHash();
   // WebKit can re-snap during the first font layout. Keep deep links aligned.
   document.fonts.ready.then(() => {
-    if (!wheelScrolling) go(current, { updateUrl: false });
+    if (!wheelScrolling && !nativeGesture) go(current, { updateUrl: false });
   });
 })();
