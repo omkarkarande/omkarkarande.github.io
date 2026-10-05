@@ -30,9 +30,9 @@
       crossorigin
     />
     <link rel="stylesheet" href="css/fonts.css?v=editorial-1" />
-    <link rel="stylesheet" href="css/style.css?v=magzinize-1" />
+    <link rel="stylesheet" href="css/style.css?v=fieldnotes-1" />
     <script src="js/font-variant.js" defer></script>
-    <script src="js/main.js?v=magzinize-1" defer></script>
+    <script src="js/main.js?v=fieldnotes-1" defer></script>
   </head>
   <body>
 
@@ -53,7 +53,7 @@
       </div>
     </header>
 
-    <main id="main" aria-label="Portfolio">
+    <main id="main" aria-label="Portfolio" tabindex="-1">
       <section
         class="page intro-page"
         id="intro"
@@ -64,7 +64,7 @@
       >
         <div class="page-inner hero-copy">
           <div class="hero-text">
-
+            <p class="section-index hero-index">01 / A FIELD GUIDE TO WHAT I BUILD</p>
             <h1 id="hero-title">
               I Build.
             </h1>
@@ -82,7 +82,10 @@
             </div>
           </div>
           <figure class="portrait-figure">
+            <img class="hero-drawing" src="res/images/field-hero.svg" width="640" height="640" alt="" aria-hidden="true" />
+            <span class="portrait-coordinate" aria-hidden="true">FIG. 01 — THE HUMAN ELEMENT</span>
             <img
+              class="portrait-image"
               src="res/images/profile-transparent.webp"
               alt="Sketch portrait of omi"
               width="1254"
@@ -90,9 +93,10 @@
               fetchpriority="high"
               decoding="async"
             />
-
+            <figcaption aria-hidden="true"><span>IDEAS ↔ SYSTEMS</span><span>NOT TO SCALE</span></figcaption>
           </figure>
         </div>
+        <div class="hero-baseline page-inner" aria-hidden="true"><span>ENGINEERING / EXPLORATION</span><span>SCROLL TO EXPLORE ↓</span></div>
       </section>
       <section
         class="page experience-page"
@@ -156,7 +160,7 @@
               </div>
             </article>
           </div>
-          <aside class="timeline-earlier" aria-label="Earlier experience">
+          <aside class="timeline-earlier" id="experience-earlier" aria-label="Earlier experience">
             <span class="margin-label">BEFORE AMAZON</span>
             Earlier internships at <strong>Akamai Technologies</strong> and
             <strong>DromeBox Labs</strong>.
@@ -177,6 +181,7 @@
             <h2 id="work-heading">For Fun.</h2>
             <p>Tools, experiments, and game mods.</p>
           </div>
+          <span class="fragment-alias" id="widgets" aria-hidden="true"></span>
           <div class="work-list">
             <article class="work-item">
               <div class="work-copy">
@@ -196,7 +201,7 @@
               </div>
               <div class="work-sketch">
                 <img
-                  src="res/images/sketch-newspaper.svg"
+                  src="res/images/field-newspaper.svg"
                   alt=""
                   loading="lazy"
                   decoding="async"
@@ -222,7 +227,7 @@
               </div>
               <div class="work-sketch">
                 <img
-                  src="res/images/sketch-chess.svg"
+                  src="res/images/field-chess.svg"
                   alt=""
                   loading="lazy"
                   decoding="async"
@@ -233,6 +238,7 @@
             </article>
             <article class="work-item">
               <div class="work-copy">
+                <span class="fragment-alias" id="kinetic-canvas" aria-hidden="true"></span>
                 <p class="work-type">GENERATIVE ART / WEBGL</p>
                 <h3>
                   <a
@@ -248,7 +254,7 @@
               </div>
               <div class="work-sketch">
                 <img
-                  src="res/images/sketch-kinetic.svg"
+                  src="res/images/field-kinetic.svg"
                   alt=""
                   loading="lazy"
                   decoding="async"
@@ -259,6 +265,7 @@
             </article>
             <article class="work-item">
               <div class="work-copy">
+                <span class="fragment-alias" id="youtube-macos" aria-hidden="true"></span>
                 <p class="work-type">MACOS APP / SWIFT</p>
                 <h3>
                   <a
@@ -274,7 +281,7 @@
               </div>
               <div class="work-sketch">
                 <img
-                  src="res/images/sketch-youtube.svg"
+                  src="res/images/field-youtube.svg"
                   alt=""
                   loading="lazy"
                   decoding="async"
@@ -298,7 +305,7 @@
               </div>
               <div class="work-sketch">
                 <img
-                  src="res/images/sketch-game-mods.svg"
+                  src="res/images/field-game-mods.svg"
                   alt=""
                   loading="lazy"
                   decoding="async"
@@ -350,7 +357,7 @@
               </div>
             </div>
           </div>
-          <div class="about-copy">
+          <div class="about-copy" id="about">
             <p>
               Code, design, music. If that’s your thing too, say hello.
             </p>
@@ -372,25 +379,7 @@
     <footer class="site-footer">
       <div class="reader-footer wrap">
         <span class="signature">© <span id="year">2026</span> omi.</span>
-        <div class="page-controls" hidden>
-          <button type="button" id="previous-page" aria-label="Previous page">
-            <svg viewBox="0 0 20 34" aria-hidden="true" focusable="false">
-              <path d="M15 3 5 17l10 14" />
-            </svg>
-          </button>
-          <p
-            id="page-status"
-            role="status"
-            aria-live="polite"
-            aria-atomic="true"
-          ></p>
-          <button type="button" id="next-page" aria-label="Next page">
-            <svg viewBox="0 0 20 34" aria-hidden="true" focusable="false">
-              <path d="M5 3l10 14L5 31" />
-            </svg>
-          </button>
-        </div>
-        <span class="reader-hint" hidden>FOUR PAGES / SWIPE TO EXPLORE</span>
+        <a class="back-top" href="#top">BACK TO TOP ↑</a>
       </div>
     </footer>
   </body>

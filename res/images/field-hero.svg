@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewBox="0 0 640 640" fill="none">
+<defs><pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" stroke="#213c32" stroke-opacity=".13" stroke-width=".7"/></pattern></defs>
+<path d="M90 126C162 41 360 30 461 133S560 406 446 468 156 489 86 390 33 193 90 126Z" fill="#e2e4d6"/>
+<path d="M114 89H543V519H114Z" fill="url(#grid)"/>
+<g stroke="#758477" stroke-width="1"><path d="M74 392 312 255 575 408 337 545Z"/><path d="m74 416 263 153 238-137M74 441l263 153 238-137M74 392v49m263 104v49m238-186v49"/><path d="M312 255V58M74 392V195M575 408V211" stroke-dasharray="4 7"/><ellipse cx="324" cy="279" rx="207" ry="206" stroke-dasharray="2 9"/><path d="M40 280h56m459 0h56M324 40v47m0 399v48"/><circle cx="324" cy="279" r="223" stroke-opacity=".3"/></g>
+<path d="m485 102 28 16v33l-28-16Zm0 0-29 17 29 16 28-17m-57 1v33l29 17 28-18m-28-16v34" fill="#a34227" fill-opacity=".12" stroke="#a34227"/>
+<g stroke="#a34227" stroke-width="1.3"><path d="M62 509h79l36-21M504 317h77v-67"/><circle cx="177" cy="488" r="4" fill="#f2eee5"/><circle cx="504" cy="317" r="4" fill="#f2eee5"/><path d="m51 112 12 0m-6-6v12m506 431h12m-6-6v12"/></g>
+<g fill="#62685e" font-family="monospace" font-size="9" letter-spacing="1"><text x="43" y="529">OBSERVE / BUILD / REFINE</text><text x="555" y="236">Y</text><text x="312" y="45">Z</text></g>
+</svg>
