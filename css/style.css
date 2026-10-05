@@ -100,6 +100,14 @@ h2 { font-size: clamp(66px, 7.5vw, 108px); line-height: 1.03; }
 .work-copy > p:last-child { max-width: 40ch; color: var(--muted); }
 .section-tail { border-top: 1px solid var(--rule); padding-top: 25px; margin-top: 56px; text-align: right; }
 .fragment-alias { display: block; scroll-margin-top: 36px; }
+/* Hairline plates: the same ivory / forest ink, with pointer-led geometry. */
+.hairline-figure { position: relative; aspect-ratio: 320 / 220; touch-action: pan-y; --hairline-plate: #e6e7dc; --hairline-hi: #213c32; --hairline-edge: #667b68; --hairline-mid: #8c9c84; --hairline-lo: #c1cabb; --hairline-stroke: .85; }
+.hairline-figure[data-palette="dark"] { --hairline-plate: #1b352d; --hairline-hi: #eee8d8; --hairline-edge: #b7c4a6; --hairline-mid: #7f9980; --hairline-lo: #456653; }
+.hairline-figure[data-hairline] > img { visibility: hidden; }
+.hairline-figure > svg { pointer-events: none; }
+.hairline-figure:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+.experience-sketch { margin-top: 24px; max-width: 360px; overflow: hidden; }
+.experience-sketch > img { width: 100%; aspect-ratio: 320 / 220; object-fit: contain; }
 /* A closing note, not another panel. */
 .contact-page { padding: 86px 0 94px; background: #e3e5d9; border-top: 1px solid var(--rule); }
 .contact-layout { display: grid; grid-template-columns: 1.1fr 1fr; gap: 90px; align-items: end; }
@@ -186,6 +194,7 @@ em { font-weight: 400; color: var(--accent); }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .work-item:hover .work-sketch img { transform: none; }
   *,*::before,*::after { transition: none !important; animation: none !important; }
 }
 @media print {

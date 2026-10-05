@@ -2,10 +2,15 @@
   "name": "omi-portfolio",
   "private": true,
   "scripts": {
+    "build": "esbuild js/hairline.js --bundle --minify --format=esm --outfile=js/hairline.bundle.js",
     "test": "node --test tests/site.test.cjs"
   },
   "devDependencies": {
-    "playwright": "1.62.1",
-    "axe-core": "4.10.3"
+    "axe-core": "4.10.3",
+    "esbuild": "0.28.2",
+    "playwright": "1.62.1"
+  },
+  "dependencies": {
+    "@lucasmarkes/hairline": "0.3.0"
   }
 }
