@@ -1,8 +1,8 @@
 // Selected vanilla ESM figures; bundled locally, no runtime CDN or framework.
 /*! Hairline © 2026 Lucas Marques, MIT. See /res/licenses/hairline-LICENSE.txt. */
-import { cabinet, riffle, phone, terrain, exploded, branches } from '@lucasmarkes/hairline';
+import { cabinet, riffle, terrain, exploded, branches } from '@lucasmarkes/hairline';
 
-const figures = { cabinet, riffle, phone, terrain, exploded, branches };
+const figures = { cabinet, riffle, terrain, exploded, branches };
 const motion = matchMedia('(prefers-reduced-motion: reduce)');
 const mounted = new Map();
 

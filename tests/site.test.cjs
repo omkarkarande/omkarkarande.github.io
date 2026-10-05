@@ -29,6 +29,30 @@ after(async () => {
   if (server) await new Promise(resolve => server.close(resolve));
 });
 for (const name of names) {
+  test(`${name}: ASCII portrait is substantial, local and available without JavaScript`, async () => {
+    const page = await browsers[name].newPage({javaScriptEnabled:false});
+    try {
+      await page.goto(base);
+      const art = page.locator('.ascii-portrait');
+      assert.equal(await art.count(), 1);
+      assert.match(await art.getAttribute('alt'), /ASCII portrait/);
+      assert.ok(await art.evaluate(e => e.complete && e.naturalWidth >= 600));
+      const source = await fs.readFile(path.join(root, 'res/images/portrait-ascii.svg'), 'utf8');
+      assert.ok((source.match(/<text /g) || []).length > 60, 'Real character rows, not a dither bitmap');
+      assert.ok(!source.includes('<image'), 'No embedded raster masquerading as ASCII');
+      assert.ok(!source.includes('spacingAndGlyphs'), 'Glyph proportions stay uniform on sparse rows');
+      for (const width of [320,390,768,1440]) {
+        await page.setViewportSize({width,height:900});
+        const box = await art.boundingBox();
+        assert.ok(box.width > 250 && box.height > 250);
+        assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
+        if (process.env.TEST_SCREENSHOTS && [390,1440].includes(width)) {
+          await fs.mkdir(process.env.TEST_SCREENSHOTS,{recursive:true});
+          await page.locator('#intro').screenshot({path:path.join(process.env.TEST_SCREENSHOTS,`ascii-hero-${name}-${width}.png`)});
+        }
+      }
+    } finally { await page.close(); }
+  });
   test(`${name}: local Hairline figures enhance projects and experience`, async () => {
     const page = await browsers[name].newPage();
     const errors = [], remote = [];
@@ -39,7 +63,12 @@ for (const name of names) {
       assert.equal(await page.locator('#work [data-figure]').count(), 5);
       assert.equal(await page.locator('#experience [data-figure]').count(), 1);
       await page.waitForFunction(() => document.querySelectorAll('[data-hairline] > svg').length === 6);
-      assert.deepEqual(await page.locator('[data-hairline]').evaluateAll(es => es.map(e => e.dataset.hairline)), ['cabinet','riffle','phone','terrain','exploded','branches']);
+      assert.deepEqual(await page.locator('[data-hairline]').evaluateAll(es => es.map(e => e.dataset.hairline)), ['cabinet','riffle','branches','terrain','exploded','branches']);
+      for (const plate of await page.locator('#work .hairline-figure').all()) {
+        assert.equal(await plate.evaluate(e => getComputedStyle(e).backgroundColor), 'rgba(0, 0, 0, 0)');
+        assert.equal(await plate.evaluate(e => getComputedStyle(e).getPropertyValue('--hairline-hi').trim()), '#213c32');
+      }
+      assert.match(await page.locator('.work-item:nth-child(2) [data-figure]').getAttribute('aria-label'), /game.search/i);
       for (const figure of await page.locator('[data-figure]').all()) {
         assert.ok((await figure.getAttribute('aria-label')).length > 20);
         assert.equal(await figure.locator('img').isVisible(), false);
@@ -87,6 +116,9 @@ for (const name of names) {
       await page.waitForTimeout(250);
       assert.equal(await plate.innerHTML(), before);
       assert.equal(await plate.locator('img').evaluate(e=>getComputedStyle(e).transform), 'none');
+      await page.locator('.ascii-portrait').hover();
+      assert.equal(await page.locator('.ascii-portrait').evaluate(e=>getComputedStyle(e).transform), 'none');
+      assert.equal(await page.locator('.ascii-portrait').evaluate(e=>getComputedStyle(e).transitionDuration), '0s');
       for (let i=0; i<2; i++) {
         await page.emulateMedia({reducedMotion:'no-preference'});
         await page.waitForFunction(()=>document.querySelectorAll('[data-hairline]>svg').length===6);

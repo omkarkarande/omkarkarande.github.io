@@ -48,11 +48,16 @@ h1 { font-size: clamp(90px, 11.8vw, 174px); line-height: .98; }
 .ink-link { background: var(--ink); color: var(--paper); padding: 9px 19px; text-decoration: none; }
 .ink-link:hover { background: var(--accent); color: var(--paper); }
 .link-arrow { display: inline-block; width: .8em; height: .8em; margin-left: .2em; fill: none; stroke: currentColor; stroke-width: 1.4; vertical-align: 0; }
-.portrait-figure { position: relative; width: 100%; aspect-ratio: 1; isolation: isolate; }
-.hero-drawing { position: absolute; inset: 0; width: 100%; height: 100%; }
-.portrait-image { position: absolute; width: 65%; left: 18%; top: 14%; filter: grayscale(1) contrast(1.04); mix-blend-mode: multiply; }
-.portrait-coordinate { position: absolute; top: 1%; right: 0; color: var(--muted); font-size: 9px; }
-.portrait-figure figcaption { position: absolute; bottom: 3%; left: 12%; right: 0; display: flex; justify-content: space-between; font-size: 9px; color: var(--muted); }
+.portrait-figure { position: relative; width: 100%; aspect-ratio: 696 / 840; isolation: isolate; padding-top: 24px; }
+.portrait-image { width: 100%; height: auto; }
+.portrait-coordinate { position: absolute; top: 0; left: 0; color: var(--muted); font-size: 9px; border-top: 1px solid var(--rule); width: 100%; padding-top: 8px; }
+.portrait-figure figcaption { display: flex; justify-content: space-between; font-size: 9px; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 10px; }
+/* Character engraving is static by default. Only deliberate pointer exploration
+   adds a small print-registration shift; no RAF, timers, or touch interception. */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .ascii-portrait { transition: transform 650ms ease; }
+  .portrait-figure:hover .ascii-portrait { transform: translateY(-3px); }
+}
 .hero-baseline { display: flex; justify-content: space-between; gap: 20px; border-top: 1px solid var(--rule); padding-top: 18px; margin-top: 34px; color: var(--muted); }
 /* The working ledger: deliberately different in tone and rhythm. */
 .experience-page { margin-top: 66px; padding: 92px 0; background: var(--forest); color: var(--paper); position: relative; }
@@ -82,15 +87,12 @@ h2 { font-size: clamp(66px, 7.5vw, 108px); line-height: 1.03; }
 .project-spread > .spread-heading > p:last-child { justify-self: end; text-align: right; margin-bottom: 5px; }
 .work-list { display: grid; grid-template-columns: 1fr 1fr; gap: 64px 54px; counter-reset: project; }
 .work-item { position: relative; display: flex; flex-direction: column; min-width: 0; counter-increment: project; }
-.work-sketch { order: -1; position: relative; margin-bottom: 26px; background: #e6e7dc; overflow: hidden; }
+.work-sketch { order: -1; position: relative; margin-bottom: 26px; background: transparent; overflow: hidden; }
 .work-sketch::after { content: 'PLATE 0' counter(project); position: absolute; left: 20px; bottom: 15px; font: 9px/1.5 var(--mono); letter-spacing: .1em; color: var(--muted); }
 .work-sketch img { width: 100%; transition: transform 450ms ease; }
 .work-item:hover .work-sketch img { transform: translateY(-4px); }
 .work-item:first-child { grid-column: 1 / -1; display: grid; grid-template-columns: .85fr 1.4fr; align-items: center; gap: 60px; padding: 38px 0 0; }
-.work-item:first-child .work-sketch { order: 0; margin: 0; background: var(--forest); }
-.work-item:first-child .work-sketch::after { color: #c4cec0; }
-.work-item:nth-child(3) .work-sketch { background: var(--forest); }
-.work-item:nth-child(3) .work-sketch::after { color: #c4cec0; }
+.work-item:first-child .work-sketch { order: 0; margin: 0; }
 .work-type { font-size: 10px; color: var(--accent); margin-bottom: 12px; letter-spacing: .06em; }
 .work-copy h3 { font-size: clamp(30px, 3.3vw, 46px); line-height: 1.15; margin-bottom: 15px; }
 .work-item:first-child h3 { font-size: clamp(44px, 4.6vw, 64px); }
@@ -101,7 +103,7 @@ h2 { font-size: clamp(66px, 7.5vw, 108px); line-height: 1.03; }
 .section-tail { border-top: 1px solid var(--rule); padding-top: 25px; margin-top: 56px; text-align: right; }
 .fragment-alias { display: block; scroll-margin-top: 36px; }
 /* Hairline plates: the same ivory / forest ink, with pointer-led geometry. */
-.hairline-figure { position: relative; aspect-ratio: 320 / 220; touch-action: pan-y; --hairline-plate: #e6e7dc; --hairline-hi: #213c32; --hairline-edge: #667b68; --hairline-mid: #8c9c84; --hairline-lo: #c1cabb; --hairline-stroke: .85; }
+.hairline-figure { position: relative; aspect-ratio: 320 / 220; touch-action: pan-y; --hairline-plate: #f2eee5; --hairline-hi: #213c32; --hairline-edge: #536957; --hairline-mid: #84957e; --hairline-lo: #b1beaa; --hairline-stroke: .95; }
 .hairline-figure[data-palette="dark"] { --hairline-plate: #1b352d; --hairline-hi: #eee8d8; --hairline-edge: #b7c4a6; --hairline-mid: #7f9980; --hairline-lo: #456653; }
 .hairline-figure[data-hairline] > img { visibility: hidden; }
 .hairline-figure > svg { pointer-events: none; }
@@ -152,7 +154,7 @@ em { font-weight: 400; color: var(--accent); }
   .hero-deck { font-size: 31px; margin-top: 12px; }
   .hero-lede { margin-top: 23px; max-width: 36ch; }
   .hero-links { margin-top: 24px; gap: 12px 22px; font-size: 15px; }
-  .portrait-figure { width: 90%; max-width: 440px; justify-self: end; margin-top: 14px; }
+  .portrait-figure { width: 100%; max-width: 440px; justify-self: center; margin-top: 20px; }
   .hero-baseline { margin-top: 26px; font-size: 8px; }
   .experience-page { margin-top: 40px; padding-block: 62px; }
   .experience-spread { display: block; }
