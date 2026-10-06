@@ -26,7 +26,7 @@
   --portrait-ground: transparent;
   --portrait-grid: #8c9c80;
   --portrait-blend: normal;
-  --portrait-art: url("../res/images/portrait-magic-dark.webp?v=3");
+  --portrait-art: url("../res/images/portrait-magic-dark.webp?v=4");
   --newspaper-art: url("../res/images/field-newspaper-dark.svg");
   --chess-art: url("../res/images/field-chess-dark.svg");
   --kinetic-art: url("../res/images/field-kinetic-dark.svg");
@@ -51,7 +51,7 @@
     --portrait-ground: transparent;
     --portrait-grid: #8c9c80;
     --portrait-blend: normal;
-    --portrait-art: url("../res/images/portrait-magic-dark.webp?v=3");
+    --portrait-art: url("../res/images/portrait-magic-dark.webp?v=4");
     --newspaper-art: url("../res/images/field-newspaper-dark.svg");
     --chess-art: url("../res/images/field-chess-dark.svg");
     --kinetic-art: url("../res/images/field-kinetic-dark.svg");

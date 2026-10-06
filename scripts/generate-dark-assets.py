@@ -17,11 +17,21 @@ ink = source.convert("L").point(
 alpha = ImageChops.multiply(ink, source.getchannel("A"))
 # 33 coverage levels retain soft strokes without shipping megabyte alpha noise.
 alpha = alpha.point([min(255, round(value / 8) * 8) for value in range(256)])
-for filename, color in [("portrait-magic.webp", "#213c32"),
-                        ("portrait-magic-dark.webp", "#687961")]:
-    portrait = Image.new("RGBA", source.size, color)
-    portrait.putalpha(alpha)
-    portrait.save(root / filename, lossless=True, method=6)
+portrait = Image.new("RGBA", source.size, "#213c32")
+portrait.putalpha(alpha)
+portrait.save(root / "portrait-magic.webp", lossless=True, method=6)
+
+# Bright ink in shadow-shaped alpha produces a photographic negative on dark
+# paper. Preserve source tonal order instead: near-black shadows and a faint,
+# translucent sage highlight. Skin remains mostly open to the real background.
+luminance = source.convert("L")
+portrait = ImageOps.colorize(luminance, black="#060c08", white="#788970",
+                           blackpoint=53, whitepoint=245).convert("RGBA")
+dark_coverage = ink.point([round(40 + 215 * (value / 255) ** 3) for value in range(256)])
+dark_alpha = ImageChops.multiply(dark_coverage, source.getchannel("A"))
+dark_alpha = dark_alpha.point([min(255, round(value / 8) * 8) for value in range(256)])
+portrait.putalpha(dark_alpha)
+portrait.save(root / "portrait-magic-dark.webp", lossless=True, method=6)
 
 palette = {
     "#213c32": "#dbe2cd", "#1b352d": "#dbe2cd",
