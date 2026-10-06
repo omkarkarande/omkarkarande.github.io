@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="light">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta
@@ -7,6 +7,7 @@
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
     <meta name="theme-color" content="#f2eee5" />
+    <script src="js/theme.js?v=1"></script>
     <meta
       name="description"
       content="Software engineer at Amazon. Photo memories, cloud platforms, and side projects."
@@ -37,6 +38,7 @@
     <script src="js/font-variant.js" defer></script>
     <script src="js/main.js?v=fieldnotes-1" defer></script>
     <link rel="stylesheet" href="css/portrait-motion.css?v=1" />
+    <link rel="stylesheet" href="css/theme.css?v=1" />
     <script src="js/portrait-motion.js?v=1" defer></script>
     <script type="module" src="js/hairline.bundle.js?v=0.3.0-3"></script>
   </head>
@@ -57,6 +59,24 @@
           <a href="#work"><span aria-hidden="true">03</span> Projects</a>
           <a href="#contact"><span aria-hidden="true">04</span> Contact</a>
         </nav>
+        <button
+          class="theme-toggle"
+          type="button"
+          aria-label="Dark mode"
+          aria-pressed="false"
+          hidden
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.4"
+            aria-hidden="true"
+          >
+            <path d="M20 14.2A8.5 8.5 0 0 1 9.8 4a8.5 8.5 0 1 0 10.2 10.2Z" />
+          </svg>
+          <span aria-hidden="true">Dark</span>
+        </button>
       </div>
     </header>
 

@@ -1,0 +1,188 @@
+/* Theme tokens are repeated only at the two entry points: explicit choice and
+   the system-only, no-JavaScript fallback. No transitions at first paint. */
+:root {
+  --panel-ink: #f2eee5;
+  --panel-accent: #e5a184;
+  --portrait-ground: #e2e4d7;
+  --portrait-grid: #8b9584;
+  --portrait-blend: multiply;
+  --portrait-art: normal;
+  --newspaper-art: normal;
+  --chess-art: normal;
+  --kinetic-art: normal;
+  --youtube-art: normal;
+  --hero-art: normal;
+  --mods-art: normal;
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #171c18;
+  --ink: #eee8d8;
+  --muted: #abb6a5;
+  --rule: #455449;
+  --accent: #c4b784;
+  --forest: #20382e;
+  --panel-accent: #c4b784;
+  --portrait-ground: #2b3a2f;
+  --portrait-grid: #8c9c80;
+  --portrait-blend: normal;
+  --portrait-art: url("../res/images/portrait-magic-dark.webp");
+  --newspaper-art: url("../res/images/field-newspaper-dark.svg");
+  --chess-art: url("../res/images/field-chess-dark.svg");
+  --kinetic-art: url("../res/images/field-kinetic-dark.svg");
+  --youtube-art: url("../res/images/field-youtube-dark.svg");
+  --hero-art: url("../res/images/field-hero-dark.svg");
+  --mods-art: url("../res/images/field-game-mods-dark.svg");
+  --plate-hi: #eee8d8;
+  --plate-edge: #b7c4a6;
+  --plate-mid: #7f9980;
+  --plate-lo: #456653;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    color-scheme: dark;
+    --paper: #171c18;
+    --ink: #eee8d8;
+    --muted: #abb6a5;
+    --rule: #455449;
+    --accent: #c4b784;
+    --forest: #20382e;
+    --panel-accent: #c4b784;
+    --portrait-ground: #2b3a2f;
+    --portrait-grid: #8c9c80;
+    --portrait-blend: normal;
+    --portrait-art: url("../res/images/portrait-magic-dark.webp");
+    --newspaper-art: url("../res/images/field-newspaper-dark.svg");
+    --chess-art: url("../res/images/field-chess-dark.svg");
+    --kinetic-art: url("../res/images/field-kinetic-dark.svg");
+    --youtube-art: url("../res/images/field-youtube-dark.svg");
+    --hero-art: url("../res/images/field-hero-dark.svg");
+    --mods-art: url("../res/images/field-game-mods-dark.svg");
+    --plate-hi: #eee8d8;
+    --plate-edge: #b7c4a6;
+    --plate-mid: #7f9980;
+    --plate-lo: #456653;
+  }
+}
+.portrait-figure::before {
+  background: var(--portrait-ground);
+}
+.portrait-scaffold {
+  color: var(--portrait-grid);
+}
+.portrait-image {
+  content: var(--portrait-art);
+  mix-blend-mode: var(--portrait-blend);
+}
+.experience-page,
+.contact-page,
+.site-footer,
+.timeline-earlier strong {
+  color: var(--panel-ink);
+}
+.experience-page .section-index,
+.timeline-date,
+.margin-label,
+.contact-page .section-index,
+.contact-page em,
+.contact-page a:hover,
+.site-footer a:hover {
+  color: var(--panel-accent);
+}
+.hairline-figure[data-palette="light"] {
+  --hairline-plate: var(--paper);
+  --hairline-hi: var(--plate-hi, #213c32);
+  --hairline-edge: var(--plate-edge, #536957);
+  --hairline-mid: var(--plate-mid, #84957e);
+  --hairline-lo: var(--plate-lo, #b1beaa);
+}
+.hairline-figure[data-palette="dark"] {
+  --hairline-plate: var(--forest);
+}
+[data-figure="cabinet"] > img {
+  content: var(--hero-art);
+}
+[data-figure="riffle"] > img {
+  content: var(--newspaper-art);
+}
+[data-figure="turntable"] > img {
+  content: var(--chess-art);
+}
+[data-figure="terrain"] > img {
+  content: var(--kinetic-art);
+}
+[data-figure="exploded"] > img {
+  content: var(--youtube-art);
+}
+[data-figure="branches"] > img {
+  content: var(--mods-art);
+}
+/* A quiet, tactile switch at the end of the masthead. */
+.theme-toggle {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 76px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid var(--rule);
+  border-radius: 24px;
+  color: var(--ink);
+  background: transparent;
+  font: 11px var(--mono);
+  cursor: pointer;
+}
+.theme-toggle svg {
+  width: 17px;
+  height: 17px;
+}
+.theme-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.theme-toggle[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 5px;
+}
+@media print {
+  :root,
+  :root[data-theme],
+  :root:not([data-theme]) {
+    color-scheme: light;
+    --paper: #fff;
+    --ink: #213c32;
+    --muted: #62685e;
+    --rule: #c6c8b9;
+    --accent: #a34227;
+    --portrait-ground: #e2e4d7;
+    --portrait-grid: #8b9584;
+    --portrait-blend: multiply;
+  }
+  .theme-toggle,
+  .hairline-figure > svg {
+    display: none !important;
+  }
+  .portrait-image,
+  [data-figure] > img {
+    content: normal;
+  }
+  .hairline-figure[data-hairline] > img {
+    visibility: visible;
+  }
+}
+@media (max-width: 700px) {
+  .theme-toggle {
+    order: 1;
+    margin-left: auto;
+  }
+  .site-nav {
+    order: 2;
+  }
+}

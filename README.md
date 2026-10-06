@@ -8,7 +8,9 @@ A static portfolio for GitHub Pages. Visitors need no package installation or ex
 - `css/style.css` defines the ivory/forest editorial layout, oversized serif headings, architectural portrait scaffold, and staggered project plates.
 - Fraunces and Source Sans 3 are self-hosted, with licenses in `res/fonts/`.
 - The chosen **Baseline portrait** is `res/images/portrait-magic.webp`, unchanged from the Design Lab. `js/portrait-motion.js` and `css/portrait-motion.css` retain the approved local texture scan: 14 seconds, 18% opacity, contrast 1.6, with the same clipping keyframes. This is local presentation over an ASCII Magic still, not an animated service export.
-- Local motion is enabled by default when the portrait is visible. A keyboard-accessible Pause/Resume button preserves the visitor's paused state across visibility and reduced-motion changes. Motion suspends offscreen and in hidden tabs; reduced-motion and no-JavaScript visitors get the static baseline. Print hides animation and its controls.
+- Local motion is enabled by default when the portrait is visible. Motion suspends offscreen and in hidden tabs; reduced-motion and no-JavaScript visitors get the static baseline. Print hides animation. There are no motion controls.
+- The top-right **Dark** toggle uses the system appearance until a visitor chooses a mode, then saves that choice locally (storage failures are harmless). `js/theme.js` runs before styles to prevent a wrong-theme flash; `css/theme.css` supplies the warm near-black / ivory / sage-gold palette and system-based static fallback without JavaScript. Printing always uses light paper.
+- Dark artwork is locally recolored, not globally inverted. `scripts/generate-dark-assets.py` (Pillow) reproduces the separate portrait and six SVG variants; CSS custom properties recolor mounted Hairline figures without resetting their interactions.
 - The temporary Design Lab, effect selector, checkbox, and effect URL switching are removed. Old `?effect=` links simply show the baseline. Archived comparison assets and provenance remain on disk but are never requested by the page.
 - On mobile, introduction and project links precede the portrait.
 - Six local Hairline figures enhance the experience/projects. Chess uses abstract pieces on a turntable, distinct from Game Mods' branch graph and never a phone. Transparent, distinct static SVG illustrations remain visible without JavaScript and under reduced motion. See `ILLUSTRATIONS.md`.
@@ -37,7 +39,7 @@ Optional screenshot evidence (ignored by Git):
 TEST_BROWSERS=chromium,webkit TEST_SCREENSHOTS="$PWD/test-evidence/final" npm test
 ```
 
-Tests cover default/paused motion, runtime reduced motion, offscreen suspension, the hidden-document visibility event (simulated because headless tabs do not reliably change visibility), ignored legacy effect URLs, static/no-JS fallbacks, distinct Chess/Gaming geometry, keyboard input, responsive widths, transparent backgrounds, asset loading, preserved prose and external links, WCAG axe checks, native navigation/history, print, and font previews. Evidence includes desktop/mobile enhanced, no-JS, reduced-motion, and hero captures in both engines.
+Tests cover system/explicit themes, storage failures, pre-styles initialization, live artwork palettes, dark-mode accessibility and printing, default motion, runtime reduced motion, offscreen suspension, the hidden-document visibility event (simulated because headless tabs do not reliably change visibility), ignored legacy effect URLs, static/no-JS fallbacks, distinct Chess/Gaming geometry, keyboard input, responsive widths, transparent backgrounds, asset loading, preserved prose and external links, WCAG axe checks, native navigation/history, print, and font previews. Evidence includes desktop/mobile enhanced, no-JS, reduced-motion, and hero captures in both engines.
 
 ## Optional font studies
 

@@ -19,10 +19,24 @@ The architectural SVG, organic silhouette, and typography are local web design.
 
 The final baseline retains the Design Lab's local texture scan unchanged: a
 second clipped impression, 14s linear, opacity .18, contrast 1.6. It is enabled
-by default, not service animation. Pause/Resume is keyboard accessible; reduced
+by default, not service animation. There are no motion controls; reduced
 motion disables it; offscreen/hidden documents suspend it. The original image
 remains static without JavaScript. Comparison controls and effect URL handling
 have been removed; archived exports are documented in `ILLUSTRATIONS-EFFECTS.md`.
+
+## Dark appearance
+
+`python3 scripts/generate-dark-assets.py` generates `portrait-magic-dark.webp`
+and six `field-*-dark.svg` plates locally from the existing finished assets.
+This is local color finishing, not a new service export: portrait luminance keeps
+its original ordering while mapping to forest / ivory, with the alpha mask intact.
+SVG geometry is unchanged; ink, faces, and annotations receive explicit palette
+replacements. Original light files and source photographs are untouched.
+
+`css/theme.css` selects these variants for both the static image and scan overlay,
+including no-JavaScript system-dark mode. CSS `--hairline-*` tokens update mounted
+SVG faces and strokes immediately without remounting the engines or losing focus.
+Print restores the light images and hides live SVG overlays.
 
 ## Previous ASCII hero — human / machine
 

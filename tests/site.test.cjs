@@ -65,6 +65,249 @@ async function screenshot(page, file, locator) {
   else await page.screenshot({ ...options, fullPage: true });
 }
 for (const name of names) {
+  test(`${name}: theme initializes before styles and tolerates blocked storage`, async () => {
+    for (const blocked of [true, false]) {
+      const page = await browsers[name].newPage({ colorScheme: "light" });
+      const errors = [];
+      page.on("pageerror", (e) => errors.push(e.message));
+      await page.addInitScript((block) => {
+        if (block)
+          Object.defineProperty(window, "localStorage", {
+            get() {
+              throw new DOMException("Blocked", "SecurityError");
+            },
+          });
+        else localStorage.setItem("portfolio-theme", "dark");
+      }, blocked);
+      let initial;
+      await page.route("**/css/style.css*", async (route) => {
+        initial = await page.locator("html").getAttribute("data-theme");
+        await route.continue();
+      });
+      try {
+        await page.goto(base);
+        assert.equal(initial, blocked ? "light" : "dark");
+        if (blocked) {
+          await page.emulateMedia({ colorScheme: "dark" });
+          await page.waitForFunction(
+            () => document.documentElement.dataset.theme === "dark",
+          );
+        }
+        await page
+          .getByRole("button", { name: "Dark mode", exact: true })
+          .click();
+        assert.equal(
+          await page.locator("html").getAttribute("data-theme"),
+          "light",
+        );
+        assert.deepEqual(errors, []);
+      } finally {
+        await page.close();
+      }
+    }
+  });
+  test(`${name}: live Hairline colors follow theme without resetting figures or portrait motion`, async () => {
+    const page = await browsers[name].newPage({
+      colorScheme: "light",
+      viewport: { width: 1440, height: 1100 },
+    });
+    try {
+      await page.goto(base);
+      await page.waitForFunction(
+        () => document.querySelectorAll("[data-hairline]>svg").length === 6,
+      );
+      await page.evaluate(
+        () =>
+          (window.originalFigure = document.querySelector(
+            '[data-figure="terrain"]>svg',
+          )),
+      );
+      await page
+        .getByRole("button", { name: "Dark mode", exact: true })
+        .click();
+      const figure = page.locator('[data-figure="terrain"]');
+      assert.equal(
+        await figure.evaluate((e) =>
+          getComputedStyle(e).getPropertyValue("--hairline-hi").trim(),
+        ),
+        "#eee8d8",
+      );
+      assert.equal(
+        await figure
+          .locator("svg path:not(.nf)")
+          .first()
+          .evaluate((e) => getComputedStyle(e).fill),
+        "rgb(23, 28, 24)",
+      );
+      assert.equal(
+        await page.evaluate(
+          () =>
+            window.originalFigure ===
+            document.querySelector('[data-figure="terrain"]>svg'),
+        ),
+        true,
+      );
+      await page.waitForFunction(
+        () =>
+          document.querySelector(".portrait-surface").dataset.motion ===
+          "running",
+      );
+      assert.match(
+        await page
+          .locator(".portrait-scan")
+          .evaluate((e) => getComputedStyle(e).content),
+        /portrait-magic-dark.webp/,
+      );
+      for (const width of [390, 1440]) {
+        await page.setViewportSize({ width, height: 900 });
+        await screenshot(page, `theme-dark-enhanced-${name}-${width}.png`);
+      }
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      await page.waitForFunction(
+        () => !document.querySelector("[data-hairline]"),
+      );
+      for (const img of await page.locator("[data-figure]>img").all()) {
+        assert.match(
+          await img.evaluate((e) => getComputedStyle(e).content),
+          /-dark.svg/,
+        );
+      }
+    } finally {
+      await page.close();
+    }
+  });
+  test(`${name}: dark palette, artwork, responsive toggle, static fallback and print`, async () => {
+    for (const javaScriptEnabled of [true, false]) {
+      const page = await browsers[name].newPage({
+        javaScriptEnabled,
+        colorScheme: "dark",
+        reducedMotion: "reduce",
+      });
+      try {
+        await page.goto(base);
+        assert.equal(
+          await page
+            .locator("body")
+            .evaluate((e) => getComputedStyle(e).backgroundColor),
+          "rgb(23, 28, 24)",
+        );
+        assert.equal(
+          await page.locator(".theme-toggle").isVisible(),
+          javaScriptEnabled,
+        );
+        assert.equal(
+          await page.locator("[data-figure] img:visible").count(),
+          6,
+        );
+        assert.equal(await page.locator(".portrait-scan").isVisible(), false);
+        assert.match(
+          await page
+            .locator(".ascii-portrait")
+            .evaluate((e) => getComputedStyle(e).content),
+          /portrait-magic-dark.webp/,
+        );
+        for (const width of [320, 390, 768, 1440]) {
+          await page.setViewportSize({ width, height: 900 });
+          assert.equal(
+            await page.evaluate(
+              () => document.documentElement.scrollWidth > innerWidth,
+            ),
+            false,
+          );
+          if (javaScriptEnabled) {
+            const button = await page.locator(".theme-toggle").boundingBox();
+            const mark = await page.locator(".wordmark").boundingBox();
+            assert.ok(
+              button.width >= 44 && button.height >= 44 && button.x > width / 2,
+            );
+            assert.ok(Math.abs(button.y - mark.y) < 30);
+          }
+          if ([390, 1440].includes(width))
+            await screenshot(
+              page,
+              `theme-dark-${javaScriptEnabled ? "js" : "static"}-${name}-${width}.png`,
+            );
+        }
+        await page.addScriptTag({ content: require("axe-core").source });
+        if (javaScriptEnabled)
+          assert.deepEqual(
+            await page.evaluate(async () =>
+              (
+                await axe.run(document, {
+                  runOnly: {
+                    type: "tag",
+                    values: ["wcag2a", "wcag2aa", "wcag21aa"],
+                  },
+                })
+              ).violations.map((v) => ({
+                id: v.id,
+                nodes: v.nodes.map((n) => n.target),
+              })),
+            ),
+            [],
+          );
+        await page.emulateMedia({ media: "print" });
+        assert.equal(
+          await page
+            .locator("body")
+            .evaluate((e) => getComputedStyle(e).backgroundColor),
+          "rgb(255, 255, 255)",
+        );
+        assert.equal(await page.locator(".theme-toggle").isVisible(), false);
+        assert.equal(
+          await page
+            .locator(".ascii-portrait")
+            .evaluate((e) => getComputedStyle(e).content),
+          "normal",
+        );
+        await page.emulateMedia({ media: "screen", colorScheme: "light" });
+        for (const width of [390, 1440]) {
+          await page.setViewportSize({ width, height: 900 });
+          await screenshot(
+            page,
+            `theme-light-${javaScriptEnabled ? "js" : "static"}-${name}-${width}.png`,
+          );
+        }
+      } finally {
+        await page.close();
+      }
+    }
+  });
+  test(`${name}: theme follows system and accessible toggle persists an explicit choice`, async () => {
+    const page = await browsers[name].newPage({ colorScheme: "dark" });
+    try {
+      await page.goto(base);
+      assert.equal(
+        await page.locator("html").getAttribute("data-theme"),
+        "dark",
+      );
+      const toggle = page.getByRole("button", {
+        name: "Dark mode",
+        exact: true,
+      });
+      assert.equal(await toggle.getAttribute("aria-pressed"), "true");
+      await toggle.focus();
+      await page.keyboard.press("Space");
+      assert.equal(
+        await page.locator("html").getAttribute("data-theme"),
+        "light",
+      );
+      assert.equal(
+        await page.evaluate(() => localStorage.getItem("portfolio-theme")),
+        "light",
+      );
+      await page.reload();
+      assert.equal(await toggle.getAttribute("aria-pressed"), "false");
+      await page.emulateMedia({ colorScheme: "light" });
+      await page.emulateMedia({ colorScheme: "dark" });
+      assert.equal(
+        await page.locator("html").getAttribute("data-theme"),
+        "light",
+      );
+    } finally {
+      await page.close();
+    }
+  });
   test(`${name}: finalized baseline ignores obsolete effect URLs`, async () => {
     const page = await browsers[name].newPage({
       viewport: { width: 1440, height: 1100 },
