@@ -1,0 +1,80 @@
+/* Preserve the approved baseline: only a broad, slow band changes contrast. */
+.portrait-surface {
+  position: relative;
+}
+.ascii-portrait {
+  transform: none !important;
+  transition: none !important;
+}
+.portrait-scan {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.18;
+  filter: contrast(1.6);
+  animation: local-texture-scan 14s linear infinite;
+  animation-play-state: paused;
+}
+.portrait-surface[data-motion="running"] .portrait-scan {
+  animation-play-state: running;
+}
+@keyframes local-texture-scan {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  12% {
+    clip-path: inset(0 0 82% 0);
+  }
+  88% {
+    clip-path: inset(82% 0 0 0);
+  }
+  to {
+    clip-path: inset(100% 0 0 0);
+  }
+}
+.motion-controls {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  margin-top: 18px;
+  font-size: 12px;
+}
+.motion-controls button {
+  min-height: 44px;
+  padding: 8px 12px;
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+}
+.motion-controls button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.motion-controls button:disabled {
+  color: var(--muted);
+  cursor: default;
+}
+#motion-status {
+  color: var(--muted);
+}
+@media (max-width: 700px) {
+  .motion-controls {
+    order: 6;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .portrait-scan {
+    display: none !important;
+    animation: none !important;
+  }
+}
+@media print {
+  .motion-controls,
+  .portrait-scan {
+    display: none !important;
+  }
+}

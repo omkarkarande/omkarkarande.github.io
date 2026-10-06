@@ -42,8 +42,21 @@ The helper uses the existing authenticated `ascii-magic` registry integration, c
 
 Hermes redacts long recipe payloads in tool response text, so `recipe` is deliberately null when the returned payload is truncated. The exact render parameters and source are preserved for repeat requests; service engine updates may change fresh rendering. The retained originals and `--finish-only` are the exact reproducible finishing route.
 
-## Temporary comparison UI
+## Finalized portrait
 
-The landing-page Design Lab offers all six treatments plus the unchanged baseline. Only the selected WebP loads. The `effect` query parameter shares a choice; no account or service request runs in visitors' browsers. Optional Local motion is a locally implemented texture-contrast scan, off by default, with pause/resume and reduced-motion/offscreen suspension. It is not native ASCII Magic animation. No-JavaScript visitors retain the original portrait.
+The temporary Design Lab has been removed after selection of the unchanged
+baseline `res/images/portrait-magic.webp` with local motion enabled. The selector,
+opt-in checkbox, effect URL handling, and temporary lab CSS/JS are gone. Old
+`?effect=` URLs no longer switch the image. The six comparison exports remain as
+archived studies and provenance; none are requested by the shipped page.
 
-Service URLs and opaque recipe payloads are removed from public provenance. Raw local PNGs and hashes remain the reproducible source of truth. Chromium and WebKit tests cover every selection, failure/race handling, URL/history, narrow layouts, keyboard/accessibility, motion, and preserved content.
+`js/portrait-motion.js` and `css/portrait-motion.css` preserve the approved local
+texture-contrast scan (14s linear, opacity .18, contrast 1.6, unchanged clip-path
+keyframes). A Pause/Resume button remains. Reduced motion disables the scan;
+offscreen/hidden documents suspend it; no-JS visitors retain the static baseline
+and see no unusable controls. This is not native ASCII Magic animation.
+
+Service URLs and opaque recipe payloads are removed from public provenance. Raw
+local PNGs and hashes remain the reproducible source of truth. Chromium and
+WebKit tests now cover the finalized default, ignored legacy effect URLs,
+keyboard pause, lifecycle suspension, static fallbacks, and preserved content.

@@ -17,6 +17,13 @@ a downloaded export. Service download links expire; the finished asset is hosted
 locally with no visitor-time API calls, credentials, or third-party requests.
 The architectural SVG, organic silhouette, and typography are local web design.
 
+The final baseline retains the Design Lab's local texture scan unchanged: a
+second clipped impression, 14s linear, opacity .18, contrast 1.6. It is enabled
+by default, not service animation. Pause/Resume is keyboard accessible; reduced
+motion disables it; offscreen/hidden documents suspend it. The original image
+remains static without JavaScript. Comparison controls and effect URL handling
+have been removed; archived exports are documented in `ILLUSTRATIONS-EFFECTS.md`.
+
 ## Previous ASCII hero — human / machine
 
 `res/images/portrait-ascii.svg` is an original, locally generated character
@@ -43,14 +50,15 @@ collapsed. Explicit preserved whitespace keeps the character grid consistent.
 
 ## Hairline
 
-`js/hairline.js` mounts six instances using five selected exports from
+`js/hairline.js` mounts six instances using six selected exports from
 `@lucasmarkes/hairline` 0.3.0: server cabinet for experience; reading cards,
-branches, terrain, exploded window, and branches for the five projects.
+turntable, terrain, exploded window, and branches for the five projects.
 
-Chess uses the library's branching graph as a **visual analogy for game-search
-variations**, not a claim that Hairline ships a chess engine or a chess-specific
-figure. The original static chessboard and pieces remain its no-JS/reduced-motion
-fallback. Game Mods retains the graph's native code-history meaning.
+Chess uses the library's turntable: **geometric pieces on a rotating platform**
+as a study of board positions, not a literal chess-specific library figure.
+Its circular silhouette is distinct from Game Mods' elongated branching graph.
+The original transparent static chessboard and pieces remain its distinct
+no-JS/reduced-motion fallback. Game Mods retains the graph's code-history meaning.
 
 Project containers are transparent against ivory. Object faces use paper-colored
 fills to occlude hidden edges; they are not rectangular background panels. Dark
