@@ -1,0 +1,21 @@
+15 styles (of 100)
+  id               label              category    tier  access  looks  tags
+  characters       Characters         ascii       free  ok          4  dense,mono,retro
+  dither           Dither             print       free  ok          4  retro,dense,mono
+  block-chars      Block              ascii       free  ok          4  minimal,mono,geometric
+  dots             Dots               ascii       free  ok          4  minimal,organic,mono
+  mixed            Mixed              ascii       free  ok          4  dense,mono,retro
+  pixel            Pixel Art          pixel       free  ok          4  retro,color,geometric
+  mosaic           Mosaic             pixel       free  ok          4  color,geometric,minimal
+  lego             LEGO               pixel       free  ok          4  color,geometric,dense
+  cross            Cross              geometric   free  ok          4  geometric,mono,dense
+  diamond          Diamond            geometric   free  ok          4  geometric,mono,minimal
+  lines            Lines              geometric   free  ok          4  minimal,geometric,mono
+  diagonal         Diagonal           geometric   free  ok          4  geometric,minimal,mono
+  braille          Braille            ascii       free  ok          4  dense,mono,minimal
+  3d               Voxel              pixel       free  ok          4  geometric,dense,color
+  disco            Disco              light       free  ok          4  glitch,color,dense
+
+Dither palettes: mono, grey4, grey8, rgb3, gameboy, cga0, cga1, pico8, c64, nes16, cyberpunk, pastel, riso, sepia, original
+Dither algorithms: bayer2, bayer4, bayer8, bayer16, halftone, radial, linesH, linesV, linesD, whiteNoise, blueNoise, floyd, atkinson, stucki, sierraLite
+LOCKED styles will not render: this account is on the free plan. Tell the user they can subscribe at https://www.ascii-magic.com/app (Settings → Plan); Pro styles unlock within a minute, no reconnect needed. Call this tool with free_only: true for what works as-is.

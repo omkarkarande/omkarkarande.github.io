@@ -1,0 +1,232 @@
+{
+  "schema_version": 1,
+  "provider": "ASCII Magic",
+  "plan": "Free",
+  "source": "res/images/profile-transparent.webp",
+  "source_sha256": "a1d83048bfb92b5175ce051b1ecb54086c9cbf887681354d74b64c4b7ad24fa2",
+  "upload_background": "#f6f4ee",
+  "service_output": "PNG stills",
+  "animation_limitation": "The exposed stylize_image MCP schema exports a PNG still and has no animation, timeline, frame, GIF, or video parameter. No service animation was generated or simulated.",
+  "local_finishing": "Original source alpha restored to five spatially aligned treatments, no recolouring. Voxel retains opaque service background to preserve extrusion. Downsampled to 1500px WebP.",
+  "count": 6,
+  "effects": [
+    {
+      "id": "dither",
+      "label": "Dither",
+      "engine_style_id": "dither",
+      "file": "portrait-dither.webp",
+      "src": "/res/images/effects/portrait-dither.webp",
+      "raw_file": "portrait-dither-service.png",
+      "width": 1500,
+      "height": 1500,
+      "motion_type": "static",
+      "animated": false,
+      "static_fallback": "portrait-dither.webp",
+      "alpha_restored": true,
+      "sha256": "15732476bedbb6df8c54b204e699d9876e592d84c7fa5ea744a78f67c4228bab",
+      "provenance": {
+        "provider": "ASCII Magic",
+        "tool": "stylize_image",
+        "engine_style_id": "dither",
+        "parameters": {
+          "style": "dither",
+          "style_requested_by_user": true,
+          "font_size": 5,
+          "scale": 2,
+          "variant": 0,
+          "post_fx": {
+            "charBloom": false,
+            "scanLines": false
+          },
+          "palette": "mono",
+          "algo": "atkinson"
+        },
+        "service_response": "Style: Dither (dither, free)\nDressing: curated look 1 of 4 (pass variant 0-3 to try the others)\nPost FX: chromatic\nRendered 2508x2508 \u2192 [service URL omitted] (download link, expires in 24h)\nRecipe: [omitted]\nOpen in the editor: [service URL omitted]\n(preview below is 512x512; the download link is full resolution)\n[preview cached outside repository]",
+        "recipe": null,
+        "downloaded_at": "2026-10-06T01:08:57.110880+00:00",
+        "raw_file": "portrait-dither-service.png",
+        "raw_sha256": "87ae46906a5b790b23d44b07f2cf4c3ef24201d98b1a8934bd2883fa48a5ce51"
+      }
+    },
+    {
+      "id": "dots",
+      "label": "Dots",
+      "engine_style_id": "dots",
+      "file": "portrait-dots.webp",
+      "src": "/res/images/effects/portrait-dots.webp",
+      "raw_file": "portrait-dots-service.png",
+      "width": 1500,
+      "height": 1500,
+      "motion_type": "static",
+      "animated": false,
+      "static_fallback": "portrait-dots.webp",
+      "alpha_restored": true,
+      "sha256": "4798d1a02d94b133779c6dd076498d08df384ae35233a44199a43c14b2ae8426",
+      "provenance": {
+        "provider": "ASCII Magic",
+        "tool": "stylize_image",
+        "engine_style_id": "dots",
+        "parameters": {
+          "style": "dots",
+          "style_requested_by_user": true,
+          "font_size": 13,
+          "scale": 2,
+          "variant": 0,
+          "post_fx": {
+            "charBloom": false,
+            "scanLines": false
+          }
+        },
+        "service_response": "Style: Dots (dots, free)\nDressing: curated look 1 of 4 (pass variant 0-3 to try the others)\nPost FX: none\nRendered 2508x2508 \u2192 [service URL omitted] (download link, expires in 24h)\nRecipe: [omitted]\nOpen in the editor: [service URL omitted]\n(preview below is 512x512; the download link is full resolution)\n[preview cached outside repository]",
+        "recipe": null,
+        "downloaded_at": "2026-10-06T01:09:04.401250+00:00",
+        "raw_file": "portrait-dots-service.png",
+        "raw_sha256": "add8802464190bad69d08d07cf27505edda3efb1c1e6339156d4eae2b3d2ea6d"
+      }
+    },
+    {
+      "id": "voxel",
+      "label": "Voxel",
+      "engine_style_id": "3d",
+      "file": "portrait-voxel.webp",
+      "src": "/res/images/effects/portrait-voxel.webp",
+      "raw_file": "portrait-voxel-service.png",
+      "width": 1500,
+      "height": 1500,
+      "motion_type": "static",
+      "animated": false,
+      "static_fallback": "portrait-voxel.webp",
+      "alpha_restored": false,
+      "sha256": "91c066e893f10ea17c9fb56cff1d6c24dd43d3b3445ee91e12b5c0b28ef18420",
+      "provenance": {
+        "provider": "ASCII Magic",
+        "tool": "stylize_image",
+        "engine_style_id": "3d",
+        "parameters": {
+          "style": "3d",
+          "style_requested_by_user": true,
+          "font_size": 14,
+          "scale": 2,
+          "variant": 0,
+          "post_fx": {
+            "charBloom": false,
+            "scanLines": false
+          }
+        },
+        "service_response": "Style: Voxel (3d, free)\nDressing: curated look 1 of 4 (pass variant 0-3 to try the others)\nPost FX: none\nRendered 2508x2508 \u2192 [service URL omitted] (download link, expires in 24h)\nRecipe: [omitted]\nOpen in the editor: [service URL omitted]\n(preview below is 512x512; the download link is full resolution)\n[preview cached outside repository]",
+        "recipe": null,
+        "downloaded_at": "2026-10-06T01:09:11.121883+00:00",
+        "raw_file": "portrait-voxel-service.png",
+        "raw_sha256": "b69a92ee2823416a94d235cada038374a1244ce119495bf3e77e389c50d5ab68"
+      }
+    },
+    {
+      "id": "characters",
+      "label": "Characters",
+      "engine_style_id": "characters",
+      "file": "portrait-characters.webp",
+      "src": "/res/images/effects/portrait-characters.webp",
+      "raw_file": "portrait-characters-service.png",
+      "width": 1500,
+      "height": 1500,
+      "motion_type": "static",
+      "animated": false,
+      "static_fallback": "portrait-characters.webp",
+      "alpha_restored": true,
+      "sha256": "b94bd5b51df44f7c17e6b95d79450aaebc55e052da454e1bc243e576449279cf",
+      "provenance": {
+        "provider": "ASCII Magic",
+        "tool": "stylize_image",
+        "engine_style_id": "characters",
+        "parameters": {
+          "style": "characters",
+          "style_requested_by_user": true,
+          "font_size": 16,
+          "scale": 2,
+          "variant": 0,
+          "post_fx": {
+            "charBloom": false,
+            "scanLines": false
+          }
+        },
+        "service_response": "Style: Characters (characters, free)\nDressing: curated look 1 of 4 (pass variant 0-3 to try the others)\nPost FX: none\nRendered 2508x2508 \u2192 [service URL omitted] (download link, expires in 24h)\nRecipe: [omitted]\nOpen in the editor: [service URL omitted]\n(preview below is 512x512; the download link is full resolution)\n[preview cached outside repository]",
+        "recipe": null,
+        "downloaded_at": "2026-10-06T01:09:19.397367+00:00",
+        "raw_file": "portrait-characters-service.png",
+        "raw_sha256": "0946e02a6f6b24628d2feeffacbd04b5bfbeff74950348b17892f87d99379366"
+      }
+    },
+    {
+      "id": "lines",
+      "label": "Lines",
+      "engine_style_id": "lines",
+      "file": "portrait-lines.webp",
+      "src": "/res/images/effects/portrait-lines.webp",
+      "raw_file": "portrait-lines-service.png",
+      "width": 1500,
+      "height": 1500,
+      "motion_type": "static",
+      "animated": false,
+      "static_fallback": "portrait-lines.webp",
+      "alpha_restored": true,
+      "sha256": "ed9813d9f432e748bc4cefbc401597a3541aee09ea0eb8e8c337a5375883268b",
+      "provenance": {
+        "provider": "ASCII Magic",
+        "tool": "stylize_image",
+        "engine_style_id": "lines",
+        "parameters": {
+          "style": "lines",
+          "style_requested_by_user": true,
+          "font_size": 13,
+          "scale": 2,
+          "variant": 0,
+          "post_fx": {
+            "charBloom": false,
+            "scanLines": false
+          }
+        },
+        "service_response": "Style: Lines (lines, free)\nDressing: curated look 1 of 4 (pass variant 0-3 to try the others)\nPost FX: filmGrain\nRendered 2508x2508 \u2192 [service URL omitted] (download link, expires in 24h)\nRecipe: [omitted]\nOpen in the editor: [service URL omitted]\n(preview below is 512x512; the download link is full resolution)\n[preview cached outside repository]",
+        "recipe": null,
+        "downloaded_at": "2026-10-06T01:09:26.377551+00:00",
+        "raw_file": "portrait-lines-service.png",
+        "raw_sha256": "9249926bd641a69967562573426db21359fc1c663fded413020cf486f78a0d74"
+      }
+    },
+    {
+      "id": "cross",
+      "label": "Cross",
+      "engine_style_id": "cross",
+      "file": "portrait-cross.webp",
+      "src": "/res/images/effects/portrait-cross.webp",
+      "raw_file": "portrait-cross-service.png",
+      "width": 1500,
+      "height": 1500,
+      "motion_type": "static",
+      "animated": false,
+      "static_fallback": "portrait-cross.webp",
+      "alpha_restored": true,
+      "sha256": "94c234cf757be534d580f1cda4e2cd75c79df4172a2fc26766b42bfe547270db",
+      "provenance": {
+        "provider": "ASCII Magic",
+        "tool": "stylize_image",
+        "engine_style_id": "cross",
+        "parameters": {
+          "style": "cross",
+          "style_requested_by_user": true,
+          "font_size": 14,
+          "scale": 2,
+          "variant": 0,
+          "post_fx": {
+            "charBloom": false,
+            "scanLines": false
+          }
+        },
+        "service_response": "Style: Cross (cross, free)\nDressing: curated look 1 of 4 (pass variant 0-3 to try the others)\nPost FX: none\nRendered 2508x2508 \u2192 [service URL omitted] (download link, expires in 24h)\nRecipe: [omitted]\nOpen in the editor: [service URL omitted]\n(preview below is 512x512; the download link is full resolution)\n[preview cached outside repository]",
+        "recipe": null,
+        "downloaded_at": "2026-10-06T01:09:32.303712+00:00",
+        "raw_file": "portrait-cross-service.png",
+        "raw_sha256": "4883405c7f9e5460e2e210126d0aa7d325a924c8878764ffd6f68b809f19fe3a"
+      }
+    }
+  ]
+}

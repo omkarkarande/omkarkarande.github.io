@@ -29,6 +29,141 @@ after(async () => {
   if (server) await new Promise(resolve => server.close(resolve));
 });
 for (const name of names) {
+  test(`${name}: effect lab selects only local chosen exports and shares URLs`, async () => {
+    const page = await browsers[name].newPage();
+    const requested = [], errors = [];
+    page.on('request', r => { if (r.url().includes('/effects/')) requested.push(r.url()); });
+    page.on('pageerror', e => errors.push(e.message));
+    try {
+      await page.goto(base + '/?font=fraunces#intro');
+      const select = page.getByLabel('Portrait effect', {exact:true});
+      assert.equal(await select.count(), 1);
+      assert.equal(await select.inputValue(), 'baseline');
+      assert.equal(requested.length, 0);
+      const manifest = JSON.parse(await fs.readFile(path.join(root,'res/images/effects/manifest.json')));
+      assert.deepEqual(await select.locator('option').evaluateAll(es=>es.map(e=>e.value)), ['baseline', ...manifest.effects.map(e=>e.id)]);
+      for (const effect of [...manifest.effects, {id:'baseline',label:'Baseline',src:'/res/images/portrait-magic.webp'}]) {
+        await select.selectOption(effect.id);
+        await page.waitForFunction(src => document.querySelector('.ascii-portrait').src.endsWith(src), effect.src);
+        assert.ok(await page.locator('.ascii-portrait').evaluate(e=>e.complete && e.naturalWidth===1500));
+        assert.match(await page.locator('#effect-status').textContent(), new RegExp(effect.label));
+        assert.equal(new URL(page.url()).searchParams.get('effect'), effect.id==='baseline' ? null : effect.id);
+        assert.equal(new URL(page.url()).searchParams.get('font'),'fraunces');
+        assert.equal(new URL(page.url()).hash,'#intro');
+      }
+      assert.equal(new Set(requested).size,6);
+      assert.ok(requested.every(u=>u.endsWith('.webp')));
+      assert.deepEqual(errors,[]);
+      await page.goto(base+'/?effect=lines');
+      await page.waitForFunction(()=>document.querySelector('.ascii-portrait').src.endsWith('portrait-lines.webp'));
+      assert.equal(await select.inputValue(),'lines');
+      await page.goto(base+'/?effect=not-a-style');
+      assert.equal(await select.inputValue(),'baseline');
+    } finally { await page.close(); }
+  });
+  test(`${name}: effect lab stays usable at narrow widths and keeps no-JS baseline`, async () => {
+    const page = await browsers[name].newPage({reducedMotion:'reduce'});
+    try {
+      await page.goto(base);
+      for (const width of [320,390,768,1440]) {
+        await page.setViewportSize({width,height:900});
+        for (const id of ['baseline','dither','dots','voxel','characters','lines','cross']) {
+          await page.getByLabel('Portrait effect',{exact:true}).selectOption(id);
+          await page.waitForFunction(()=>!document.querySelector('.effect-lab').hasAttribute('aria-busy'));
+          assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,`${width} ${id}`);
+          for (const control of await page.locator('.effect-lab select,.effect-lab button,.motion-controls label').all()) {
+            const box = await control.boundingBox();
+            assert.ok(box.x>=0 && box.x+box.width<=width && box.height>=44,`${width} control fits and has touch target: ${await control.evaluate(e=>e.outerHTML)} ${JSON.stringify(box)}`);
+          }
+          if(process.env.TEST_SCREENSHOTS && [390,1440].includes(width)) {
+            await fs.mkdir(process.env.TEST_SCREENSHOTS,{recursive:true});
+            await page.evaluate(()=>{document.activeElement.blur();scrollTo({top:0,behavior:'instant'});});
+            await page.locator('#intro').screenshot({path:path.join(process.env.TEST_SCREENSHOTS,`lab-${id}-${name}-${width}.png`)});
+          }
+        }
+      }
+      await page.getByLabel('Portrait effect',{exact:true}).focus();
+      await page.keyboard.press(name === 'webkit' ? 'Alt+Tab' : 'Tab');
+      assert.equal(await page.evaluate(()=>document.activeElement.id),'local-motion');
+      await page.keyboard.press('Space');
+      assert.equal(await page.getByLabel('Local motion',{exact:true}).isChecked(),true);
+      await page.emulateMedia({media:'print'});
+      assert.equal(await page.locator('.effect-lab').isVisible(),false);
+    } finally { await page.close(); }
+    const noJS = await browsers[name].newPage({javaScriptEnabled:false});
+    try {
+      await noJS.goto(base+'/?effect=voxel');
+      assert.equal(await noJS.locator('.effect-lab').isVisible(),false);
+      assert.equal(await noJS.locator('.ascii-portrait').getAttribute('src'),'res/images/portrait-magic.webp');
+    } finally { await noJS.close(); }
+  });
+  test(`${name}: failed and racing exports never replace the last good image`, async () => {
+    const page = await browsers[name].newPage();
+    try {
+      await page.goto(base);
+      await page.route('**/portrait-dots.webp', route=>route.abort());
+      await page.getByLabel('Portrait effect',{exact:true}).selectOption('dots');
+      await page.waitForFunction(()=>document.querySelector('#effect-status').textContent.includes('Could not load'));
+      assert.equal(await page.getByLabel('Portrait effect',{exact:true}).inputValue(),'baseline');
+      assert.equal(await page.locator('.ascii-portrait').getAttribute('src'),'res/images/portrait-magic.webp');
+      assert.equal(new URL(page.url()).searchParams.get('effect'),null);
+      let release;
+      const gate = new Promise(resolve=>{release=resolve;});
+      await page.route('**/portrait-dither.webp', async route=>{await gate;await route.continue();});
+      await page.getByLabel('Portrait effect',{exact:true}).selectOption('dither');
+      await page.getByLabel('Portrait effect',{exact:true}).selectOption('cross');
+      await page.waitForFunction(()=>document.querySelector('.ascii-portrait').src.endsWith('portrait-cross.webp'));
+      const response = page.waitForResponse('**/portrait-dither.webp');
+      release();
+      await response;
+      await page.waitForTimeout(100);
+      assert.equal(await page.getByLabel('Portrait effect',{exact:true}).inputValue(),'cross');
+      assert.match(await page.locator('.ascii-portrait').getAttribute('src'),/portrait-cross.webp$/);
+      await page.evaluate(()=>{history.pushState(null,'','?effect=lines');dispatchEvent(new PopStateEvent('popstate'));});
+      await page.waitForFunction(()=>document.querySelector('.ascii-portrait').src.endsWith('portrait-lines.webp'));
+      await page.goBack();
+      await page.waitForFunction(()=>document.querySelector('.ascii-portrait').src.endsWith('portrait-cross.webp'));
+    } finally { await page.close(); }
+  });
+  test(`${name}: local motion is opt-in, pausable, offscreen-safe and respects runtime reduction`, async () => {
+    const page = await browsers[name].newPage({viewport:{width:1440,height:1100}});
+    try {
+      await page.goto(base);
+      const motion = page.getByLabel('Local motion', {exact:true});
+      assert.equal(await motion.count(),1);
+      assert.equal(await motion.isChecked(),false);
+      const scan = page.locator('.portrait-scan');
+      assert.equal(await scan.isVisible(),false);
+      await motion.check();
+      await page.waitForFunction(()=>document.querySelector('.portrait-surface').dataset.motion==='running');
+      assert.equal(await scan.evaluate(e=>getComputedStyle(e).animationPlayState),'running');
+      const firstFrame = await scan.evaluate(e=>getComputedStyle(e).clipPath);
+      await page.waitForFunction(before=>getComputedStyle(document.querySelector('.portrait-scan')).clipPath!==before,firstFrame);
+      await page.getByLabel('Portrait effect',{exact:true}).selectOption('dots');
+      await page.waitForFunction(()=>document.querySelector('.portrait-scan').src.endsWith('portrait-dots.webp'));
+      await page.getByRole('button',{name:'Pause motion',exact:true}).click();
+      assert.equal(await scan.evaluate(e=>getComputedStyle(e).animationPlayState),'paused');
+      await page.waitForTimeout(80);
+      const pausedFrame = await scan.evaluate(e=>getComputedStyle(e).clipPath);
+      await page.waitForTimeout(120);
+      assert.equal(await scan.evaluate(e=>getComputedStyle(e).clipPath),pausedFrame);
+      await page.getByRole('button',{name:'Resume motion',exact:true}).click();
+      await page.locator('#contact').scrollIntoViewIfNeeded();
+      await page.waitForFunction(()=>document.querySelector('.portrait-surface').dataset.motion==='suspended');
+      await page.locator('.portrait-figure').scrollIntoViewIfNeeded();
+      await page.waitForFunction(()=>document.querySelector('.portrait-surface').dataset.motion==='running');
+      await page.emulateMedia({reducedMotion:'reduce'});
+      await page.waitForFunction(()=>document.querySelector('.portrait-surface').dataset.motion==='reduced');
+      assert.equal(await scan.isVisible(),false);
+      assert.equal(await scan.evaluate(e=>getComputedStyle(e).animationName),'none');
+      assert.match(await page.locator('#motion-status').textContent(),/reduced-motion/i);
+      await page.emulateMedia({reducedMotion:'no-preference'});
+      await page.waitForFunction(()=>document.querySelector('.portrait-surface').dataset.motion==='running');
+      await motion.uncheck();
+      assert.equal(await scan.isVisible(),false);
+      assert.equal(await page.getByRole('button',{name:'Pause motion',exact:true}).isDisabled(),true);
+    } finally { await page.close(); }
+  });
   test(`${name}: ASCII portrait is substantial, local and available without JavaScript`, async () => {
     const page = await browsers[name].newPage({javaScriptEnabled:false});
     try {

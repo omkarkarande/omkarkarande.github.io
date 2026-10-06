@@ -1,0 +1,130 @@
+{
+  "dither": {
+    "provider": "ASCII Magic",
+    "tool": "stylize_image",
+    "engine_style_id": "dither",
+    "parameters": {
+      "style": "dither",
+      "style_requested_by_user": true,
+      "font_size": 5,
+      "scale": 2,
+      "variant": 0,
+      "post_fx": {
+        "charBloom": false,
+        "scanLines": false
+      },
+      "palette": "mono",
+      "algo": "atkinson"
+    },
+    "service_response": "Style: Dither (dither, free)\nDressing: curated look 1 of 4 (pass variant 0-3 to try the others)\nPost FX: chromatic\nRendered 2508x2508 \u2192 [service URL omitted] (download link, expires in 24h)\nRecipe: [omitted]\nOpen in the editor: [service URL omitted]\n(preview below is 512x512; the download link is full resolution)\n[preview cached outside repository]",
+    "recipe": null,
+    "downloaded_at": "2026-10-06T01:08:57.110880+00:00",
+    "raw_file": "portrait-dither-service.png",
+    "raw_sha256": "87ae46906a5b790b23d44b07f2cf4c3ef24201d98b1a8934bd2883fa48a5ce51"
+  },
+  "dots": {
+    "provider": "ASCII Magic",
+    "tool": "stylize_image",
+    "engine_style_id": "dots",
+    "parameters": {
+      "style": "dots",
+      "style_requested_by_user": true,
+      "font_size": 13,
+      "scale": 2,
+      "variant": 0,
+      "post_fx": {
+        "charBloom": false,
+        "scanLines": false
+      }
+    },
+    "service_response": "Style: Dots (dots, free)\nDressing: curated look 1 of 4 (pass variant 0-3 to try the others)\nPost FX: none\nRendered 2508x2508 \u2192 [service URL omitted] (download link, expires in 24h)\nRecipe: [omitted]\nOpen in the editor: [service URL omitted]\n(preview below is 512x512; the download link is full resolution)\n[preview cached outside repository]",
+    "recipe": null,
+    "downloaded_at": "2026-10-06T01:09:04.401250+00:00",
+    "raw_file": "portrait-dots-service.png",
+    "raw_sha256": "add8802464190bad69d08d07cf27505edda3efb1c1e6339156d4eae2b3d2ea6d"
+  },
+  "voxel": {
+    "provider": "ASCII Magic",
+    "tool": "stylize_image",
+    "engine_style_id": "3d",
+    "parameters": {
+      "style": "3d",
+      "style_requested_by_user": true,
+      "font_size": 14,
+      "scale": 2,
+      "variant": 0,
+      "post_fx": {
+        "charBloom": false,
+        "scanLines": false
+      }
+    },
+    "service_response": "Style: Voxel (3d, free)\nDressing: curated look 1 of 4 (pass variant 0-3 to try the others)\nPost FX: none\nRendered 2508x2508 \u2192 [service URL omitted] (download link, expires in 24h)\nRecipe: [omitted]\nOpen in the editor: [service URL omitted]\n(preview below is 512x512; the download link is full resolution)\n[preview cached outside repository]",
+    "recipe": null,
+    "downloaded_at": "2026-10-06T01:09:11.121883+00:00",
+    "raw_file": "portrait-voxel-service.png",
+    "raw_sha256": "b69a92ee2823416a94d235cada038374a1244ce119495bf3e77e389c50d5ab68"
+  },
+  "characters": {
+    "provider": "ASCII Magic",
+    "tool": "stylize_image",
+    "engine_style_id": "characters",
+    "parameters": {
+      "style": "characters",
+      "style_requested_by_user": true,
+      "font_size": 16,
+      "scale": 2,
+      "variant": 0,
+      "post_fx": {
+        "charBloom": false,
+        "scanLines": false
+      }
+    },
+    "service_response": "Style: Characters (characters, free)\nDressing: curated look 1 of 4 (pass variant 0-3 to try the others)\nPost FX: none\nRendered 2508x2508 \u2192 [service URL omitted] (download link, expires in 24h)\nRecipe: [omitted]\nOpen in the editor: [service URL omitted]\n(preview below is 512x512; the download link is full resolution)\n[preview cached outside repository]",
+    "recipe": null,
+    "downloaded_at": "2026-10-06T01:09:19.397367+00:00",
+    "raw_file": "portrait-characters-service.png",
+    "raw_sha256": "0946e02a6f6b24628d2feeffacbd04b5bfbeff74950348b17892f87d99379366"
+  },
+  "lines": {
+    "provider": "ASCII Magic",
+    "tool": "stylize_image",
+    "engine_style_id": "lines",
+    "parameters": {
+      "style": "lines",
+      "style_requested_by_user": true,
+      "font_size": 13,
+      "scale": 2,
+      "variant": 0,
+      "post_fx": {
+        "charBloom": false,
+        "scanLines": false
+      }
+    },
+    "service_response": "Style: Lines (lines, free)\nDressing: curated look 1 of 4 (pass variant 0-3 to try the others)\nPost FX: filmGrain\nRendered 2508x2508 \u2192 [service URL omitted] (download link, expires in 24h)\nRecipe: [omitted]\nOpen in the editor: [service URL omitted]\n(preview below is 512x512; the download link is full resolution)\n[preview cached outside repository]",
+    "recipe": null,
+    "downloaded_at": "2026-10-06T01:09:26.377551+00:00",
+    "raw_file": "portrait-lines-service.png",
+    "raw_sha256": "9249926bd641a69967562573426db21359fc1c663fded413020cf486f78a0d74"
+  },
+  "cross": {
+    "provider": "ASCII Magic",
+    "tool": "stylize_image",
+    "engine_style_id": "cross",
+    "parameters": {
+      "style": "cross",
+      "style_requested_by_user": true,
+      "font_size": 14,
+      "scale": 2,
+      "variant": 0,
+      "post_fx": {
+        "charBloom": false,
+        "scanLines": false
+      }
+    },
+    "service_response": "Style: Cross (cross, free)\nDressing: curated look 1 of 4 (pass variant 0-3 to try the others)\nPost FX: none\nRendered 2508x2508 \u2192 [service URL omitted] (download link, expires in 24h)\nRecipe: [omitted]\nOpen in the editor: [service URL omitted]\n(preview below is 512x512; the download link is full resolution)\n[preview cached outside repository]",
+    "recipe": null,
+    "downloaded_at": "2026-10-06T01:09:32.303712+00:00",
+    "raw_file": "portrait-cross-service.png",
+    "raw_sha256": "4883405c7f9e5460e2e210126d0aa7d325a924c8878764ffd6f68b809f19fe3a"
+  }
+}

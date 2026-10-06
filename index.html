@@ -33,6 +33,8 @@
     <link rel="stylesheet" href="css/style.css?v=magic-editorial-3" />
     <script src="js/font-variant.js" defer></script>
     <script src="js/main.js?v=fieldnotes-1" defer></script>
+    <link rel="stylesheet" href="css/effect-lab.css?v=1" />
+    <script src="js/effect-lab.js?v=1" defer></script>
     <script type="module" src="js/hairline.bundle.js?v=0.3.0-2"></script>
   </head>
   <body>
@@ -105,6 +107,32 @@
             />
             <figcaption aria-hidden="true"><span>IDEAS ↔ SYSTEMS</span><span>NOT TO SCALE</span></figcaption>
           </figure>
+          <aside class="effect-lab" aria-labelledby="effect-lab-title" hidden>
+            <div class="effect-lab-intro">
+              <div class="effect-lab-heading" id="effect-lab-title">DESIGN LAB <span>TEMPORARY / 01</span></div>
+              <p id="effect-note">ASCII Magic stills. The original stays the default. Copy the URL to share your choice.</p>
+            </div>
+            <div class="effect-choice">
+              <label for="portrait-effect">Portrait effect</label>
+              <select id="portrait-effect" aria-describedby="effect-note effect-status">
+                <option value="baseline">Baseline — current</option>
+                <option value="dither">Dither</option>
+                <option value="dots">Dots</option>
+                <option value="voxel">Voxel</option>
+                <option value="characters">Characters</option>
+                <option value="lines">Lines</option>
+                <option value="cross">Cross</option>
+              </select>
+              <p id="effect-status" role="status" aria-live="polite" aria-atomic="true">Baseline — current portrait.</p>
+            </div>
+            <div>
+              <div class="motion-controls">
+                <label><input id="local-motion" type="checkbox" aria-describedby="motion-status" /> Local motion</label>
+                <button id="pause-motion" type="button" disabled>Pause motion</button>
+              </div>
+              <p id="motion-status" role="status">Off — optional local texture scan, not an animated export.</p>
+            </div>
+          </aside>
         </div>
         <div class="hero-baseline page-inner" aria-hidden="true"><span>ENGINEERING / EXPLORATION</span><span>SCROLL TO EXPLORE ↓</span></div>
       </section>
