@@ -107,7 +107,7 @@ for (const name of names) {
       await page.close();
     }
   });
-  test(`${name}: default portrait motion pauses with keyboard and survives lifecycle changes`, async () => {
+  test(`${name}: portrait motion has no control section and respects lifecycle changes`, async () => {
     const page = await browsers[name].newPage({
       viewport: { width: 1440, height: 1100 },
     });
@@ -143,19 +143,11 @@ for (const name of names) {
             .clipPath !== before,
         firstFrame,
       );
-      await page
-        .getByRole("button", { name: "Pause motion", exact: true })
-        .focus();
-      await page.keyboard.press("Space");
-      await state("paused");
-      await page.waitForTimeout(80);
-      const pausedFrame = await scan.evaluate(
-        (e) => getComputedStyle(e).clipPath,
-      );
-      await page.waitForTimeout(120);
       assert.equal(
-        await scan.evaluate((e) => getComputedStyle(e).clipPath),
-        pausedFrame,
+        await page
+          .locator(".motion-controls, #pause-motion, #motion-status")
+          .count(),
+        0,
       );
       await page.emulateMedia({ reducedMotion: "reduce" });
       await state("reduced");
@@ -164,12 +156,7 @@ for (const name of names) {
         await scan.evaluate((e) => getComputedStyle(e).animationName),
         "none",
       );
-      assert.equal(await page.locator("#pause-motion").isDisabled(), true);
       await page.emulateMedia({ reducedMotion: "no-preference" });
-      await state("paused");
-      await page
-        .getByRole("button", { name: "Resume motion", exact: true })
-        .click();
       await state("running");
       await page.locator("#contact").scrollIntoViewIfNeeded();
       await state("suspended");
@@ -198,8 +185,20 @@ for (const name of names) {
       await state("running");
       for (const width of [320, 390, 768, 1440]) {
         await page.setViewportSize({ width, height: 900 });
-        const box = await page.locator("#pause-motion").boundingBox();
-        assert.ok(box.height >= 44 && box.x >= 0 && box.x + box.width <= width);
+        for (const selector of ["#contact", ".site-footer"]) {
+          assert.equal(
+            await page
+              .locator(selector)
+              .evaluate((e) => getComputedStyle(e).backgroundColor),
+            "rgb(27, 53, 45)",
+          );
+          assert.equal(
+            await page
+              .locator(selector)
+              .evaluate((e) => getComputedStyle(e).color),
+            "rgb(242, 238, 229)",
+          );
+        }
         assert.equal(
           await page.evaluate(
             () => document.documentElement.scrollWidth > innerWidth,
@@ -424,7 +423,7 @@ for (const name of names) {
       assert.equal(await page.locator("[data-hairline]").count(), 0);
       assert.equal(await page.locator("[data-figure] img:visible").count(), 6);
       assert.equal(await page.locator(".portrait-scan").isVisible(), false);
-      assert.equal(await page.locator("#pause-motion").isDisabled(), true);
+      assert.equal(await page.locator("#pause-motion").count(), 0);
       const plate = page.locator('[data-figure="terrain"]');
       await plate.scrollIntoViewIfNeeded();
       const before = await plate.innerHTML();

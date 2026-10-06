@@ -116,7 +116,10 @@ h2 { font-size: clamp(66px, 8.5vw, 122px); line-height: .98; }
 .experience-sketch { margin-top: 24px; max-width: 360px; overflow: hidden; }
 .experience-sketch > img { width: 100%; aspect-ratio: 320 / 220; object-fit: contain; }
 /* A closing note, not another panel. */
-.contact-page { padding: 106px 0 104px; background: #e3e5d9; border-top: 1px solid var(--ink); }
+.contact-page { padding: 106px 0 104px; background: var(--forest); color: var(--paper); border-top: 1px solid var(--ink); }
+.contact-page .section-index,.contact-page em,.contact-page a:hover { color: #e5a184; }
+.contact-page .about-footnotes span { color: #bdc9bc; }
+.contact-page .about-copy,.contact-page .about-footnotes { border-color: #6c8174; }
 .contact-layout { display: grid; grid-template-columns: 1.1fr 1fr; gap: 90px; align-items: end; }
 .contact-layout h2 { font-size: clamp(90px, 13vw, 186px); line-height: .88; }
 em { font-weight: 400; color: var(--accent); }
@@ -131,7 +134,8 @@ em { font-weight: 400; color: var(--accent); }
 .about-footnotes span,.about-footnotes strong { display: block; }
 .about-footnotes span { color: var(--muted); margin-bottom: 5px; font-size: 9px; }
 .about-footnotes strong { font-size: 17px; font-weight: 400; }
-.site-footer { background: #e3e5d9; }
+.site-footer { background: var(--forest); color: var(--paper); }
+.site-footer a:hover { color: #e5a184; }
 .reader-footer { display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 82px; border-top: 1px solid #adb5a4; }
 .back-top { padding-block: 15px; text-decoration: none; }
 @media (min-width: 1100px) { .work-item:nth-child(odd):not(:first-child) { padding-top: 108px; } }
@@ -213,7 +217,7 @@ em { font-weight: 400; color: var(--accent); }
   .site-nav,.skip-link,.back-top,.hero-baseline { display: none; }
   .wrap,.page-inner { width: 100%; }
   .experience-page,.contact-page,.site-footer { background: white; color: #213c32; }
-  .experience-page * { color: #213c32 !important; }
+  .experience-page *,.contact-page *,.site-footer * { color: #213c32 !important; }
   .experience-page::before { display: none; }
   .page { padding-block: 30px; margin: 0; }
   .timeline-entry,.work-item,.about-copy { break-inside: avoid; }
