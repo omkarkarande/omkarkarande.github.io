@@ -32,7 +32,11 @@ This local finishing extracts ink density into alpha from the archived
 `portrait-magic-source.webp`. Pale skin becomes transparent negative space in
 both themes, retaining contours and hatching rather than an opaque face fill.
 Light ink is forest (#213c32). Dark rendering preserves the source's tonal
-order with near-black shadows and faint translucent sage highlights; bright
+order with near-black shadows and translucent warm sage highlights (#e1dfcc at
+roughly 35% coverage). This keeps most of the skin open to the page while giving
+the face a visible tonal range. Regression checks require both correct tonal
+order and a minimum composited highlight level; polarity alone can still leave
+the portrait almost invisible. Bright
 ink over shadow-shaped alpha would incorrectly produce a photographic negative.
 Skin remains mostly transparent, and the backing silhouette is transparent too.
 Both variants use lossless WebP, with theme-specific coverage. SVG geometry is
