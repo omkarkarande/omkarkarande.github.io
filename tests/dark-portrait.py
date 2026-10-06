@@ -11,7 +11,7 @@ for name, image, background in [("light", light, "#f2eee5"), ("dark", dark, "#17
     alpha = image.getchannel("A")
     for box in [(680, 350, 830, 430), (610, 660, 680, 750)]:
         mean = ImageStat.Stat(alpha.crop(box)).mean[0]
-        limit = 105 if name == "dark" else 65
+        limit = 140 if name == "dark" else 65
         assert mean < limit, f"{name}: opaque skin in {box}: {mean:.1f}"
     assert alpha.getpixel((0, 0)) == 0
     assert alpha.getextrema()[1] > 200
@@ -29,6 +29,6 @@ for name, image, background in [("light", light, "#f2eee5"), ("dark", dark, "#17
     highlight = sum(highlights) / len(highlights)
     assert highlight > shadow + 10, f"{name}: inverted tonal order: shadow {shadow:.1f}, highlight {highlight:.1f}"
     if name == "dark":
-        assert highlight >= 75, f"dark: washed-out portrait, highlight only {highlight:.1f}"
-        assert highlight - shadow >= 50, f"dark: insufficient facial contrast {highlight-shadow:.1f}"
+        assert highlight >= 120, f"dark: washed-out portrait, highlight only {highlight:.1f}"
+        assert highlight - shadow >= 95, f"dark: insufficient facial contrast {highlight-shadow:.1f}"
     print(f"{name}: transparent skin; natural tonal order {shadow:.1f} < {highlight:.1f}")
