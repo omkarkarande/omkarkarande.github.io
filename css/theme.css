@@ -26,7 +26,7 @@
   --portrait-ground: #2b3a2f;
   --portrait-grid: #8c9c80;
   --portrait-blend: normal;
-  --portrait-art: url("../res/images/portrait-magic-dark.webp");
+  --portrait-art: url("../res/images/portrait-magic-dark.webp?v=2");
   --newspaper-art: url("../res/images/field-newspaper-dark.svg");
   --chess-art: url("../res/images/field-chess-dark.svg");
   --kinetic-art: url("../res/images/field-kinetic-dark.svg");
@@ -51,7 +51,7 @@
     --portrait-ground: #2b3a2f;
     --portrait-grid: #8c9c80;
     --portrait-blend: normal;
-    --portrait-art: url("../res/images/portrait-magic-dark.webp");
+    --portrait-art: url("../res/images/portrait-magic-dark.webp?v=2");
     --newspaper-art: url("../res/images/field-newspaper-dark.svg");
     --chess-art: url("../res/images/field-chess-dark.svg");
     --kinetic-art: url("../res/images/field-kinetic-dark.svg");
@@ -117,35 +117,62 @@
 [data-figure="branches"] > img {
   content: var(--mods-art);
 }
-/* A quiet, tactile switch at the end of the masthead. */
+/* Sliding appearance switch, with a full-height touch target. */
 .theme-toggle {
   flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  min-width: 76px;
+  min-width: 64px;
   min-height: 44px;
-  padding: 8px 12px;
-  border: 1px solid var(--rule);
+  padding: 6px 0;
+  border: 0;
   border-radius: 24px;
   color: var(--ink);
   background: transparent;
-  font: 11px var(--mono);
   cursor: pointer;
 }
+.theme-track {
+  position: relative;
+  display: block;
+  width: 64px;
+  height: 32px;
+  border: 1px solid var(--rule);
+  border-radius: 20px;
+  background: var(--portrait-ground);
+}
 .theme-toggle svg {
-  width: 17px;
-  height: 17px;
+  position: absolute;
+  top: 7px;
+  width: 16px;
+  height: 16px;
 }
-.theme-toggle:hover {
-  border-color: var(--accent);
-  color: var(--accent);
+.theme-sun {
+  left: 7px;
 }
-.theme-toggle[aria-pressed="true"] {
+.theme-moon {
+  right: 7px;
+}
+.theme-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
   background: var(--ink);
-  color: var(--paper);
-  border-color: var(--ink);
+  transition: transform 180ms ease;
+}
+.theme-toggle:hover .theme-track {
+  border-color: var(--accent);
+}
+.theme-toggle[aria-checked="true"] .theme-thumb {
+  transform: translateX(32px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .theme-thumb {
+    transition: none;
+  }
 }
 .theme-toggle:focus-visible {
   outline: 2px solid var(--accent);

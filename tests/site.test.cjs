@@ -65,6 +65,29 @@ async function screenshot(page, file, locator) {
   else await page.screenshot({ ...options, fullPage: true });
 }
 for (const name of names) {
+  test(`${name}: appearance is a sliding switch`, async () => {
+    const page = await browsers[name].newPage({
+      colorScheme: "light",
+      reducedMotion: "reduce",
+    });
+    try {
+      await page.goto(base);
+      const toggle = page.locator(".theme-toggle");
+      assert.equal(await toggle.getAttribute("role"), "switch");
+      assert.equal(await toggle.getAttribute("aria-checked"), "false");
+      const thumb = toggle.locator(".theme-thumb");
+      const off = await thumb.boundingBox();
+      await toggle.click();
+      assert.equal(await toggle.getAttribute("aria-checked"), "true");
+      const on = await thumb.boundingBox();
+      assert.ok(on.x > off.x + 15);
+      await toggle.focus();
+      await page.keyboard.press("Enter");
+      assert.equal(await toggle.getAttribute("aria-checked"), "false");
+    } finally {
+      await page.close();
+    }
+  });
   test(`${name}: theme initializes before styles and tolerates blocked storage`, async () => {
     for (const blocked of [true, false]) {
       const page = await browsers[name].newPage({ colorScheme: "light" });
@@ -94,7 +117,7 @@ for (const name of names) {
           );
         }
         await page
-          .getByRole("button", { name: "Dark mode", exact: true })
+          .getByRole("switch", { name: "Dark mode", exact: true })
           .click();
         assert.equal(
           await page.locator("html").getAttribute("data-theme"),
@@ -123,7 +146,7 @@ for (const name of names) {
           )),
       );
       await page
-        .getByRole("button", { name: "Dark mode", exact: true })
+        .getByRole("switch", { name: "Dark mode", exact: true })
         .click();
       const figure = page.locator('[data-figure="terrain"]');
       assert.equal(
@@ -281,11 +304,11 @@ for (const name of names) {
         await page.locator("html").getAttribute("data-theme"),
         "dark",
       );
-      const toggle = page.getByRole("button", {
+      const toggle = page.getByRole("switch", {
         name: "Dark mode",
         exact: true,
       });
-      assert.equal(await toggle.getAttribute("aria-pressed"), "true");
+      assert.equal(await toggle.getAttribute("aria-checked"), "true");
       await toggle.focus();
       await page.keyboard.press("Space");
       assert.equal(
@@ -297,7 +320,7 @@ for (const name of names) {
         "light",
       );
       await page.reload();
-      assert.equal(await toggle.getAttribute("aria-pressed"), "false");
+      assert.equal(await toggle.getAttribute("aria-checked"), "false");
       await page.emulateMedia({ colorScheme: "light" });
       await page.emulateMedia({ colorScheme: "dark" });
       assert.equal(

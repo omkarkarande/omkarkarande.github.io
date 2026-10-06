@@ -7,7 +7,7 @@
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
     <meta name="theme-color" content="#f2eee5" />
-    <script src="js/theme.js?v=1"></script>
+    <script src="js/theme.js?v=2"></script>
     <meta
       name="description"
       content="Software engineer at Amazon. Photo memories, cloud platforms, and side projects."
@@ -38,7 +38,7 @@
     <script src="js/font-variant.js" defer></script>
     <script src="js/main.js?v=fieldnotes-1" defer></script>
     <link rel="stylesheet" href="css/portrait-motion.css?v=1" />
-    <link rel="stylesheet" href="css/theme.css?v=1" />
+    <link rel="stylesheet" href="css/theme.css?v=2" />
     <script src="js/portrait-motion.js?v=1" defer></script>
     <script type="module" src="js/hairline.bundle.js?v=0.3.0-3"></script>
   </head>
@@ -63,19 +63,34 @@
           class="theme-toggle"
           type="button"
           aria-label="Dark mode"
-          aria-pressed="false"
+          role="switch"
+          aria-checked="false"
           hidden
         >
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.4"
-            aria-hidden="true"
-          >
-            <path d="M20 14.2A8.5 8.5 0 0 1 9.8 4a8.5 8.5 0 1 0 10.2 10.2Z" />
-          </svg>
-          <span aria-hidden="true">Dark</span>
+          <span class="theme-track" aria-hidden="true">
+            <svg
+              class="theme-sun"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+            >
+              <circle cx="12" cy="12" r="3.5" />
+              <path
+                d="M12 2v3m0 14v3M2 12h3m14 0h3M5 5l2 2m10 10 2 2M5 19l2-2M17 7l2-2"
+              />
+            </svg>
+            <svg
+              class="theme-moon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+            >
+              <path d="M20 14.2A8.5 8.5 0 0 1 9.8 4a8.5 8.5 0 1 0 10.2 10.2Z" />
+            </svg>
+            <span class="theme-thumb"></span>
+          </span>
         </button>
       </div>
     </header>

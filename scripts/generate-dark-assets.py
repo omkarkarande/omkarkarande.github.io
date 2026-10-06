@@ -7,9 +7,9 @@ from PIL import Image, ImageOps
 
 root = Path(__file__).resolve().parents[1] / "res/images"
 source = Image.open(root / "portrait-magic.webp").convert("RGBA")
-# Keep the original tonal ordering: highlights become warm ivory, ink becomes
-# deep forest. This retains a recognizable portrait rather than a negative.
-portrait = ImageOps.colorize(source.convert("L"), "#415849", "#eee8d8")
+# Preserve tonal ordering without the pale paper highlights of the light print.
+# Deep forest shadows and restrained sage highlights blend with the dark hero.
+portrait = ImageOps.colorize(source.convert("L"), "#1c2a21", "#819581")
 portrait.putalpha(source.getchannel("A"))
 portrait.save(root / "portrait-magic-dark.webp", quality=92, method=6)
 

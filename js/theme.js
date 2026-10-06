@@ -15,7 +15,7 @@
     document.querySelector('meta[name="theme-color"]').content =
       theme === "dark" ? "#171c18" : "#f2eee5";
     const button = document.querySelector(".theme-toggle");
-    if (button) button.setAttribute("aria-pressed", String(theme === "dark"));
+    if (button) button.setAttribute("aria-checked", String(theme === "dark"));
   }
   apply();
   system.addEventListener("change", apply);
