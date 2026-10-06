@@ -37,10 +37,17 @@ for (const name of names) {
       assert.equal(await art.count(), 1);
       assert.match(await art.getAttribute('alt'), /ASCII portrait/);
       assert.ok(await art.evaluate(e => e.complete && e.naturalWidth >= 600));
-      const source = await fs.readFile(path.join(root, 'res/images/portrait-ascii.svg'), 'utf8');
-      assert.ok((source.match(/<text /g) || []).length > 60, 'Real character rows, not a dither bitmap');
-      assert.ok(!source.includes('<image'), 'No embedded raster masquerading as ASCII');
-      assert.ok(!source.includes('spacingAndGlyphs'), 'Glyph proportions stay uniform on sparse rows');
+      assert.equal(await art.getAttribute('src'), 'res/images/portrait-magic.webp');
+      const source = await fs.readFile(path.join(root, 'res/images/portrait-magic.webp'));
+      assert.equal(source.toString('ascii', 8, 12), 'WEBP');
+      assert.ok(source.length > 20000 && source.length < 800000, 'Optimized local ASCII Magic export');
+      assert.equal(await art.evaluate(e => e.naturalWidth), 1500);
+      assert.equal(await art.evaluate(e => e.naturalHeight), 1500);
+      assert.equal(await art.evaluate(e => {
+        const canvas = document.createElement('canvas'); canvas.width = canvas.height = 1;
+        const ctx = canvas.getContext('2d'); ctx.drawImage(e, 0, 0);
+        return ctx.getImageData(0, 0, 1, 1).data[3];
+      }), 0, 'Portrait corner is transparent, not a rectangular panel');
       for (const width of [320,390,768,1440]) {
         await page.setViewportSize({width,height:900});
         const box = await art.boundingBox();
