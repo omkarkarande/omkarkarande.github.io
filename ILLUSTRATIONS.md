@@ -28,11 +28,14 @@ have been removed; archived exports are documented in `ILLUSTRATIONS-EFFECTS.md`
 
 `python3 scripts/generate-dark-assets.py` generates `portrait-magic-dark.webp`
 and six `field-*-dark.svg` plates locally from the existing finished assets.
-This is local color finishing, not a new service export: portrait luminance keeps
-its original ordering while mapping to deep forest / muted sage (#1c2a21–#819581),
-with the alpha mask intact. Restrained highlights avoid a pale cutout on dark pages.
-SVG geometry is unchanged; ink, faces, and annotations receive explicit palette
-replacements. Original light files and source photographs are untouched.
+This local finishing extracts ink density into alpha from the archived
+`portrait-magic-source.webp`. Pale skin becomes transparent negative space in
+both themes, retaining contours and hatching rather than an opaque face fill.
+Light ink is forest (#213c32); dark ink is subdued sage (#687961). The backing
+silhouette is transparent too, so the actual page background shows through.
+Both variants use lossless WebP with identical coverage. SVG geometry is
+unchanged; ink, faces, and annotations receive explicit palette replacements.
+Source photographs are untouched.
 
 `css/theme.css` selects these variants for both the static image and scan overlay,
 including no-JavaScript system-dark mode. CSS `--hairline-*` tokens update mounted

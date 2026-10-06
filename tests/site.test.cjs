@@ -349,7 +349,7 @@ for (const name of names) {
       );
       assert.equal(
         await page.locator(".ascii-portrait").getAttribute("src"),
-        "res/images/portrait-magic.webp",
+        "res/images/portrait-magic.webp?v=3",
       );
       await page.waitForFunction(
         () =>
@@ -358,7 +358,7 @@ for (const name of names) {
       );
       assert.equal(
         await page.locator(".portrait-scan").getAttribute("src"),
-        "res/images/portrait-magic.webp",
+        "res/images/portrait-magic.webp?v=3",
       );
       await page.evaluate(() => {
         history.pushState(null, "", "?effect=dots");
@@ -366,7 +366,7 @@ for (const name of names) {
       });
       assert.equal(
         await page.locator(".ascii-portrait").getAttribute("src"),
-        "res/images/portrait-magic.webp",
+        "res/images/portrait-magic.webp?v=3",
       );
       assert.deepEqual(requested, []);
     } finally {
@@ -497,7 +497,7 @@ for (const name of names) {
       assert.ok(await art.evaluate((e) => e.complete && e.naturalWidth >= 600));
       assert.equal(
         await art.getAttribute("src"),
-        "res/images/portrait-magic.webp",
+        "res/images/portrait-magic.webp?v=3",
       );
       const source = await fs.readFile(
         path.join(root, "res/images/portrait-magic.webp"),

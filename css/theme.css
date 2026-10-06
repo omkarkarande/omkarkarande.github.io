@@ -3,7 +3,7 @@
 :root {
   --panel-ink: #f2eee5;
   --panel-accent: #e5a184;
-  --portrait-ground: #e2e4d7;
+  --portrait-ground: transparent;
   --portrait-grid: #8b9584;
   --portrait-blend: multiply;
   --portrait-art: normal;
@@ -23,10 +23,10 @@
   --accent: #c4b784;
   --forest: #20382e;
   --panel-accent: #c4b784;
-  --portrait-ground: #2b3a2f;
+  --portrait-ground: transparent;
   --portrait-grid: #8c9c80;
   --portrait-blend: normal;
-  --portrait-art: url("../res/images/portrait-magic-dark.webp?v=2");
+  --portrait-art: url("../res/images/portrait-magic-dark.webp?v=3");
   --newspaper-art: url("../res/images/field-newspaper-dark.svg");
   --chess-art: url("../res/images/field-chess-dark.svg");
   --kinetic-art: url("../res/images/field-kinetic-dark.svg");
@@ -48,10 +48,10 @@
     --accent: #c4b784;
     --forest: #20382e;
     --panel-accent: #c4b784;
-    --portrait-ground: #2b3a2f;
+    --portrait-ground: transparent;
     --portrait-grid: #8c9c80;
     --portrait-blend: normal;
-    --portrait-art: url("../res/images/portrait-magic-dark.webp?v=2");
+    --portrait-art: url("../res/images/portrait-magic-dark.webp?v=3");
     --newspaper-art: url("../res/images/field-newspaper-dark.svg");
     --chess-art: url("../res/images/field-chess-dark.svg");
     --kinetic-art: url("../res/images/field-kinetic-dark.svg");
@@ -188,7 +188,7 @@
     --muted: #62685e;
     --rule: #c6c8b9;
     --accent: #a34227;
-    --portrait-ground: #e2e4d7;
+    --portrait-ground: transparent;
     --portrait-grid: #8b9584;
     --portrait-blend: multiply;
   }

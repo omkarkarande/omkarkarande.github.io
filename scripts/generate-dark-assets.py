@@ -1,17 +1,27 @@
 """Recolor existing character art and vector plates; never invert photographs.
-Run with Python + Pillow. Source assets and their alpha/geometry stay intact.
+Run with Python + Pillow. Extract transparent ink from the archived source.
 """
 from pathlib import Path
 import re
 from PIL import Image, ImageOps
 
 root = Path(__file__).resolve().parents[1] / "res/images"
-source = Image.open(root / "portrait-magic.webp").convert("RGBA")
-# Preserve tonal ordering without the pale paper highlights of the light print.
-# Deep forest shadows and restrained sage highlights blend with the dark hero.
-portrait = ImageOps.colorize(source.convert("L"), "#1c2a21", "#819581")
-portrait.putalpha(source.getchannel("A"))
-portrait.save(root / "portrait-magic-dark.webp", quality=92, method=6)
+source = Image.open(root / "portrait-magic-source.webp").convert("RGBA")
+# Extract ink density from the immutable paper-filled print. Light skin becomes
+# transparent negative space; contours/hatching retain their original coverage.
+# Normalize against the original forest ink luminance (53), not pure black.
+from PIL import ImageChops
+ink = source.convert("L").point(
+    [round(255 * (min(1, max(0, (245 - value) / 192)) ** 1.35)) for value in range(256)]
+)
+alpha = ImageChops.multiply(ink, source.getchannel("A"))
+# 33 coverage levels retain soft strokes without shipping megabyte alpha noise.
+alpha = alpha.point([min(255, round(value / 8) * 8) for value in range(256)])
+for filename, color in [("portrait-magic.webp", "#213c32"),
+                        ("portrait-magic-dark.webp", "#687961")]:
+    portrait = Image.new("RGBA", source.size, color)
+    portrait.putalpha(alpha)
+    portrait.save(root / filename, lossless=True, method=6)
 
 palette = {
     "#213c32": "#dbe2cd", "#1b352d": "#dbe2cd",
