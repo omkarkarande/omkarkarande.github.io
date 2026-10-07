@@ -1,6 +1,7 @@
 // Selected vanilla ESM figures; bundled locally, no runtime CDN or framework.
 /*! Hairline © 2026 Lucas Marques, MIT. See /res/licenses/hairline-LICENSE.txt. */
 import {
+  phone,
   cabinet,
   riffle,
   terrain,
@@ -9,10 +10,8 @@ import {
   turntable,
 } from "@lucasmarkes/hairline";
 
-import { journal } from "./journal.mjs";
-
 const figures = {
-  journal,
+  phone,
   cabinet,
   riffle,
   terrain,
