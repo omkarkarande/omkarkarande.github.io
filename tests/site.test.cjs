@@ -65,6 +65,32 @@ async function screenshot(page, file, locator) {
   else await page.screenshot({ ...options, fullPage: true });
 }
 for (const name of names) {
+  test(`${name}: Fleu leads side projects in both themes`, async () => {
+    const page = await browsers[name].newPage({ reducedMotion: "reduce" });
+    try {
+      for (const colorScheme of ["light", "dark"]) {
+        await page.emulateMedia({ colorScheme });
+        await page.goto(base);
+        const first = page.locator(".work-item").first();
+        assert.equal(await first.locator("h3").innerText(), "Fleu");
+        assert.equal(
+          await first.locator("h3 a").getAttribute("href"),
+          "https://fleu.app/",
+        );
+        assert.match(await first.innerText(), /micro-journal/i);
+        for (const width of [390, 1440]) {
+          await page.setViewportSize({ width, height: 900 });
+          await screenshot(
+            page,
+            `fleu-${colorScheme}-${name}-${width}.png`,
+            ".work-item:first-child",
+          );
+        }
+      }
+    } finally {
+      await page.close();
+    }
+  });
   test(`${name}: appearance is a sliding switch`, async () => {
     const page = await browsers[name].newPage({
       colorScheme: "light",
@@ -543,8 +569,8 @@ for (const name of names) {
     const page = await browsers[name].newPage();
     try {
       await page.goto(base);
-      const chess = page.locator(".work-item:nth-child(2) [data-figure]");
-      const gaming = page.locator(".work-item:nth-child(5) [data-figure]");
+      const chess = page.locator('[data-figure="turntable"]');
+      const gaming = page.locator('[data-figure="branches"]');
       assert.equal(await chess.getAttribute("data-figure"), "turntable");
       await page.waitForFunction(() =>
         document.querySelector('[data-hairline="turntable"] > svg'),
@@ -759,8 +785,11 @@ for (const name of names) {
       const current = await page.evaluate(getCopy);
       for (const text of copy)
         assert.ok(current.includes(text), `Missing: ${text}`);
-      assert.deepEqual(await page.evaluate(getLinks), links);
-      assert.equal(await page.locator(".work-item").count(), 5);
+      assert.deepEqual(
+        await page.evaluate(getLinks),
+        [...links, "https://fleu.app/"].sort(),
+      );
+      assert.equal(await page.locator(".work-item").count(), 6);
       assert.equal(await page.locator("h1").count(), 1);
     } finally {
       await page.close();
