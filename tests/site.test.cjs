@@ -69,7 +69,7 @@ for (const name of names) {
     const page = await browsers[name].newPage({ reducedMotion: "reduce" });
     try {
       for (const colorScheme of ["light", "dark"]) {
-        await page.emulateMedia({ colorScheme });
+        await page.emulateMedia({ colorScheme, reducedMotion: "reduce" });
         await page.goto(base);
         const first = page.locator(".work-item").first();
         assert.equal(await first.locator("h3").innerText(), "Fleu");
@@ -78,6 +78,16 @@ for (const name of names) {
           "https://fleu.app/",
         );
         assert.match(await first.innerText(), /micro-journal/i);
+        assert.equal(
+          await first.locator('[data-figure="phone"] > img').isVisible(),
+          true,
+        );
+        await page.emulateMedia({ reducedMotion: "no-preference" });
+        await page.waitForSelector('#fleu [data-hairline="phone"] > svg');
+        assert.equal(
+          await first.locator('[data-figure="phone"] > img').isVisible(),
+          false,
+        );
         for (const width of [390, 1440]) {
           await page.setViewportSize({ width, height: 900 });
           await screenshot(
@@ -163,7 +173,7 @@ for (const name of names) {
     try {
       await page.goto(base);
       await page.waitForFunction(
-        () => document.querySelectorAll("[data-hairline]>svg").length === 6,
+        () => document.querySelectorAll("[data-hairline]>svg").length === 7,
       );
       await page.evaluate(
         () =>
@@ -246,7 +256,7 @@ for (const name of names) {
         );
         assert.equal(
           await page.locator("[data-figure] img:visible").count(),
-          6,
+          7,
         );
         assert.equal(await page.locator(".portrait-scan").isVisible(), false);
         assert.match(
@@ -547,7 +557,7 @@ for (const name of names) {
         await art.evaluate((e) => getComputedStyle(e).transform),
         "none",
       );
-      assert.equal(await page.locator("[data-figure] img:visible").count(), 6);
+      assert.equal(await page.locator("[data-figure] img:visible").count(), 7);
       for (const width of [320, 390, 768, 1440]) {
         await page.setViewportSize({ width, height: 900 });
         const box = await art.boundingBox();
@@ -625,16 +635,24 @@ for (const name of names) {
     });
     try {
       await page.goto(base);
-      assert.equal(await page.locator("#work [data-figure]").count(), 5);
+      assert.equal(await page.locator("#work [data-figure]").count(), 6);
       assert.equal(await page.locator("#experience [data-figure]").count(), 1);
       await page.waitForFunction(
-        () => document.querySelectorAll("[data-hairline] > svg").length === 6,
+        () => document.querySelectorAll("[data-hairline] > svg").length === 7,
       );
       assert.deepEqual(
         await page
           .locator("[data-hairline]")
           .evaluateAll((es) => es.map((e) => e.dataset.hairline)),
-        ["cabinet", "riffle", "turntable", "terrain", "exploded", "branches"],
+        [
+          "cabinet",
+          "phone",
+          "riffle",
+          "turntable",
+          "terrain",
+          "exploded",
+          "branches",
+        ],
       );
       for (const plate of await page.locator("#work .hairline-figure").all()) {
         assert.equal(
@@ -713,7 +731,7 @@ for (const name of names) {
     try {
       await page.goto(base);
       assert.equal(await page.locator("[data-hairline]").count(), 0);
-      assert.equal(await page.locator("[data-figure] img:visible").count(), 6);
+      assert.equal(await page.locator("[data-figure] img:visible").count(), 7);
       assert.equal(await page.locator(".portrait-scan").isVisible(), false);
       assert.equal(await page.locator("#pause-motion").count(), 0);
       const plate = page.locator('[data-figure="terrain"]');
@@ -744,7 +762,7 @@ for (const name of names) {
       for (let i = 0; i < 2; i++) {
         await page.emulateMedia({ reducedMotion: "no-preference" });
         await page.waitForFunction(
-          () => document.querySelectorAll("[data-hairline]>svg").length === 6,
+          () => document.querySelectorAll("[data-hairline]>svg").length === 7,
         );
         await page.emulateMedia({ reducedMotion: "reduce" });
         await page.waitForFunction(
@@ -752,7 +770,7 @@ for (const name of names) {
         );
         assert.equal(
           await page.locator("[data-figure] img:visible").count(),
-          6,
+          7,
         );
         assert.equal(await page.locator("[data-figure][tabindex]").count(), 0);
       }

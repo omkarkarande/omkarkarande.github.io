@@ -27,6 +27,7 @@
   --portrait-grid: #8c9c80;
   --portrait-blend: normal;
   --portrait-art: url("../res/images/portrait-magic-dark.webp?v=6");
+  --fleu-art: url("../res/images/field-fleu-dark.svg");
   --newspaper-art: url("../res/images/field-newspaper-dark.svg");
   --chess-art: url("../res/images/field-chess-dark.svg");
   --kinetic-art: url("../res/images/field-kinetic-dark.svg");
@@ -52,6 +53,7 @@
     --portrait-grid: #8c9c80;
     --portrait-blend: normal;
     --portrait-art: url("../res/images/portrait-magic-dark.webp?v=6");
+    --fleu-art: url("../res/images/field-fleu-dark.svg");
     --newspaper-art: url("../res/images/field-newspaper-dark.svg");
     --chess-art: url("../res/images/field-chess-dark.svg");
     --kinetic-art: url("../res/images/field-kinetic-dark.svg");
@@ -101,6 +103,9 @@
 }
 [data-figure="cabinet"] > img {
   content: var(--hero-art);
+}
+[data-figure="phone"] > img {
+  content: var(--fleu-art, url("../res/images/field-fleu.svg"));
 }
 [data-figure="riffle"] > img {
   content: var(--newspaper-art);
