@@ -64,6 +64,19 @@ async function screenshot(page, file, locator) {
   if (locator) await page.locator(locator).screenshot(options);
   else await page.screenshot({ ...options, fullPage: true });
 }
+test("Fleu static artwork shares original journal geometry in both palettes", async () => {
+  for (const suffix of ["", "-dark"]) {
+    const source = await fs.readFile(
+      path.join(root, `res/images/field-fleu${suffix}.svg`),
+      "utf8",
+    );
+    assert.match(source, /data-writing/);
+    assert.match(source, /SMALL MOMENTS/);
+    assert.match(source, /06 \/ OCT/);
+    assert.match(source, /data-pen/);
+    assert.doesNotMatch(source, /position:absolute/);
+  }
+});
 for (const name of names) {
   test(`${name}: Fleu leads side projects in both themes`, async () => {
     const page = await browsers[name].newPage({ reducedMotion: "reduce" });
@@ -79,13 +92,21 @@ for (const name of names) {
         );
         assert.match(await first.innerText(), /micro-journal/i);
         assert.equal(
-          await first.locator('[data-figure="phone"] > img').isVisible(),
+          await first.locator('[data-figure="journal"] > img').isVisible(),
           true,
         );
+        for (const width of [390, 1440]) {
+          await page.setViewportSize({ width, height: 900 });
+          await screenshot(
+            page,
+            `fleu-static-${colorScheme}-${name}-${width}.png`,
+            "#fleu",
+          );
+        }
         await page.emulateMedia({ reducedMotion: "no-preference" });
-        await page.waitForSelector('#fleu [data-hairline="phone"] > svg');
+        await page.waitForSelector('#fleu [data-hairline="journal"] > svg');
         assert.equal(
-          await first.locator('[data-figure="phone"] > img').isVisible(),
+          await first.locator('[data-figure="journal"] > img').isVisible(),
           false,
         );
         for (const width of [390, 1440]) {
@@ -97,6 +118,98 @@ for (const name of names) {
           );
         }
       }
+    } finally {
+      await page.close();
+    }
+  });
+  test(`${name}: journal writes, suspends and cleans up without losing fallback`, async () => {
+    const page = await browsers[name].newPage();
+    try {
+      await page.goto(base);
+      const plate = page.locator('[data-figure="journal"]');
+      await plate.scrollIntoViewIfNeeded();
+      const ink = plate.locator("[data-writing]");
+      const bounds = await plate.locator("svg").evaluate((e) => {
+        const b = e.getBBox();
+        return { x: b.x, y: b.y, right: b.x + b.width, bottom: b.y + b.height };
+      });
+      assert.ok(
+        bounds.x >= 4 &&
+          bounds.y >= 4 &&
+          bounds.right <= 316 &&
+          bounds.bottom <= 216,
+        JSON.stringify(bounds),
+      );
+      const frame = () => ink.getAttribute("stroke-dashoffset");
+      const penFrame = () =>
+        plate.locator("[data-pen]").getAttribute("transform");
+      const before = await frame(),
+        penBefore = await penFrame();
+      await page.waitForTimeout(350);
+      assert.notEqual(await frame(), before, "Actual SVG ink advances");
+      assert.notEqual(await penFrame(), penBefore, "Pen follows writing");
+      const suspended = async () => {
+        await page.waitForFunction(
+          () =>
+            document.querySelector('[data-figure="journal"]').dataset.motion ===
+            "suspended",
+        );
+        const frozen = await frame();
+        await page.waitForTimeout(200);
+        assert.equal(await frame(), frozen);
+      };
+      await page.locator("#contact").scrollIntoViewIfNeeded();
+      await suspended();
+      await plate.scrollIntoViewIfNeeded();
+      await page.waitForFunction(
+        () =>
+          document.querySelector('[data-figure="journal"]').dataset.motion ===
+          "running",
+      );
+      // Headless engines do not reliably hide tabs; dispatch the real handler.
+      await page.evaluate(() => {
+        Object.defineProperty(document, "hidden", {
+          configurable: true,
+          get: () => true,
+        });
+        document.dispatchEvent(new Event("visibilitychange"));
+      });
+      await suspended();
+      await page.evaluate(() => {
+        delete document.hidden;
+        document.dispatchEvent(new Event("visibilitychange"));
+      });
+      const resumed = await frame();
+      await page.waitForTimeout(200);
+      assert.notEqual(await frame(), resumed);
+      await page.evaluate(
+        () =>
+          (window.oldJournal = document.querySelector(
+            '[data-figure="journal"] > svg',
+          )),
+      );
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      await page.waitForFunction(
+        () => !document.querySelector('[data-figure="journal"] > svg'),
+      );
+      const detached = await page.evaluate(() => window.oldJournal.outerHTML);
+      await page.evaluate(() =>
+        document.dispatchEvent(new Event("visibilitychange")),
+      );
+      await page.waitForTimeout(200);
+      assert.equal(
+        await page.evaluate(() => window.oldJournal.outerHTML),
+        detached,
+        "Destroyed SVG is no longer animated",
+      );
+      assert.equal(await plate.getAttribute("data-motion"), null);
+      assert.equal(await plate.locator("img").isVisible(), true);
+      await page.emulateMedia({ reducedMotion: "no-preference" });
+      await page.waitForSelector('[data-figure="journal"] > svg');
+      assert.equal(await plate.locator("svg").count(), 1);
+      await page.emulateMedia({ media: "print" });
+      assert.equal(await plate.locator("svg").isVisible(), false);
+      assert.equal(await plate.locator("img").isVisible(), true);
     } finally {
       await page.close();
     }
@@ -646,7 +759,7 @@ for (const name of names) {
           .evaluateAll((es) => es.map((e) => e.dataset.hairline)),
         [
           "cabinet",
-          "phone",
+          "journal",
           "riffle",
           "turntable",
           "terrain",

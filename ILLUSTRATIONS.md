@@ -74,9 +74,24 @@ collapsed. Explicit preserved whitespace keeps the character grid consistent.
 
 ## Hairline
 
-`js/hairline.js` mounts six instances using six selected exports from
+`js/hairline.js` mounts seven instances: an original custom journal plus six selected exports from
 `@lucasmarkes/hairline` 0.3.0: server cabinet for experience; reading cards,
 turntable, terrain, exploded window, and branches for the five projects.
+
+Fleu uses `js/journal.mjs`, an **original local SVG illustration and animation**,
+not an official Hairline preset or a modified phone. Its open, isometric journal
+has a dated entry, ruled notes, a bookmark and a pen tracing a real SVG ink path.
+The gentle nine-second loop writes for six seconds, rests for two, then fades
+and lifts before starting again. Theme colours use the existing `--hairline-*`
+tokens. An IntersectionObserver and document visibility listener suspend the
+frame loop offscreen and in hidden tabs without advancing elapsed time. Destroy
+cancels the frame, disconnects the observer, removes the listener and SVG, and
+restores the static fallback. The existing reduced-motion controller destroys
+and remounts it dynamically. Print hides the live SVG.
+
+`node scripts/generate-journal.mjs` writes matching light and dark static Fleu
+assets from the same original geometry; it never modifies the portrait. These
+transparent-background SVGs support no-JS, reduced-motion and print rendering.
 
 Chess uses the library's turntable: **geometric pieces on a rotating platform**
 as a study of board positions, not a literal chess-specific library figure.

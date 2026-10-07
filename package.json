@@ -4,8 +4,8 @@
   "scripts": {
     "build": "esbuild js/hairline.js --bundle --minify --format=esm --outfile=js/hairline.bundle.js",
     "test": "node --test tests/site.test.cjs",
-    "format": "prettier --write index.html css/theme.css js/theme.js css/portrait-motion.css js/portrait-motion.js js/hairline.js tests/site.test.cjs README.md ILLUSTRATIONS.md ILLUSTRATIONS-EFFECTS.md package.json",
-    "format:check": "prettier --check index.html css/theme.css js/theme.js css/portrait-motion.css js/portrait-motion.js js/hairline.js tests/site.test.cjs README.md ILLUSTRATIONS.md ILLUSTRATIONS-EFFECTS.md package.json"
+    "format": "prettier --write index.html css/theme.css js/theme.js css/portrait-motion.css js/portrait-motion.js js/hairline.js js/journal.mjs scripts/generate-journal.mjs tests/site.test.cjs README.md ILLUSTRATIONS.md ILLUSTRATIONS-EFFECTS.md package.json",
+    "format:check": "prettier --check index.html css/theme.css js/theme.js css/portrait-motion.css js/portrait-motion.js js/hairline.js js/journal.mjs scripts/generate-journal.mjs tests/site.test.cjs README.md ILLUSTRATIONS.md ILLUSTRATIONS-EFFECTS.md package.json"
   },
   "devDependencies": {
     "axe-core": "4.10.3",
