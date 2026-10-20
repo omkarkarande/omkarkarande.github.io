@@ -2,7 +2,6 @@
 /*! Hairline © 2026 Lucas Marques, MIT. See /res/licenses/hairline-LICENSE.txt. */
 import {
   phone,
-  cabinet,
   riffle,
   terrain,
   exploded,
@@ -12,7 +11,6 @@ import {
 
 const figures = {
   phone,
-  cabinet,
   riffle,
   terrain,
   exploded,
