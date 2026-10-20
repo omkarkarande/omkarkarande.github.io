@@ -84,6 +84,29 @@ for (const name of (process.env.TEST_BROWSERS || "chromium").split(",")) {
               .evaluate((el) => el.scrollWidth <= el.clientWidth),
           );
           assert.equal(await page.locator("header, nav").count(), 0);
+          const layout = await page.evaluate(() => {
+            const style = (selector) =>
+              getComputedStyle(document.querySelector(selector));
+            return {
+              margin: document.querySelector(".shell").getBoundingClientRect()
+                .left,
+              title: parseFloat(style("h1").fontSize),
+              sectionFont: style("h2").fontFamily,
+              itemFont: style("h3").fontFamily,
+              sectionSize: parseFloat(style("h2").fontSize),
+              itemSize: parseFloat(style("h3").fontSize),
+              borders: [
+                ...document.querySelectorAll(
+                  ".timeline-entry, .work-item, .other-list > div, .earlier, .section-tail",
+                ),
+              ].map((el) => getComputedStyle(el).borderTopWidth),
+            };
+          });
+          assert.ok(layout.margin <= (width <= 700 ? 16 : 120));
+          assert.ok(layout.title <= 112);
+          assert.notEqual(layout.sectionFont, layout.itemFont);
+          assert.ok(layout.sectionSize < layout.itemSize);
+          assert.ok(layout.borders.every((value) => value === "0px"));
           const edges = await page
             .locator(
               "h1, h2, .timeline-entry > div, .work-copy, .other-list dd",
@@ -248,7 +271,7 @@ for (const name of (process.env.TEST_BROWSERS || "chromium").split(",")) {
           .evaluate((el) => getComputedStyle(el).backgroundColor),
         "rgb(6, 6, 6)",
       );
-      assert.equal(await page.locator("h1").innerText(), "OMKAR\nKARANDE");
+      assert.equal(await page.locator("h1").innerText(), "OMI");
       assert.equal(
         await page.locator(".theme-toggle, .portrait-figure").count(),
         0,
