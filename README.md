@@ -5,7 +5,7 @@ A minimal, dark-only static portfolio. GitHub Pages serves `master`; `magazine-d
 ## Design and content
 
 - `index.html`: oversized name, experience list, six projects, education and contact links. Existing professional/project copy and destinations are preserved.
-- `css/minimal.css`: #101010 background, monochrome typography, thin row separators and responsive layouts.
+- `css/minimal.css`: near-black #060606 background, monochrome typography, quiet row separators and a shared left alignment across all lists. No header or section navigation.
 - Anton is self-hosted in `res/fonts/anton-regular.woff2`, with Impact as a fallback. The original font is from Google Fonts' `ofl/anton/Anton-Regular.ttf`; its SIL Open Font License is included as `Anton-OFL.txt`. WOFF2 conversion preserves the full character set.
 - Six small Hairline illustrations accompany the projects. They are bundled locally; no runtime third-party requests are required.
 - There is no portrait, theme switch, scroll hijacking, or font-selection UI. All navigation is native HTML. The site works without JavaScript.

@@ -7,10 +7,10 @@
 }
 :root {
   color-scheme: dark;
-  --ground: #101010;
+  --ground: #060606;
   --ink: #ededeb;
   --muted: #999997;
-  --rule: #333332;
+  --rule: #242424;
 }
 * {
   box-sizing: border-box;
@@ -49,29 +49,11 @@ dd {
   margin: 0;
 }
 .shell {
-  width: min(100% - 96px, 1000px);
+  width: min(100% - 96px, 880px);
   margin-inline: auto;
 }
-.site-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-block: 28px;
-  font-size: 13px;
-}
-.site-header > a {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  min-height: 44px;
-}
-.wordmark {
-  font-size: 21px;
-  font-weight: 700;
-  letter-spacing: -1px;
-}
 .intro {
-  padding: 70px 0 96px;
+  padding: 80px 0 88px;
 }
 .eyebrow,
 .timeline-org {
@@ -87,47 +69,33 @@ h3 {
   font-weight: 400;
 }
 h1 {
-  font-size: clamp(80px, 17vw, 208px);
+  font-size: clamp(80px, 16vw, 184px);
   letter-spacing: -0.025em;
   line-height: 1.02;
-  margin: 25px 0 38px;
+  margin: 0 0 32px;
 }
 h1 span {
   display: block;
 }
-.intro-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
-  gap: 40px;
-}
+
 .intro-bottom > p {
   max-width: 390px;
   color: var(--muted);
 }
-nav {
-  display: flex;
-  gap: 24px;
-  font-size: 12px;
-}
-nav a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-}
+
 .list-section {
   padding-bottom: 82px;
 }
 h2 {
-  font-size: 40px;
+  font-size: 32px;
   line-height: 1.2;
   text-transform: uppercase;
   padding-bottom: 25px;
 }
 .timeline-entry {
   display: grid;
-  grid-template-columns: 190px 1fr;
-  gap: 24px;
+  grid-template-columns: 1fr;
+  gap: 10px;
   border-top: 1px solid var(--rule);
   padding: 28px 0;
 }
@@ -157,12 +125,12 @@ h3 {
 }
 .work-item {
   display: grid;
-  grid-template-columns: 1fr 190px;
-  gap: 48px;
+  grid-template-columns: minmax(0, 1fr) 150px;
+  gap: 32px;
   align-items: center;
   border-top: 1px solid var(--rule);
   padding: 28px 0;
-  min-height: 190px;
+  min-height: 160px;
 }
 .work-copy {
   max-width: 580px;
@@ -188,9 +156,9 @@ h3 a span {
 }
 .hairline-figure {
   position: relative;
-  width: 190px;
-  height: 150px;
-  --hairline-plate: #101010;
+  width: 150px;
+  height: 130px;
+  --hairline-plate: #060606;
   --hairline-hi: #ddddda;
   --hairline-edge: #999997;
   --hairline-mid: #646462;
@@ -221,8 +189,8 @@ h3 a span {
 }
 .other-list > div {
   display: grid;
-  grid-template-columns: 190px 1fr;
-  gap: 24px;
+  grid-template-columns: 1fr;
+  gap: 10px;
   border-top: 1px solid var(--rule);
   padding: 24px 0;
 }
@@ -282,23 +250,15 @@ footer a {
   .shell {
     width: calc(100% - 40px);
   }
-  .site-header {
-    padding-block: 15px;
-  }
+
   .intro {
     padding: 45px 0 64px;
   }
   h1 {
     font-size: clamp(64px, 19.2vw, 134px);
-    margin-block: 24px 30px;
+    margin-block: 0 30px;
   }
-  .intro-bottom {
-    display: block;
-  }
-  nav {
-    margin-top: 20px;
-    gap: 26px;
-  }
+
   .list-section {
     padding-bottom: 58px;
   }
@@ -373,7 +333,6 @@ footer a {
   .hairline-figure > img {
     filter: grayscale(1) brightness(0.4);
   }
-  nav,
   .skip-link,
   footer a {
     display: none;

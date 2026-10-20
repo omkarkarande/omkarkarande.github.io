@@ -83,9 +83,19 @@ for (const name of (process.env.TEST_BROWSERS || "chromium").split(",")) {
               .locator("h1")
               .evaluate((el) => el.scrollWidth <= el.clientWidth),
           );
-          await page
-            .getByRole("link", { name: "Projects", exact: true })
-            .click();
+          assert.equal(await page.locator("header, nav").count(), 0);
+          const edges = await page
+            .locator(
+              "h1, h2, .timeline-entry > div, .work-copy, .other-list dd",
+            )
+            .evaluateAll((els) =>
+              els.map((el) => el.getBoundingClientRect().left),
+            );
+          assert.ok(
+            edges.every((x) => Math.abs(x - edges[0]) < 1),
+            `unaligned text at ${width}: ${edges}`,
+          );
+          await page.goto(`${base}/#work`);
           assert.equal(new URL(page.url()).hash, "#work");
           assert.ok(
             Math.abs((await page.locator("#work").boundingBox()).y - 32) < 3,
@@ -161,7 +171,7 @@ for (const name of (process.env.TEST_BROWSERS || "chromium").split(",")) {
           await figure.evaluate((el) =>
             getComputedStyle(el).getPropertyValue("--hairline-plate").trim(),
           ),
-          "#101010",
+          "#060606",
         );
         await figure.scrollIntoViewIfNeeded();
         assert.ok(await figure.locator("svg").isVisible());
@@ -236,7 +246,7 @@ for (const name of (process.env.TEST_BROWSERS || "chromium").split(",")) {
         await page
           .locator("body")
           .evaluate((el) => getComputedStyle(el).backgroundColor),
-        "rgb(16, 16, 16)",
+        "rgb(6, 6, 6)",
       );
       assert.equal(await page.locator("h1").innerText(), "OMKAR\nKARANDE");
       assert.equal(
