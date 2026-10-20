@@ -84,6 +84,12 @@ for (const name of (process.env.TEST_BROWSERS || "chromium").split(",")) {
               .evaluate((el) => el.scrollWidth <= el.clientWidth),
           );
           assert.equal(await page.locator("header, nav").count(), 0);
+          assert.ok(
+            (await page.locator("a").allTextContents()).every(
+              (text) => !text.includes("↗"),
+            ),
+            "Links must not include emoji-style diagonal arrows",
+          );
           const layout = await page.evaluate(() => {
             const style = (selector) =>
               getComputedStyle(document.querySelector(selector));
