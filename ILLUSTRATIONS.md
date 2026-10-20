@@ -1,6 +1,8 @@
 # Portfolio illustrations
 
-The minimal portfolio uses six local Hairline figures from `@lucasmarkes/hairline` 0.3.0:
+The minimal portfolio uses ten local Hairline figures from `@lucasmarkes/hairline` 0.3.0. Experience uses loupe (memories), cabinet (photo platform), router (reliable services), and drawer (video catalog). Their matching static SVGs are exported by `node scripts/export-experience.cjs`, with computed palette values embedded for no-JS and reduced-motion rendering.
+
+The six project figures are:
 
 | Project           | Library figure | Static fallback          |
 | ----------------- | -------------- | ------------------------ |
@@ -11,7 +13,7 @@ The minimal portfolio uses six local Hairline figures from `@lucasmarkes/hairlin
 | YouTube for macOS | exploded       | field-youtube-dark.svg   |
 | Game Mods         | branches       | field-game-mods-dark.svg |
 
-The live figures use grayscale `--hairline-*` tokens in `css/minimal.css`, with #101010 faces matching the page. Static illustrations are distinct project-specific drawings in `res/images/`, desaturated with CSS. They remain visible until a live SVG mounts and return when reduced motion tears down the engines. Printing uses the static artwork.
+The live figures use grayscale `--hairline-*` tokens in `css/minimal.css`, with #060606 faces matching the page. Static illustrations are distinct project-specific drawings in `res/images/`, desaturated with CSS. They remain visible until a live SVG mounts and return when reduced motion tears down the engines. Printing uses the static artwork.
 
 `js/hairline.js` is the source integration; `npm run build` updates the committed ESM bundle served directly by GitHub Pages. No runtime CDN, framework, or package installation is needed. The MIT notice remains in `res/licenses/hairline-LICENSE.txt`.
 

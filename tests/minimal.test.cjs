@@ -114,9 +114,7 @@ for (const name of (process.env.TEST_BROWSERS || "chromium").split(",")) {
           assert.ok(layout.sectionSize < layout.itemSize);
           assert.ok(layout.borders.every((value) => value === "0px"));
           const edges = await page
-            .locator(
-              "h1, h2, .timeline-entry > div, .work-copy, .other-list dd",
-            )
+            .locator("h1, h2, .timeline-copy, .work-copy, .other-list dd")
             .evaluateAll((els) =>
               els.map((el) => el.getBoundingClientRect().left),
             );
@@ -183,7 +181,7 @@ for (const name of (process.env.TEST_BROWSERS || "chromium").split(",")) {
       }
     }
   });
-  test(`${name}: all six Hairline figures enhance and tear down for reduced motion`, async () => {
+  test(`${name}: all ten Hairline figures enhance and tear down for reduced motion`, async () => {
     const page = await browsers[name].newPage({
       viewport: { width: 390, height: 844 },
     });
@@ -192,7 +190,7 @@ for (const name of (process.env.TEST_BROWSERS || "chromium").split(",")) {
     try {
       await page.goto(base);
       await page.waitForFunction(
-        () => document.querySelectorAll(".hairline-figure > svg").length === 6,
+        () => document.querySelectorAll(".hairline-figure > svg").length === 10,
       );
       for (const figure of await page.locator(".hairline-figure").all()) {
         assert.equal(await figure.locator("img").isVisible(), false);
@@ -223,7 +221,7 @@ for (const name of (process.env.TEST_BROWSERS || "chromium").split(",")) {
         assert.ok(await figure.locator("img").isVisible());
       await page.emulateMedia({ reducedMotion: "no-preference" });
       await page.waitForFunction(
-        () => document.querySelectorAll(".hairline-figure > svg").length === 6,
+        () => document.querySelectorAll(".hairline-figure > svg").length === 10,
       );
       assert.deepEqual(errors, []);
     } finally {
@@ -288,6 +286,26 @@ for (const name of (process.env.TEST_BROWSERS || "chromium").split(",")) {
         "Other stuff",
       ]);
       assert.equal(await page.locator(".timeline-entry").count(), 4);
+      assert.deepEqual(
+        await page
+          .locator(".timeline-entry [data-figure]")
+          .evaluateAll((els) => els.map((el) => el.dataset.figure)),
+        ["loupe", "cabinet", "router", "drawer"],
+      );
+      assert.equal(
+        await page
+          .locator("h3")
+          .first()
+          .evaluate((el) => getComputedStyle(el).textTransform),
+        "uppercase",
+      );
+      assert.equal(
+        await page
+          .locator(".timeline-copy > p:last-child")
+          .first()
+          .evaluate((el) => getComputedStyle(el).color),
+        "rgb(203, 199, 191)",
+      );
       assert.equal(await page.locator(".work-item").count(), 6);
       assert.equal(await page.locator(".work-item [data-figure]").count(), 6);
       assert.equal(

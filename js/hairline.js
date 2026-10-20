@@ -7,6 +7,10 @@ import {
   exploded,
   branches,
   turntable,
+  loupe,
+  cabinet,
+  router,
+  drawer,
 } from "@lucasmarkes/hairline";
 
 const figures = {
@@ -16,6 +20,10 @@ const figures = {
   exploded,
   branches,
   turntable,
+  loupe,
+  cabinet,
+  router,
+  drawer,
 };
 const motion = matchMedia("(prefers-reduced-motion: reduce)");
 const mounted = new Map();
