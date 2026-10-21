@@ -143,6 +143,9 @@ h3 {
 .work-copy h3 a {
   display: inline-block;
   padding-block: 4px;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 6px;
 }
 .work-copy > p:last-child {
   color: var(--body);

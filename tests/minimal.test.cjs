@@ -90,6 +90,15 @@ for (const name of (process.env.TEST_BROWSERS || "chromium").split(",")) {
             ),
             "Links must not include emoji-style diagonal arrows",
           );
+          for (const link of await page.locator("#work a").all()) {
+            assert.equal(
+              await link.evaluate(
+                (el) => getComputedStyle(el).textDecorationLine,
+              ),
+              "underline",
+              "Project links must be underlined without hover",
+            );
+          }
           const layout = await page.evaluate(() => {
             const style = (selector) =>
               getComputedStyle(document.querySelector(selector));
